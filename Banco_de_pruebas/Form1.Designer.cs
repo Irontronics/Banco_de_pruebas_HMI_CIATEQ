@@ -116,6 +116,7 @@ namespace Banco_de_pruebas
             this.Btn_ok_init.TabIndex = 5;
             this.Btn_ok_init.Text = "OK";
             this.Btn_ok_init.UseVisualStyleBackColor = true;
+            this.Btn_ok_init.Click += new System.EventHandler(this.Btn_ok_init_Click);
             // 
             // btn_cancel_init
             // 
@@ -150,6 +151,7 @@ namespace Banco_de_pruebas
             // serialPort1
             // 
             this.serialPort1.PortName = "COM6";
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // Lbl_baud_rate_init
             // 
@@ -198,11 +200,11 @@ namespace Banco_de_pruebas
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(0)))));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.label1.Location = new System.Drawing.Point(106, 67);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(150, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Successfully connected! ";
             this.label1.Visible = false;
             // 
             // progressBar1
@@ -245,6 +247,7 @@ namespace Banco_de_pruebas
             this.Controls.Add(this.title_form_initial);
             this.Controls.Add(this.groupbx_modos);
             this.Name = "Form_inicial";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Banco de pruebas CIATEQ ZAPOPAN app";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_inicial_FormClosing);
             this.Load += new System.EventHandler(this.Form_inicial_Load);
@@ -261,14 +264,14 @@ namespace Banco_de_pruebas
 
         private System.Windows.Forms.CheckBox chk_bx_motor;
         private System.Windows.Forms.CheckBox chk_bx_genera;
-        private System.Windows.Forms.GroupBox groupbx_modos;
+        private System.Windows.Forms.GroupBox groupbx_modos; //cambio
         private System.Windows.Forms.Label title_form_initial;
         private System.Windows.Forms.PictureBox picture_Ciateq;
-        private System.Windows.Forms.Button Btn_ok_init;
+        private System.Windows.Forms.Button Btn_ok_init; //cambio de private a public
         private System.Windows.Forms.Button btn_cancel_init;
         private System.Windows.Forms.Label COM_init;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.IO.Ports.SerialPort serialPort1;
+        public System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Label Lbl_baud_rate_init;
         private System.Windows.Forms.ComboBox Baud_rate_cbox;
         private System.Windows.Forms.GroupBox groupBox1;

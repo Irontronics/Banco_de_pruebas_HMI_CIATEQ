@@ -10,20 +10,25 @@ using System.Windows.Forms;
 using System.IO.Ports; //include this library 
 using System.Threading;
 
+
+
 namespace Banco_de_pruebas
 {
+
     public partial class Form_inicial : Form
     {
+        string dato = "";
+        sbyte index0fZ;
+        String dataMod1;
+
 
 
     public Form_inicial()
         {
-
-            InitializeComponent(); //función inicialización formulario 
-
+            InitializeComponent();
         }
 
-        private void Form_inicial_Load(object sender, EventArgs e) //al iniciar formulario 
+        private void Form_inicial_Load(object sender, EventArgs e) //al iniciar formulario tomamos puertos serie 
         {
             Baud_rate_cbox.Text = "9600"; // velocidad por default 
             string[] puertos = SerialPort.GetPortNames(); //obtener puertos PC
@@ -34,6 +39,7 @@ namespace Banco_de_pruebas
         {
             if (serialPort1.IsOpen)
             {
+                serialPort1.Write("C2$"); //apagar todo 
                 try
                 {
                     serialPort1.Close();
@@ -46,9 +52,7 @@ namespace Banco_de_pruebas
             }
             else { //si no entra al if es que ya el serial port se ha cerrado 
                 Close();
-            
             }
-           
         }
 
         private void button_open_comm_Click(object sender, EventArgs e)
@@ -58,12 +62,19 @@ namespace Banco_de_pruebas
                 serialPort1.PortName = comboBox1.Text;
                 serialPort1.BaudRate = Convert.ToInt32(Baud_rate_cbox.Text);
                 serialPort1.Open();
-                progressBar1.ForeColor = Color.Red; //cambio de color a progress bar 
-                progressBar1.Value = 100;
-                label1.Visible = true;
-                Baud_rate_cbox.Enabled = false;
-                comboBox1.Enabled = false;
-                groupbx_modos.Enabled = true; 
+                serialPort1.Write("Init$"); //Arduino is alive? 
+                Thread.Sleep(850); // timeout
+                 if (dato == "") { // if no communication to arduino then: 
+                    label1.Visible = true;
+                    label1.Size = new Size(333, 13);
+                    label1.Location = new Point(6, 67);
+                    label1.BackColor = Color.Red;
+                    label1.Text = "                                        Arduino no found";
+                    if (serialPort1.IsOpen) {
+                        comboBox1.Enabled = false;
+                        Baud_rate_cbox.Enabled = false; 
+                    }
+                }
             }
             catch (Exception error) {
                 MessageBox.Show(error.Message);
@@ -76,16 +87,21 @@ namespace Banco_de_pruebas
             {
                 try
                 {
-                    serialPort1.Close();
-                    progressBar1.Value = 0;
-                    label1.Visible = false;
-                    Baud_rate_cbox.Enabled = true;
-                    comboBox1.Enabled = true;
-                    chk_bx_genera.Checked = false;
-                    chk_bx_motor.Checked = false;
-                    groupbx_modos.Enabled = false;
-                    Btn_ok_init.Enabled = false;
-
+                    // if (dato.Equals("")) { Thread.Sleep(800); } //si no es un puerto de arduino, dale una espera 
+                        serialPort1.Write("C2$"); //apagar todo 
+                        progressBar1.Value = 0;
+                        dato = "";
+                        label1.Visible = false;
+                        Baud_rate_cbox.Enabled = true;
+                        comboBox1.Enabled = true;
+                        chk_bx_genera.Checked = false;
+                        chk_bx_motor.Checked = false;
+                        groupbx_modos.Enabled = false;
+                        Btn_ok_init.Enabled = false;
+                        comboBox1.Text = "";
+                        serialPort1.Close();
+                        comboBox1.Enabled = true;
+                        Baud_rate_cbox.Enabled = true;
                 }
                 catch (Exception error) {
                     MessageBox.Show(error.Message);
@@ -97,6 +113,7 @@ namespace Banco_de_pruebas
         {
             if (serialPort1.IsOpen)
             {
+                serialPort1.Write("C2$"); //apagar todo 
                 try
                 {
                     serialPort1.Close();
@@ -132,6 +149,62 @@ namespace Banco_de_pruebas
                 chk_bx_motor.Enabled = true;
                 Btn_ok_init.Enabled = false;
             }
+        }
+
+        private void Btn_ok_init_Click(object sender, EventArgs e)
+        {
+            if (chk_bx_genera.Checked) { //si el modo generador ha sido seleccionado, entonces: 
+                Generador_form F2 = new Generador_form();
+                F2.Owner = this;
+                //this.Enabled = false;
+                F2.Show();
+            }
+            else {
+                Motor_form F3 = new Motor_form();
+                F3.Owner = this;
+                //this.Enabled = false;
+                F3.Show();
+            }
+            
+
+        }
+
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            dato = serialPort1.ReadLine();
+            this.BeginInvoke(new EventHandler(ProcessData));
+        }
+
+        private void ProcessData(object sender, EventArgs e)
+        {
+            try
+            {
+                comboBox1.Enabled = false;
+                Baud_rate_cbox.Enabled = false;
+                index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
+                dataMod1 = dato.Substring(0, index0fZ);
+                if (dataMod1 == "123")
+                {
+                    progressBar1.Value = 100;
+                    label1.Visible = true;
+                    label1.Size = new Size(150, 13);
+                    label1.Location = new Point(106, 67);
+                    label1.Text = "Successfully connected!";
+                    label1.BackColor = Color.FromArgb(0, 173, 0);
+                    Baud_rate_cbox.Enabled = false;
+                    comboBox1.Enabled = false;
+                    groupbx_modos.Enabled = true;
+                    serialPort1.Write("A2$");
+                }
+            }
+            catch (Exception error)
+            {
+
+                MessageBox.Show(error.Message);
+
+            }
+
         }
     }
 }
