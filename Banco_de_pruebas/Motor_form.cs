@@ -12,6 +12,7 @@ namespace Banco_de_pruebas
 {
     public partial class Motor_form : Form
     {
+       
         public Motor_form()
         {
             InitializeComponent();

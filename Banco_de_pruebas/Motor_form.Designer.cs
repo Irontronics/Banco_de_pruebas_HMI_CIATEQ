@@ -49,6 +49,7 @@ namespace Banco_de_pruebas
             this.ClientSize = new System.Drawing.Size(506, 450);
             this.Controls.Add(this.label1);
             this.Name = "Motor_form";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Motor_form";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Motor_form_FormClosing);
             this.Load += new System.EventHandler(this.Motor_form_Load);

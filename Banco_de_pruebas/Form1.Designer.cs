@@ -264,10 +264,10 @@ namespace Banco_de_pruebas
 
         private System.Windows.Forms.CheckBox chk_bx_motor;
         private System.Windows.Forms.CheckBox chk_bx_genera;
-        private System.Windows.Forms.GroupBox groupbx_modos; //cambio
+        private System.Windows.Forms.GroupBox groupbx_modos; 
         private System.Windows.Forms.Label title_form_initial;
         private System.Windows.Forms.PictureBox picture_Ciateq;
-        private System.Windows.Forms.Button Btn_ok_init; //cambio de private a public
+        private System.Windows.Forms.Button Btn_ok_init; 
         private System.Windows.Forms.Button btn_cancel_init;
         private System.Windows.Forms.Label COM_init;
         private System.Windows.Forms.ComboBox comboBox1;

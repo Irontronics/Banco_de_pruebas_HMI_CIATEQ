@@ -35,6 +35,8 @@ namespace Banco_de_pruebas
             comboBox1.Items.AddRange(puertos); //agrego todos los puertos al combobox
         }
 
+  
+
         private void btn_cancel_init_Click(object sender, EventArgs e)
         {
             if (serialPort1.IsOpen)
@@ -69,8 +71,9 @@ namespace Banco_de_pruebas
                     label1.Size = new Size(333, 13);
                     label1.Location = new Point(6, 67);
                     label1.BackColor = Color.Red;
-                    label1.Text = "                                        Arduino no found";
+                    label1.Text = "                                        Arduino not found";
                     if (serialPort1.IsOpen) {
+                        button_open_comm.Enabled = false;
                         comboBox1.Enabled = false;
                         Baud_rate_cbox.Enabled = false; 
                     }
@@ -102,6 +105,7 @@ namespace Banco_de_pruebas
                         serialPort1.Close();
                         comboBox1.Enabled = true;
                         Baud_rate_cbox.Enabled = true;
+                        button_open_comm.Enabled = true;
                 }
                 catch (Exception error) {
                     MessageBox.Show(error.Message);
@@ -178,8 +182,17 @@ namespace Banco_de_pruebas
 
         private void ProcessData(object sender, EventArgs e)
         {
+            if (!(Application.OpenForms["Generador_form"] == null)) // si el formulario de generador esta activo y se reciben datos al serial:
+            {
+   
+                Variables.var = dato; //le paso el dato a var global
+            }
+          //  else {
+                
+           // }
             try
             {
+                button_open_comm.Enabled = false;
                 comboBox1.Enabled = false;
                 Baud_rate_cbox.Enabled = false;
                 index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
@@ -196,6 +209,7 @@ namespace Banco_de_pruebas
                     comboBox1.Enabled = false;
                     groupbx_modos.Enabled = true;
                     serialPort1.Write("A2$");
+                   
                 }
             }
             catch (Exception error)
