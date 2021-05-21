@@ -21,8 +21,6 @@ namespace Banco_de_pruebas
         sbyte index0fZ;
         String dataMod1;
 
-
-
     public Form_inicial()
         {
             InitializeComponent();
@@ -34,8 +32,6 @@ namespace Banco_de_pruebas
             string[] puertos = SerialPort.GetPortNames(); //obtener puertos PC
             comboBox1.Items.AddRange(puertos); //agrego todos los puertos al combobox
         }
-
-  
 
         private void btn_cancel_init_Click(object sender, EventArgs e)
         {

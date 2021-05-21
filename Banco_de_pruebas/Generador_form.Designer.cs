@@ -30,11 +30,21 @@ namespace Banco_de_pruebas
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Tabs_generator = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Temp_label = new System.Windows.Forms.Label();
@@ -48,13 +58,41 @@ namespace Banco_de_pruebas
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_title_gen = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txt_box_t2 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txt_box_t1 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txt_box_vel2 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cbx_modes = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtbx_decc = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtbx_acel = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txt_box_vel1 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btn_start = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btn_En = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.aGauge1 = new System.Windows.Forms.AGauge();
             this.Tabs_generator.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -71,42 +109,121 @@ namespace Banco_de_pruebas
             // 
             this.Tabs_generator.Controls.Add(this.tabPage1);
             this.Tabs_generator.Controls.Add(this.tabPage2);
-            this.Tabs_generator.Location = new System.Drawing.Point(-2, 1);
+            this.Tabs_generator.Location = new System.Drawing.Point(-2, 2);
             this.Tabs_generator.Name = "Tabs_generator";
             this.Tabs_generator.SelectedIndex = 0;
-            this.Tabs_generator.Size = new System.Drawing.Size(785, 452);
+            this.Tabs_generator.Size = new System.Drawing.Size(878, 540);
             this.Tabs_generator.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.label18);
+            this.tabPage1.Controls.Add(this.groupBox6);
+            this.tabPage1.Controls.Add(this.groupBox5);
+            this.tabPage1.Controls.Add(this.groupBox4);
+            this.tabPage1.Controls.Add(this.aGauge1);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.lbl_title_gen);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(777, 426);
+            this.tabPage1.Size = new System.Drawing.Size(870, 514);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Monitor Modbus";
             // 
-            // tabPage2
+            // groupBox6
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(777, 426);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Service Motion";
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.groupBox6.Location = new System.Drawing.Point(257, 442);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(359, 69);
+            this.groupBox6.TabIndex = 11;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Torque Futek Analog";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.button4);
+            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.groupBox5.Location = new System.Drawing.Point(622, 442);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(239, 69);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Control";
+            // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(134, 40);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Stop";
+            this.button4.UseMnemonic = false;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(19, 40);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Start ";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.chart1);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
+            this.groupBox4.Location = new System.Drawing.Point(257, 40);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(607, 396);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Gráfica";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(463, 362);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(138, 28);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Exportación Excel";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.SystemColors.Control;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(10, 19);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Velocidad_c";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(594, 336);
+            this.chart1.TabIndex = 6;
+            this.chart1.Text = "chart1";
+            title1.Name = "Velocidad_chart";
+            title1.Text = "Velocidad (RPM): ";
+            this.chart1.Titles.Add(title1);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 291);
+            this.label6.Location = new System.Drawing.Point(3, 498);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 5;
@@ -125,9 +242,9 @@ namespace Banco_de_pruebas
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(10, 79);
+            this.groupBox1.Location = new System.Drawing.Point(10, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(295, 209);
+            this.groupBox1.Size = new System.Drawing.Size(241, 209);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Monitor Señales Modbus ";
@@ -208,7 +325,7 @@ namespace Banco_de_pruebas
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 67);
+            this.label2.Location = new System.Drawing.Point(6, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(114, 20);
             this.label2.TabIndex = 1;
@@ -227,46 +344,320 @@ namespace Banco_de_pruebas
             // lbl_title_gen
             // 
             this.lbl_title_gen.AutoSize = true;
-            this.lbl_title_gen.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.75F, System.Drawing.FontStyle.Bold);
-            this.lbl_title_gen.Location = new System.Drawing.Point(134, 17);
+            this.lbl_title_gen.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_title_gen.Location = new System.Drawing.Point(179, 1);
             this.lbl_title_gen.Name = "lbl_title_gen";
-            this.lbl_title_gen.Size = new System.Drawing.Size(526, 31);
+            this.lbl_title_gen.Size = new System.Drawing.Size(429, 25);
             this.lbl_title_gen.TabIndex = 3;
             this.lbl_title_gen.Text = "Modo Generador: Monitoreo de señales";
             // 
-            // label7
+            // tabPage2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.75F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(134, 17);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(533, 31);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Modo Generador: Panel de movimientos";
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(870, 514);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Service Motion";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(430, 29);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(310, 411);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Recetario de movimientos";
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(10, 67);
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.txt_box_t2);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.txt_box_t1);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.txt_box_vel2);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.cbx_modes);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.txtbx_decc);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.txtbx_acel);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.txt_box_vel1);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.btn_start);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.btn_En);
+            this.groupBox2.Location = new System.Drawing.Point(10, 24);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(310, 348);
+            this.groupBox2.Size = new System.Drawing.Size(315, 428);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Manual";
             // 
-            // groupBox3
+            // button1
             // 
-            this.groupBox3.Location = new System.Drawing.Point(430, 67);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(310, 348);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Recetario de movimientos";
+            this.button1.Location = new System.Drawing.Point(133, 120);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 21);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Help";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // txt_box_t2
+            // 
+            this.txt_box_t2.Location = new System.Drawing.Point(3, 385);
+            this.txt_box_t2.Name = "txt_box_t2";
+            this.txt_box_t2.Size = new System.Drawing.Size(118, 20);
+            this.txt_box_t2.TabIndex = 25;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label14.Location = new System.Drawing.Point(3, 369);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(40, 13);
+            this.label14.TabIndex = 24;
+            this.label14.Text = "Time2: ";
+            // 
+            // txt_box_t1
+            // 
+            this.txt_box_t1.Location = new System.Drawing.Point(4, 341);
+            this.txt_box_t1.Name = "txt_box_t1";
+            this.txt_box_t1.Size = new System.Drawing.Size(118, 20);
+            this.txt_box_t1.TabIndex = 22;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label17.Location = new System.Drawing.Point(7, 325);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(40, 13);
+            this.label17.TabIndex = 21;
+            this.label17.Text = "Time1: ";
+            // 
+            // txt_box_vel2
+            // 
+            this.txt_box_vel2.Location = new System.Drawing.Point(4, 206);
+            this.txt_box_vel2.Name = "txt_box_vel2";
+            this.txt_box_vel2.Size = new System.Drawing.Size(118, 20);
+            this.txt_box_vel2.TabIndex = 19;
+            this.txt_box_vel2.Text = "100";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label16.Location = new System.Drawing.Point(7, 190);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(144, 13);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "Límite de velocidad 2 (RPM): ";
+            // 
+            // cbx_modes
+            // 
+            this.cbx_modes.FormattingEnabled = true;
+            this.cbx_modes.Items.AddRange(new object[] {
+            "Pulse",
+            "Reversing",
+            "Continous"});
+            this.cbx_modes.Location = new System.Drawing.Point(6, 120);
+            this.cbx_modes.Name = "cbx_modes";
+            this.cbx_modes.Size = new System.Drawing.Size(121, 21);
+            this.cbx_modes.TabIndex = 17;
+            this.cbx_modes.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label15.Location = new System.Drawing.Point(9, 104);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(103, 13);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "Tipo de movimiento: ";
+            // 
+            // txtbx_decc
+            // 
+            this.txtbx_decc.Location = new System.Drawing.Point(3, 294);
+            this.txtbx_decc.Name = "txtbx_decc";
+            this.txtbx_decc.Size = new System.Drawing.Size(118, 20);
+            this.txtbx_decc.TabIndex = 12;
+            this.txtbx_decc.Text = "80";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label13.Location = new System.Drawing.Point(3, 278);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(184, 13);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Ajuste de desaceleración (RPM/s^2):: ";
+            // 
+            // txtbx_acel
+            // 
+            this.txtbx_acel.Location = new System.Drawing.Point(4, 250);
+            this.txtbx_acel.Name = "txtbx_acel";
+            this.txtbx_acel.Size = new System.Drawing.Size(118, 20);
+            this.txtbx_acel.TabIndex = 9;
+            this.txtbx_acel.Text = "80";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label12.Location = new System.Drawing.Point(7, 234);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(162, 13);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Límite de aceleración (RPM/s^2): ";
+            // 
+            // txt_box_vel1
+            // 
+            this.txt_box_vel1.Location = new System.Drawing.Point(6, 160);
+            this.txt_box_vel1.Name = "txt_box_vel1";
+            this.txt_box_vel1.Size = new System.Drawing.Size(118, 20);
+            this.txt_box_vel1.TabIndex = 7;
+            this.txt_box_vel1.Text = "100";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label11.Location = new System.Drawing.Point(9, 144);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(144, 13);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Límite de velocidad 1 (RPM): ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label10.Location = new System.Drawing.Point(6, 60);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(159, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Inicia movimiento de Servomotor";
+            // 
+            // btn_start
+            // 
+            this.btn_start.Location = new System.Drawing.Point(6, 76);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(75, 23);
+            this.btn_start.TabIndex = 3;
+            this.btn_start.Text = "Start";
+            this.btn_start.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label9.Location = new System.Drawing.Point(6, 15);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(153, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Habilita potencia de Sevomotor";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 13);
+            this.label8.TabIndex = 1;
+            // 
+            // btn_En
+            // 
+            this.btn_En.Location = new System.Drawing.Point(6, 31);
+            this.btn_En.Name = "btn_En";
+            this.btn_En.Size = new System.Drawing.Size(75, 23);
+            this.btn_En.TabIndex = 0;
+            this.btn_En.Text = "Axis En";
+            this.btn_En.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.label7.Location = new System.Drawing.Point(181, 1);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(433, 25);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Modo Generador: Panel de movimientos";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(133, 489);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(41, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "label18";
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 900;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // aGauge1
+            // 
+            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
+            this.aGauge1.BaseArcRadius = 80;
+            this.aGauge1.BaseArcStart = 135;
+            this.aGauge1.BaseArcSweep = 270;
+            this.aGauge1.BaseArcWidth = 2;
+            this.aGauge1.GaugeAutoSize = false;
+            this.aGauge1.Location = new System.Drawing.Point(6, 264);
+            this.aGauge1.MaxValue = 1000F;
+            this.aGauge1.MinValue = 0F;
+            this.aGauge1.Name = "aGauge1";
+            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
+            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
+            this.aGauge1.NeedleRadius = 80;
+            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
+            this.aGauge1.NeedleWidth = 2;
+            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesInterInnerRadius = 73;
+            this.aGauge1.ScaleLinesInterOuterRadius = 80;
+            this.aGauge1.ScaleLinesInterWidth = 1;
+            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
+            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMajorStepValue = 100F;
+            this.aGauge1.ScaleLinesMajorWidth = 2;
+            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
+            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMinorTicks = 9;
+            this.aGauge1.ScaleLinesMinorWidth = 1;
+            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleNumbersFormat = null;
+            this.aGauge1.ScaleNumbersRadius = 95;
+            this.aGauge1.ScaleNumbersRotation = 0;
+            this.aGauge1.ScaleNumbersStartScaleLine = 0;
+            this.aGauge1.ScaleNumbersStepScaleLines = 1;
+            this.aGauge1.Size = new System.Drawing.Size(212, 199);
+            this.aGauge1.TabIndex = 7;
+            this.aGauge1.Text = "aGauge1";
+            this.aGauge1.Value = 0F;
             // 
             // Generador_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 450);
+            this.ClientSize = new System.Drawing.Size(875, 542);
             this.Controls.Add(this.Tabs_generator);
             this.Name = "Generador_form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -276,10 +667,15 @@ namespace Banco_de_pruebas
             this.Tabs_generator.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -289,7 +685,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TabControl Tabs_generator;
         private System.Windows.Forms.TabPage tabPage1;
-        public System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label Temp_label;
         private System.Windows.Forms.Label Volt_label;
@@ -306,5 +701,36 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btn_En;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txt_box_vel1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btn_start;
+        private System.Windows.Forms.TextBox txtbx_decc;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtbx_acel;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txt_box_t2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txt_box_t1;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txt_box_vel2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox cbx_modes;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.AGauge aGauge1;
+        public System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Timer timer2;
     }
 }

@@ -15,10 +15,37 @@ namespace Banco_de_pruebas
         string dato;      //para los datos 
         sbyte index0fZ, index0fY, index0fX, index0fW, index0fV;
         String dataMod1, dataMod2, dataMod3, dataMod4, dataMod5;
+        bool setting_F = false; 
 
-        private void button1_Click(object sender, EventArgs e)
+  
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timer1.Enabled = false; 
+            if (cbx_modes.SelectedIndex == 2)
+            {
+                txt_box_vel2.Enabled = false;               
+                txt_box_t1.Enabled = false;
+                txt_box_t2.Enabled = false;
+            }
+            else if (cbx_modes.SelectedIndex == 1)
+            {
+                txt_box_vel2.Enabled = true;
+                txt_box_t1.Enabled = true;
+                txt_box_t2.Enabled = true;
+            }
+            else if (cbx_modes.SelectedIndex == 0) { 
+                txt_box_t1.Enabled = true;
+                txt_box_vel2.Enabled = false;
+                txt_box_t2.Enabled = false;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e) //Timer 2, accionamiento de función
+        {
+            if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true)) { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
+                timer1.Enabled= true; //activo timer de monitoreo 
+                label18.Text = "volvi"; //debug 
+                
+            }
         }
 
         public Generador_form()
@@ -31,6 +58,9 @@ namespace Banco_de_pruebas
         {
             (this.Owner as Form_inicial).serialPort1.Write("B2$"); //comando para arduino, inicializar programa B2
             (this.Owner as Form_inicial).Enabled = false;
+            
+           
+            //chart1.Series["Velocidad_c"].Points.AddXY(1, 1);
 
         }
 
@@ -42,9 +72,23 @@ namespace Banco_de_pruebas
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables 
         {
-            dato = Variables.var;
-            label6.Text = Variables.var;
-            this.BeginInvoke(new EventHandler(ProcessData));
+
+            if (Tabs_generator.SelectedIndex == 1) { //si se va a tab2 entonces ve a función
+                cbx_modes.SelectedIndex = 2; //aqui todo bien 
+                setting_F = true; //bandera de que ingreso a la tab de settings 
+                timer1.Enabled = false; 
+            }
+            else  //continua monitoreando
+            {
+               // label18.Text = "holaaaaaa";
+                dato = Variables.var;
+                label6.Text = Variables.var;
+                int A = Tabs_generator.SelectedIndex;
+               // label18.Text = Convert.ToString(A);
+                this.BeginInvoke(new EventHandler(ProcessData));
+
+            }
+
         }
 
         private void ProcessData(object sender, EventArgs e)
@@ -66,7 +110,20 @@ namespace Banco_de_pruebas
 
                 double numero1 = Convert.ToDouble(dataMod1);
                 double numero2 = Math.Round(((numero1 * 245735) / 4294967295), 2);
-                if (numero2 > 10) { Speed_label.Text = numero2.ToString(); } else { Speed_label.Text = "0"; } //representación de velocidad
+                if (numero2 > 10) {
+                    aGauge1.Value = Convert.ToSingle(numero2);
+                    Speed_label.Text = numero2.ToString(); 
+                    chart1.Series["Velocidad_c"].Points.Add(numero2);
+                    
+
+                } 
+
+                else { 
+                    Speed_label.Text = "0";
+                    aGauge1.Value = 0;
+                   chart1.Series["Velocidad_c"].Points.Add(0); 
+                } //representación de velocidad
+                
 
                 if (Convert.ToString(dataMod2) == "1") { Drv_status_lab.BackColor = Color.Green; } else if (Convert.ToString(dataMod2) == "0") { Drv_status_lab.BackColor = Color.Red; }//DrvStatus
                 if (Convert.ToString(dataMod3) == "1") { Stop_label.BackColor = Color.Green; } else if (Convert.ToString(dataMod3) == "0") { Stop_label.BackColor = Color.Red; }//paroStatus
