@@ -171,21 +171,33 @@ namespace Banco_de_pruebas
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+          
+                dato = serialPort1.ReadLine();
+            if (dato == "") { 
+               
+            }
+            else {
+                this.BeginInvoke(new EventHandler(ProcessData));
+            }
+                
+            
 
-            dato = serialPort1.ReadLine();
-            this.BeginInvoke(new EventHandler(ProcessData));
         }
 
         private void ProcessData(object sender, EventArgs e)
         {
             if (!(Application.OpenForms["Generador_form"] == null)) // si el formulario de generador esta activo y se reciben datos al serial:
             {
-   
+              
                 Variables.var = dato; //le paso el dato a var global
+                Variables.SerialPresent = true;
             }
           //  else {
                 
            // }
+
+
+ 
             try
             {
                 button_open_comm.Enabled = false;

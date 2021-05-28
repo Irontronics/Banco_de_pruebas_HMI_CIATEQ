@@ -13,7 +13,7 @@ namespace Banco_de_pruebas
         /// </summary>
         [STAThread]
         static void Main()
-        {
+       {
             Application.EnableVisualStyles();// se comenta esta linea 
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form_inicial());

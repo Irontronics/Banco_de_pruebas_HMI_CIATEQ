@@ -173,6 +173,7 @@ namespace Banco_de_pruebas
             "19200",
             "38400",
             "57600",
+            "74880",
             "115200"});
             this.Baud_rate_cbox.Location = new System.Drawing.Point(98, 41);
             this.Baud_rate_cbox.Name = "Baud_rate_cbox";

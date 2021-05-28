@@ -8,7 +8,8 @@ namespace Banco_de_pruebas
 {
     class Variables
     {
-     public static string var = ""; 
-
+     public static string var = "";
+     public static bool initFirstGEN = false;
+     public static bool SerialPresent = false; 
     }
 }
