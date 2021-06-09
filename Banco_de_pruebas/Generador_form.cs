@@ -15,6 +15,12 @@ namespace Banco_de_pruebas
         string dato, palabraSettings;      //para los datos 
         sbyte index0fZ, index0fY, index0fX, index0fW, index0fV, index0fN, index0fM, index0fL, index0fK;
         String dataMod1, dataMod2, dataMod3, dataMod4, dataMod5, dataMod6,dataMod7, dataMod8,dataMod9;
+
+        private void button1_Click(object sender, EventArgs e) //al presionar botton help debe de mostrar imagen de ayuda de modos de operacion 
+        {
+
+        }
+
         bool setting_F;
 
         public Generador_form()
@@ -22,7 +28,7 @@ namespace Banco_de_pruebas
             InitializeComponent();
         }
 
-        private void Generador_form_Load(object sender, EventArgs e) //se carga por primera vez 
+        private void Generador_form_Load(object sender, EventArgs e) //se carga por primera vez form
         {
             Variables.initFirstGEN = true;  //en true por que se acaba de inicializar form 
             timer1.Interval = 2200;
@@ -86,20 +92,24 @@ namespace Banco_de_pruebas
                         double numero1 = Convert.ToDouble(dataMod6);
                         double numero2 = Math.Round((numero1 * 100) / (1747625), 2);
                         label23.Text = Convert.ToString(numero2); //velocidad2 
+                        numero2 = Math.Round(numero2, 0);
                         txt_box_vel1.Text = Convert.ToString(numero2); //velocidad2 
                         double numero3 = Convert.ToDouble(dataMod7);
                         double numero4 = Math.Round((numero3 * 100) / (1747625), 2);
                         label24.Text = Convert.ToString(numero4);
-                        txt_box_vel2.Text = Convert.ToString(numero4);
+                        numero4 = Math.Round(numero4, 0);
+                        txt_box_vel2.Text = Convert.ToString(numero4); ;
 
                         double numero5 = Convert.ToDouble(dataMod8);
                         double numero6 = Math.Round((numero5 * 80) / (1398437), 2);
                         label25.Text = Convert.ToString(numero6); //velocidad2 
-                        txtbx_acel.Text = label25.Text;
+                        numero6 = Math.Round(numero6, 0);
+                        txtbx_acel.Text = Convert.ToString(numero6);
                         double numero7 = Convert.ToDouble(dataMod9);
                         double numero8 = Math.Round((numero7 * 80) / (1398437), 2);
                         label26.Text = Convert.ToString(numero8);
-                        txtbx_decc.Text = label26.Text;
+                        numero8 = Math.Round(numero8, 0);
+                        txtbx_decc.Text = Convert.ToString(numero8);
                     }
                     catch (Exception error)
                     {
@@ -137,7 +147,7 @@ namespace Banco_de_pruebas
                 dataMod4 = dato.Substring(index0fX + 1, (index0fW - index0fX) - 1);
                 dataMod5 = dato.Substring(index0fW + 1, (index0fV - index0fW) - 1);
 
-                double numero1 = Convert.ToDouble(dataMod1);
+                double numero1 = Convert.ToDouble(dataMod1); //checar esa conversion
                 double numero2 = Math.Round(((numero1 * 245735) / 4294967295), 2);
                 if (numero2 > 10)
                 {
@@ -177,22 +187,27 @@ namespace Banco_de_pruebas
         {
             //validar modo de operación
             if (cbx_modes.SelectedIndex == 0) { palabraSettings = "0A"; }
-                else if (cbx_modes.SelectedIndex == 1) { palabraSettings = "1A"; }
-                    else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "2A"; }
+            else if (cbx_modes.SelectedIndex == 1) { palabraSettings = "1A"; }
+            else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "2A"; }
+            else
+            {
+                cbx_modes.SelectedIndex = 1;
+                palabraSettings = "2A";
+            }
 
-            //Validar velocidad1 
-            if (Convert.ToInt32(txt_box_vel1.Text) >= 50 && Convert.ToInt32(txt_box_vel1.Text) <= 1000)
+                //Validar velocidad1 
+                if (Convert.ToInt32(txt_box_vel1.Text) >= 50 && Convert.ToInt32(txt_box_vel1.Text) <= 1000)
             {
                 double num1 = Convert.ToDouble(txt_box_vel1.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1747625) / 100;
+                num1 = (num1 * 27) / 101.276;
                 palabraSettings = palabraSettings + (int)num1 + "B";
             }
             else {
                 txt_box_vel1.Text = "100";
                 double num1 = Convert.ToDouble(txt_box_vel1.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1747625) / 100;
+                num1 = (num1 * 27) / 101.276;
                 palabraSettings = palabraSettings + (int)num1 + "B";
 
             }
@@ -202,7 +217,7 @@ namespace Banco_de_pruebas
             {
                 double num1 = Convert.ToDouble(txt_box_vel2.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1747625) / 100;
+                num1 = (num1 * 27) / 101.276;
                 palabraSettings = palabraSettings + (int)num1 + "C";
             }
             else
@@ -210,17 +225,17 @@ namespace Banco_de_pruebas
                 txt_box_vel2.Text = "100";
                 double num1 = Convert.ToDouble(txt_box_vel2.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1747625) / 100;
+                num1 = (num1 * 27) / 101.276;
                 palabraSettings = palabraSettings + (int)num1 + "C";
 
             }
 
-
+            //Validar acceleración 
             if (Convert.ToInt32(txtbx_acel.Text) >= 20 && Convert.ToInt32(txtbx_acel.Text) <= 1100)
             {
                 double num1 = Convert.ToDouble(txtbx_acel.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1398437) / 80;
+                num1 = (num1 * 21.1) / 79.796;
                 palabraSettings = palabraSettings + (int)num1 + "D";
 
             }
@@ -229,17 +244,17 @@ namespace Banco_de_pruebas
                 txtbx_acel.Text = "80";
                 double num1 = Convert.ToDouble(txtbx_acel.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1747625) / 100;
+                num1 = (num1 * 21.1) / 79.796;
                 palabraSettings = palabraSettings + (int)num1 + "D";
 
             }
 
-
+            //valididar desacceleración 
             if (Convert.ToInt32(txtbx_decc.Text) >= 20 && Convert.ToInt32(txtbx_decc.Text) <= 1100)
             {
                 double num1 = Convert.ToDouble(txtbx_decc.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1398437) / 80;
+                num1 = (num1 * 21.1) / 79.796;
                 palabraSettings = palabraSettings + (int)num1 + "E";
             }
             else
@@ -247,7 +262,7 @@ namespace Banco_de_pruebas
                 txtbx_decc.Text = "80";
                 double num1 = Convert.ToDouble(txtbx_decc.Text);
                 num1 = Math.Round(num1);
-                num1 = (num1 * 1747625) / 100;
+                num1 = (num1 * 21.1) / 79.796;
                 palabraSettings = palabraSettings + (int)num1 + "E";
 
             }
@@ -298,6 +313,21 @@ namespace Banco_de_pruebas
 
             }
 
+            if (cbx_sentido.SelectedIndex == 0)
+            {
+                palabraSettings = palabraSettings + '0' + 'H';
+            }
+            else if (cbx_sentido.SelectedIndex == 1)
+            {
+                palabraSettings = palabraSettings + '1' + 'H';
+            }
+            else {
+                cbx_sentido.SelectedIndex = 0;
+                palabraSettings = palabraSettings + '0' + 'H';
+            }
+
+
+
             //string a mandar 
             label27.Text = palabraSettings; 
         
@@ -308,7 +338,7 @@ namespace Banco_de_pruebas
         {
             if (cbx_modes.SelectedIndex == 2)
             {
-                txt_box_vel2.Enabled = false;               
+                txt_box_vel2.Enabled = false;
                 txt_box_t1.Enabled = false;
                 txt_box_t2.Enabled = false;
             }
@@ -318,7 +348,7 @@ namespace Banco_de_pruebas
                 txt_box_t1.Enabled = true;
                 txt_box_t2.Enabled = true;
             }
-            else if (cbx_modes.SelectedIndex == 0) { 
+            else if (cbx_modes.SelectedIndex == 0) {
                 txt_box_t1.Enabled = true;
                 txt_box_vel2.Enabled = false;
                 txt_box_t2.Enabled = false;
