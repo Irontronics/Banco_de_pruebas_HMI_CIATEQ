@@ -30,15 +30,23 @@ namespace Banco_de_pruebas
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Tabs_generator = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -55,6 +63,7 @@ namespace Banco_de_pruebas
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.aGauge1 = new System.Windows.Forms.AGauge();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Temp_label = new System.Windows.Forms.Label();
@@ -71,7 +80,15 @@ namespace Banco_de_pruebas
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.Save_UserSettings = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txt_box_t2 = new System.Windows.Forms.TextBox();
+            this.txt_box_t1 = new System.Windows.Forms.TextBox();
+            this.txtbx_decc = new System.Windows.Forms.TextBox();
+            this.txtbx_acel = new System.Windows.Forms.TextBox();
+            this.txt_box_vel2 = new System.Windows.Forms.TextBox();
+            this.txt_box_vel1 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.cbx_sentido = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -91,13 +108,7 @@ namespace Banco_de_pruebas
             this.btn_En = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.aGauge1 = new System.Windows.Forms.AGauge();
-            this.txt_box_vel1 = new System.Windows.Forms.TextBox();
-            this.txt_box_vel2 = new System.Windows.Forms.TextBox();
-            this.txtbx_acel = new System.Windows.Forms.TextBox();
-            this.txtbx_decc = new System.Windows.Forms.TextBox();
-            this.txt_box_t1 = new System.Windows.Forms.TextBox();
-            this.txt_box_t2 = new System.Windows.Forms.TextBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Tabs_generator.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -106,6 +117,7 @@ namespace Banco_de_pruebas
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,6 +162,14 @@ namespace Banco_de_pruebas
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label36);
+            this.groupBox7.Controls.Add(this.label35);
+            this.groupBox7.Controls.Add(this.label34);
+            this.groupBox7.Controls.Add(this.label33);
+            this.groupBox7.Controls.Add(this.label32);
+            this.groupBox7.Controls.Add(this.label31);
+            this.groupBox7.Controls.Add(this.label30);
+            this.groupBox7.Controls.Add(this.label29);
             this.groupBox7.Controls.Add(this.label26);
             this.groupBox7.Controls.Add(this.label25);
             this.groupBox7.Controls.Add(this.label24);
@@ -160,15 +180,87 @@ namespace Banco_de_pruebas
             this.groupBox7.Controls.Add(this.label19);
             this.groupBox7.Location = new System.Drawing.Point(870, 40);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(201, 160);
+            this.groupBox7.Size = new System.Drawing.Size(201, 290);
             this.groupBox7.TabIndex = 12;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Valores setteados";
             // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(94, 45);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(41, 13);
+            this.label36.TabIndex = 15;
+            this.label36.Text = "label36";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 45);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(40, 13);
+            this.label35.TabIndex = 14;
+            this.label35.Text = "Modo: ";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(97, 267);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(41, 13);
+            this.label34.TabIndex = 13;
+            this.label34.Text = "label34";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 267);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(84, 13);
+            this.label33.TabIndex = 12;
+            this.label33.Text = "Sentido de giro: ";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(97, 239);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(41, 13);
+            this.label32.TabIndex = 11;
+            this.label32.Text = "label32";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 239);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(57, 13);
+            this.label31.TabIndex = 10;
+            this.label31.Text = "Tiempo 2: ";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(97, 206);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(41, 13);
+            this.label30.TabIndex = 9;
+            this.label30.Text = "label30";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 206);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(57, 13);
+            this.label29.TabIndex = 8;
+            this.label29.Text = "Tiempo 1: ";
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(94, 141);
+            this.label26.Location = new System.Drawing.Point(94, 175);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(41, 13);
             this.label26.TabIndex = 7;
@@ -177,7 +269,7 @@ namespace Banco_de_pruebas
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(94, 105);
+            this.label25.Location = new System.Drawing.Point(94, 139);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(41, 13);
             this.label25.TabIndex = 6;
@@ -186,7 +278,7 @@ namespace Banco_de_pruebas
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(94, 71);
+            this.label24.Location = new System.Drawing.Point(94, 105);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(41, 13);
             this.label24.TabIndex = 5;
@@ -195,7 +287,7 @@ namespace Banco_de_pruebas
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(94, 35);
+            this.label23.Location = new System.Drawing.Point(94, 69);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(41, 13);
             this.label23.TabIndex = 4;
@@ -204,43 +296,43 @@ namespace Banco_de_pruebas
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 141);
+            this.label22.Location = new System.Drawing.Point(6, 175);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(81, 13);
+            this.label22.Size = new System.Drawing.Size(84, 13);
             this.label22.TabIndex = 3;
-            this.label22.Text = "Desaceleración";
+            this.label22.Text = "Desaceleración:";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 106);
+            this.label21.Location = new System.Drawing.Point(6, 140);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(63, 13);
+            this.label21.Size = new System.Drawing.Size(66, 13);
             this.label21.TabIndex = 2;
-            this.label21.Text = "Aceleración";
+            this.label21.Text = "Aceleración:";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 71);
+            this.label20.Location = new System.Drawing.Point(6, 105);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(63, 13);
+            this.label20.Size = new System.Drawing.Size(66, 13);
             this.label20.TabIndex = 1;
-            this.label20.Text = "Velocidad 2";
+            this.label20.Text = "Velocidad 2:";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 35);
+            this.label19.Location = new System.Drawing.Point(6, 69);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(63, 13);
+            this.label19.Size = new System.Drawing.Size(66, 13);
             this.label19.TabIndex = 0;
-            this.label19.Text = "Velocidad 1";
+            this.label19.Text = "Velocidad 1:";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(885, 301);
+            this.label18.Location = new System.Drawing.Point(870, 346);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(41, 13);
             this.label18.TabIndex = 0;
@@ -314,24 +406,66 @@ namespace Banco_de_pruebas
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.SystemColors.Control;
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(10, 19);
             this.chart1.Name = "chart1";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.IsVisibleInLegend = false;
-            series5.Legend = "Legend1";
-            series5.Name = "Velocidad_c";
-            this.chart1.Series.Add(series5);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Velocidad_c";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(594, 336);
             this.chart1.TabIndex = 6;
             this.chart1.Text = "chart1";
-            title5.Name = "Velocidad_chart";
-            title5.Text = "Velocidad (RPM): ";
-            this.chart1.Titles.Add(title5);
+            title2.Name = "Velocidad_chart";
+            title2.Text = "Velocidad (RPM): ";
+            this.chart1.Titles.Add(title2);
+            // 
+            // aGauge1
+            // 
+            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
+            this.aGauge1.BaseArcRadius = 80;
+            this.aGauge1.BaseArcStart = 135;
+            this.aGauge1.BaseArcSweep = 270;
+            this.aGauge1.BaseArcWidth = 2;
+            this.aGauge1.GaugeAutoSize = false;
+            this.aGauge1.Location = new System.Drawing.Point(6, 264);
+            this.aGauge1.MaxValue = 1000F;
+            this.aGauge1.MinValue = 0F;
+            this.aGauge1.Name = "aGauge1";
+            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
+            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
+            this.aGauge1.NeedleRadius = 80;
+            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
+            this.aGauge1.NeedleWidth = 2;
+            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesInterInnerRadius = 73;
+            this.aGauge1.ScaleLinesInterOuterRadius = 80;
+            this.aGauge1.ScaleLinesInterWidth = 1;
+            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
+            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMajorStepValue = 100F;
+            this.aGauge1.ScaleLinesMajorWidth = 2;
+            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
+            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMinorTicks = 9;
+            this.aGauge1.ScaleLinesMinorWidth = 1;
+            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleNumbersFormat = null;
+            this.aGauge1.ScaleNumbersRadius = 95;
+            this.aGauge1.ScaleNumbersRotation = 0;
+            this.aGauge1.ScaleNumbersStartScaleLine = 0;
+            this.aGauge1.ScaleNumbersStepScaleLines = 1;
+            this.aGauge1.Size = new System.Drawing.Size(212, 199);
+            this.aGauge1.TabIndex = 7;
+            this.aGauge1.Text = "aGauge1";
+            this.aGauge1.Value = 0F;
             // 
             // label6
             // 
@@ -482,7 +616,7 @@ namespace Banco_de_pruebas
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(425, 443);
+            this.label27.Location = new System.Drawing.Point(359, 202);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(82, 25);
             this.label27.TabIndex = 7;
@@ -490,12 +624,34 @@ namespace Banco_de_pruebas
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(430, 29);
+            this.groupBox3.Controls.Add(this.button7);
+            this.groupBox3.Controls.Add(this.Save_UserSettings);
+            this.groupBox3.Location = new System.Drawing.Point(358, 29);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(310, 411);
+            this.groupBox3.Size = new System.Drawing.Size(200, 152);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Recetario de movimientos";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(6, 89);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(131, 23);
+            this.button7.TabIndex = 1;
+            this.button7.Text = "Cargar Ajustes";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // Save_UserSettings
+            // 
+            this.Save_UserSettings.Location = new System.Drawing.Point(6, 45);
+            this.Save_UserSettings.Name = "Save_UserSettings";
+            this.Save_UserSettings.Size = new System.Drawing.Size(131, 23);
+            this.Save_UserSettings.TabIndex = 0;
+            this.Save_UserSettings.Text = "Guardar Ajustes";
+            this.Save_UserSettings.UseVisualStyleBackColor = true;
+            this.Save_UserSettings.Click += new System.EventHandler(this.button6_Click);
             // 
             // groupBox2
             // 
@@ -529,6 +685,54 @@ namespace Banco_de_pruebas
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Manual";
             // 
+            // txt_box_t2
+            // 
+            this.txt_box_t2.Location = new System.Drawing.Point(6, 391);
+            this.txt_box_t2.MaxLength = 5;
+            this.txt_box_t2.Name = "txt_box_t2";
+            this.txt_box_t2.Size = new System.Drawing.Size(116, 20);
+            this.txt_box_t2.TabIndex = 38;
+            // 
+            // txt_box_t1
+            // 
+            this.txt_box_t1.Location = new System.Drawing.Point(6, 341);
+            this.txt_box_t1.MaxLength = 5;
+            this.txt_box_t1.Name = "txt_box_t1";
+            this.txt_box_t1.Size = new System.Drawing.Size(116, 20);
+            this.txt_box_t1.TabIndex = 37;
+            // 
+            // txtbx_decc
+            // 
+            this.txtbx_decc.Location = new System.Drawing.Point(6, 302);
+            this.txtbx_decc.MaxLength = 4;
+            this.txtbx_decc.Name = "txtbx_decc";
+            this.txtbx_decc.Size = new System.Drawing.Size(116, 20);
+            this.txtbx_decc.TabIndex = 36;
+            // 
+            // txtbx_acel
+            // 
+            this.txtbx_acel.Location = new System.Drawing.Point(6, 255);
+            this.txtbx_acel.MaxLength = 4;
+            this.txtbx_acel.Name = "txtbx_acel";
+            this.txtbx_acel.Size = new System.Drawing.Size(116, 20);
+            this.txtbx_acel.TabIndex = 35;
+            // 
+            // txt_box_vel2
+            // 
+            this.txt_box_vel2.Location = new System.Drawing.Point(6, 211);
+            this.txt_box_vel2.MaxLength = 4;
+            this.txt_box_vel2.Name = "txt_box_vel2";
+            this.txt_box_vel2.Size = new System.Drawing.Size(116, 20);
+            this.txt_box_vel2.TabIndex = 34;
+            // 
+            // txt_box_vel1
+            // 
+            this.txt_box_vel1.Location = new System.Drawing.Point(6, 167);
+            this.txt_box_vel1.MaxLength = 4;
+            this.txt_box_vel1.Name = "txt_box_vel1";
+            this.txt_box_vel1.Size = new System.Drawing.Size(116, 20);
+            this.txt_box_vel1.TabIndex = 33;
+            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -543,8 +747,8 @@ namespace Banco_de_pruebas
             // 
             this.cbx_sentido.FormattingEnabled = true;
             this.cbx_sentido.Items.AddRange(new object[] {
-            "Horario",
-            "Antihorario"});
+            "Antihorario",
+            "Horario"});
             this.cbx_sentido.Location = new System.Drawing.Point(6, 435);
             this.cbx_sentido.Name = "cbx_sentido";
             this.cbx_sentido.Size = new System.Drawing.Size(116, 21);
@@ -715,95 +919,9 @@ namespace Banco_de_pruebas
             this.timer2.Interval = 900;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // aGauge1
+            // openFileDialog1
             // 
-            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
-            this.aGauge1.BaseArcRadius = 80;
-            this.aGauge1.BaseArcStart = 135;
-            this.aGauge1.BaseArcSweep = 270;
-            this.aGauge1.BaseArcWidth = 2;
-            this.aGauge1.GaugeAutoSize = false;
-            this.aGauge1.Location = new System.Drawing.Point(6, 264);
-            this.aGauge1.MaxValue = 1000F;
-            this.aGauge1.MinValue = 0F;
-            this.aGauge1.Name = "aGauge1";
-            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
-            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
-            this.aGauge1.NeedleRadius = 80;
-            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
-            this.aGauge1.NeedleWidth = 2;
-            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleLinesInterInnerRadius = 73;
-            this.aGauge1.ScaleLinesInterOuterRadius = 80;
-            this.aGauge1.ScaleLinesInterWidth = 1;
-            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
-            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
-            this.aGauge1.ScaleLinesMajorStepValue = 100F;
-            this.aGauge1.ScaleLinesMajorWidth = 2;
-            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
-            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
-            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
-            this.aGauge1.ScaleLinesMinorTicks = 9;
-            this.aGauge1.ScaleLinesMinorWidth = 1;
-            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleNumbersFormat = null;
-            this.aGauge1.ScaleNumbersRadius = 95;
-            this.aGauge1.ScaleNumbersRotation = 0;
-            this.aGauge1.ScaleNumbersStartScaleLine = 0;
-            this.aGauge1.ScaleNumbersStepScaleLines = 1;
-            this.aGauge1.Size = new System.Drawing.Size(212, 199);
-            this.aGauge1.TabIndex = 7;
-            this.aGauge1.Text = "aGauge1";
-            this.aGauge1.Value = 0F;
-            // 
-            // txt_box_vel1
-            // 
-            this.txt_box_vel1.Location = new System.Drawing.Point(6, 167);
-            this.txt_box_vel1.MaxLength = 4;
-            this.txt_box_vel1.Name = "txt_box_vel1";
-            this.txt_box_vel1.Size = new System.Drawing.Size(116, 20);
-            this.txt_box_vel1.TabIndex = 33;
-            // 
-            // txt_box_vel2
-            // 
-            this.txt_box_vel2.Location = new System.Drawing.Point(6, 211);
-            this.txt_box_vel2.MaxLength = 4;
-            this.txt_box_vel2.Name = "txt_box_vel2";
-            this.txt_box_vel2.Size = new System.Drawing.Size(116, 20);
-            this.txt_box_vel2.TabIndex = 34;
-            // 
-            // txtbx_acel
-            // 
-            this.txtbx_acel.Location = new System.Drawing.Point(6, 255);
-            this.txtbx_acel.MaxLength = 4;
-            this.txtbx_acel.Name = "txtbx_acel";
-            this.txtbx_acel.Size = new System.Drawing.Size(116, 20);
-            this.txtbx_acel.TabIndex = 35;
-            // 
-            // txtbx_decc
-            // 
-            this.txtbx_decc.Location = new System.Drawing.Point(6, 302);
-            this.txtbx_decc.MaxLength = 4;
-            this.txtbx_decc.Name = "txtbx_decc";
-            this.txtbx_decc.Size = new System.Drawing.Size(116, 20);
-            this.txtbx_decc.TabIndex = 36;
-            // 
-            // txt_box_t1
-            // 
-            this.txt_box_t1.Location = new System.Drawing.Point(6, 341);
-            this.txt_box_t1.MaxLength = 5;
-            this.txt_box_t1.Name = "txt_box_t1";
-            this.txt_box_t1.Size = new System.Drawing.Size(116, 20);
-            this.txt_box_t1.TabIndex = 37;
-            // 
-            // txt_box_t2
-            // 
-            this.txt_box_t2.Location = new System.Drawing.Point(6, 391);
-            this.txt_box_t2.MaxLength = 5;
-            this.txt_box_t2.Name = "txt_box_t2";
-            this.txt_box_t2.Size = new System.Drawing.Size(116, 20);
-            this.txt_box_t2.TabIndex = 38;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Generador_form
             // 
@@ -828,6 +946,7 @@ namespace Banco_de_pruebas
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -899,5 +1018,16 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.TextBox txtbx_decc;
         private System.Windows.Forms.TextBox txt_box_t1;
         private System.Windows.Forms.TextBox txt_box_t2;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button Save_UserSettings;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
