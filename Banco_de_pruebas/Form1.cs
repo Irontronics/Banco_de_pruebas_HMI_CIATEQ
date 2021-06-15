@@ -33,7 +33,7 @@ namespace Banco_de_pruebas
             comboBox1.Items.AddRange(puertos); //agrego todos los puertos al combobox
         }
 
-        private void btn_cancel_init_Click(object sender, EventArgs e)
+        private void btn_cancel_init_Click(object sender, EventArgs e) //boton de cancelar 
         {
             if (serialPort1.IsOpen)
             {
@@ -48,12 +48,12 @@ namespace Banco_de_pruebas
                     MessageBox.Show(error.Message);
                 }
             }
-            else { //si no entra al if es que ya el serial port se ha cerrado 
+            else { //si no entra al if es que ya el serial port se ha cerrado manualmente por usuario 
                 Close();
             }
         }
 
-        private void button_open_comm_Click(object sender, EventArgs e)
+        private void button_open_comm_Click(object sender, EventArgs e) //intentar comunicacion con arduino, si falla entonces: 
         {
             try
             {
@@ -80,13 +80,13 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void btn_close_comm_Click(object sender, EventArgs e)
+        private void btn_close_comm_Click(object sender, EventArgs e) //boton cerrar comunicaciones 
         {
             if (serialPort1.IsOpen)
             {
                 try
                 {
-                    // if (dato.Equals("")) { Thread.Sleep(800); } //si no es un puerto de arduino, dale una espera 
+                   
                         serialPort1.Write("C2$"); //apagar todo 
                         progressBar1.Value = 0;
                         dato = "";
@@ -109,7 +109,7 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void Form_inicial_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form_inicial_FormClosing(object sender, FormClosingEventArgs e) //al cerrar formulario 
         {
             if (serialPort1.IsOpen)
             {
@@ -125,7 +125,7 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void chk_bx_motor_CheckedChanged(object sender, EventArgs e)
+        private void chk_bx_motor_CheckedChanged(object sender, EventArgs e) //validacion al seleccionar checkbox del modo motor
         {
             if (chk_bx_motor.Checked)
             {
@@ -137,7 +137,7 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void chk_bx_genera_CheckedChanged(object sender, EventArgs e)
+        private void chk_bx_genera_CheckedChanged(object sender, EventArgs e) //validación al seleccionar checkbox del modo generador
         {
             if (chk_bx_genera.Checked)
             {
@@ -151,25 +151,23 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void Btn_ok_init_Click(object sender, EventArgs e)
+        private void Btn_ok_init_Click(object sender, EventArgs e) //al presionar botón 'ok' determina cual formulario debe de abrir 
         {
             if (chk_bx_genera.Checked) { //si el modo generador ha sido seleccionado, entonces: 
                 Generador_form F2 = new Generador_form();
                 F2.Owner = this;
-                //this.Enabled = false;
                 F2.Show();
             }
             else {
                 Motor_form F3 = new Motor_form();
                 F3.Owner = this;
-                //this.Enabled = false;
                 F3.Show();
             }
             
 
         }
 
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e) //si se recibe un dato de comunicación serial 
         {
           
                 dato = serialPort1.ReadLine();
@@ -184,19 +182,14 @@ namespace Banco_de_pruebas
 
         }
 
-        private void ProcessData(object sender, EventArgs e)
+        private void ProcessData(object sender, EventArgs e) //comunicación serial OK! ("Successfully connected!")
         {
-            if (!(Application.OpenForms["Generador_form"] == null)) // si el formulario de generador esta activo y se reciben datos al serial:
+            if (!(Application.OpenForms["Generador_form"] == null)) // si el formulario de generador esta activo y se reciben datos al serial: // si el formulario de generador esta activo y se reciben datos al serial:
             {
               
                 Variables.var = dato; //le paso el dato a var global
                 Variables.SerialPresent = true;
             }
-          //  else {
-                
-           // }
-
-
  
             try
             {
@@ -205,7 +198,7 @@ namespace Banco_de_pruebas
                 Baud_rate_cbox.Enabled = false;
                 index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
                 dataMod1 = dato.Substring(0, index0fZ);
-                if (dataMod1 == "123")
+                if (dataMod1 == "123") //respuesta de arduino a la comunicación, comunicación exitosa! ("Successfully connected!")
                 {
                     progressBar1.Value = 100;
                     label1.Visible = true;
@@ -216,7 +209,7 @@ namespace Banco_de_pruebas
                     Baud_rate_cbox.Enabled = false;
                     comboBox1.Enabled = false;
                     groupbx_modos.Enabled = true;
-                    serialPort1.Write("A2$");
+                    serialPort1.Write("A2$"); //manda a meterse a primer programa A2$ StandBy
                    
                 }
             }

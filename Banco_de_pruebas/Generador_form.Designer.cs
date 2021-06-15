@@ -30,10 +30,10 @@ namespace Banco_de_pruebas
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Tabs_generator = new System.Windows.Forms.TabControl();
@@ -66,13 +66,9 @@ namespace Banco_de_pruebas
             this.aGauge1 = new System.Windows.Forms.AGauge();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Temp_label = new System.Windows.Forms.Label();
-            this.Volt_label = new System.Windows.Forms.Label();
             this.Stop_label = new System.Windows.Forms.Label();
             this.Drv_status_lab = new System.Windows.Forms.Label();
             this.Speed_label = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -406,24 +402,24 @@ namespace Banco_de_pruebas
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.SystemColors.Control;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(10, 19);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Velocidad_c";
-            this.chart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Velocidad_c";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(594, 336);
             this.chart1.TabIndex = 6;
             this.chart1.Text = "chart1";
-            title2.Name = "Velocidad_chart";
-            title2.Text = "Velocidad (RPM): ";
-            this.chart1.Titles.Add(title2);
+            title1.Name = "Velocidad_chart";
+            title1.Text = "Velocidad (RPM): ";
+            this.chart1.Titles.Add(title1);
             // 
             // aGauge1
             // 
@@ -433,7 +429,7 @@ namespace Banco_de_pruebas
             this.aGauge1.BaseArcSweep = 270;
             this.aGauge1.BaseArcWidth = 2;
             this.aGauge1.GaugeAutoSize = false;
-            this.aGauge1.Location = new System.Drawing.Point(6, 264);
+            this.aGauge1.Location = new System.Drawing.Point(20, 196);
             this.aGauge1.MaxValue = 1000F;
             this.aGauge1.MinValue = 0F;
             this.aGauge1.Name = "aGauge1";
@@ -478,41 +474,19 @@ namespace Banco_de_pruebas
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Temp_label);
-            this.groupBox1.Controls.Add(this.Volt_label);
             this.groupBox1.Controls.Add(this.Stop_label);
             this.groupBox1.Controls.Add(this.Drv_status_lab);
             this.groupBox1.Controls.Add(this.Speed_label);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(10, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(241, 209);
+            this.groupBox1.Size = new System.Drawing.Size(241, 131);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Monitor Señales Modbus ";
-            // 
-            // Temp_label
-            // 
-            this.Temp_label.AutoSize = true;
-            this.Temp_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Temp_label.Location = new System.Drawing.Point(178, 175);
-            this.Temp_label.Name = "Temp_label";
-            this.Temp_label.Size = new System.Drawing.Size(0, 20);
-            this.Temp_label.TabIndex = 9;
-            // 
-            // Volt_label
-            // 
-            this.Volt_label.AutoSize = true;
-            this.Volt_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Volt_label.Location = new System.Drawing.Point(178, 140);
-            this.Volt_label.Name = "Volt_label";
-            this.Volt_label.Size = new System.Drawing.Size(0, 20);
-            this.Volt_label.TabIndex = 8;
             // 
             // Stop_label
             // 
@@ -537,26 +511,6 @@ namespace Banco_de_pruebas
             this.Speed_label.Name = "Speed_label";
             this.Speed_label.Size = new System.Drawing.Size(0, 20);
             this.Speed_label.TabIndex = 5;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 172);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 20);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Temperatura ( °C )";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 136);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 20);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Voltaje de potencia";
             // 
             // label3
             // 
@@ -959,13 +913,9 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.TabControl Tabs_generator;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label Temp_label;
-        private System.Windows.Forms.Label Volt_label;
         private System.Windows.Forms.Label Stop_label;
         private System.Windows.Forms.Label Drv_status_lab;
         public System.Windows.Forms.Label Speed_label;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

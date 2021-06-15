@@ -13,110 +13,17 @@ namespace Banco_de_pruebas
     public partial class Generador_form : Form
     {
         string dato, palabraSettings;      //para los datos 
-        sbyte index0fZ, index0fY, index0fX, index0fW, index0fV, index0fN, index0fM, index0fL, index0fK, index0fJ, index0fI, index0fH, index0fG;
-        String dataMod1, dataMod2, dataMod3, dataMod4, dataMod5, dataMod6, dataMod7, dataMod8, dataMod9, dataMod10, dataMod11, dataMod12, dataMod13;
-        bool setting_F;
+        sbyte index0fZ, index0fY, index0fX, index0fN, index0fM, index0fL, index0fK, index0fJ, index0fI, index0fH, index0fG;
+        String dataMod1, dataMod2, dataMod3, dataMod6, dataMod7, dataMod8, dataMod9, dataMod10, dataMod11, dataMod12, dataMod13;
 
+        bool setting_F; //bandera para tab settings 
+
+        //variables de creación text file 
         string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
         string namefileDef = @"Log_"; //constante
         string namefile;
         int counterFilecreator = 0;
 
-        private void button7_Click(object sender, EventArgs e) //Cargar ajustes 
-        {
-            int counter = 0;
-            string line, nameFileToRead;
-            openFileDialog1.Title = "Busca tu archivo";
-            openFileDialog1.ShowDialog();
-
-            nameFileToRead = openFileDialog1.FileName; //te da la ruta completa 
-
-
-            System.IO.StreamReader file = new System.IO.StreamReader(nameFileToRead);
-
-            while ((line = file.ReadLine()) != null)
-            {
-                if (counter == 0)
-                {
-                    cbx_modes.Text = line;
-                }
-                else if (counter == 1)
-                {
-                    txt_box_vel1.Text = line;
-                }
-                else if (counter == 2)
-                {
-
-                    txt_box_vel2.Text = line;
-                }
-
-                else if (counter == 3)
-                {
-
-                    txtbx_acel.Text = line;
-                }
-
-                else if (counter == 4)
-                {
-
-                    txtbx_decc.Text = line;
-                }
-
-                else if (counter == 5)
-                {
-
-                    txt_box_t1.Text = line;
-                }
-                else if (counter == 6)
-                {
-
-                    txt_box_t2.Text = line;
-                }
-
-                else if (counter == 7)
-                {
-
-                    cbx_sentido.Text = line;
-                }
-
-                counter++;
-
-            }
-
-        }
-
-   
-        private void button6_Click(object sender, EventArgs e) //Guardar ajustes en text file 
-        {
-            namefile = namefileDef + Convert.ToInt32(counterFilecreator) + ".txt";
-
-            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(pathdedault + namefile)) {
-
-                writer.WriteLine(cbx_modes.Text);
-                writer.WriteLine(txt_box_vel1.Text);
-                writer.WriteLine(txt_box_vel2.Text);
-                writer.WriteLine(txtbx_acel.Text);
-                writer.WriteLine(txtbx_decc.Text);
-                writer.WriteLine(txt_box_t1.Text);
-                writer.WriteLine(txt_box_t2.Text);
-                writer.WriteLine(cbx_sentido.Text);
-
-            }
-
-            namefile = "";
-            counterFilecreator++;
-
-        }
-
-
-
-        private void button1_Click(object sender, EventArgs e) //al presionar botton help debe de mostrar imagen de ayuda de modos de operacion 
-        {
-            Help_modes_form F5 = new Help_modes_form();
-            F5.Owner = this;
-            //this.Enabled = false;
-            F5.Show();
-        }
 
 
         public Generador_form()
@@ -127,10 +34,10 @@ namespace Banco_de_pruebas
         private void Generador_form_Load(object sender, EventArgs e) //se carga por primera vez form
         {
             Variables.initFirstGEN = true;  //en true por que se acaba de inicializar form 
-            Save_UserSettings.Enabled = false;
-            timer1.Interval = 3500;
+            Save_UserSettings.Enabled = false; //botón de guardar parametros en false 
+            timer1.Interval = 3500; //tiempo que le damos para que lea los datos de monitoreo iniciales modbus al abrir ventana 
             (this.Owner as Form_inicial).serialPort1.Write("B2$"); //comando para arduino, inicializar programa B2
-            (this.Owner as Form_inicial).Enabled = false;
+            (this.Owner as Form_inicial).Enabled = false; //congelamos ventana principal 
         }
 
         private void Generador_form_FormClosing(object sender, FormClosingEventArgs e)
@@ -140,7 +47,7 @@ namespace Banco_de_pruebas
             (this.Owner as Form_inicial).Enabled = true;
         }
 
-        private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo normal 
+        private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
         {
 
             if (Convert.ToString(dataMod2) == "1" && Tabs_generator.SelectedIndex == 1)
@@ -156,25 +63,24 @@ namespace Banco_de_pruebas
 
             }
 
-            if (Tabs_generator.SelectedIndex == 1) //si se va a tab2
+            if (Tabs_generator.SelectedIndex == 1) //si se va a tab2 detener timer1 y habilitar timer2 
             { 
                 (this.Owner as Form_inicial).serialPort1.Write("E2$"); //Comando de detencción monitoreo MODBUS
-                //cbx_modes.SelectedIndex = 2; //selección automática 
                 setting_F = true; //bandera de que ingreso a la tab de settings 
-                timer1.Enabled = false; //detengo el timer 
-                timer2.Enabled = true;
+                timer1.Enabled = false; 
+                timer2.Enabled = true;  
             }
             else  //monitoreo normal 
             {
                 if (Variables.initFirstGEN)
-                { //si es primera vez de inicio, primera vez serial manda basura en blanco, checar eso , tomar valores setteados por default primera vez 
+                { //si es primera vez de inicio, tomar valores por default 
 
-                    dato = Variables.var;
-                    timer1.Interval = 450;
+                    dato = Variables.var; //tomo el valor que hay en serial
+                    timer1.Interval = 450; 
                     Variables.initFirstGEN = false;
-                    Variables.SerialPresent = false;
-                    //this.BeginInvoke(new EventHandler(ProcessData2));
-                    try
+                    Variables.SerialPresent = false; //no se usa 
+        
+                    try //saco los datos por default entregados por arduino 
                     {
                         index0fM = Convert.ToSByte(dato.IndexOf("M"));
                         index0fN = Convert.ToSByte(dato.IndexOf("N"));
@@ -218,13 +124,13 @@ namespace Banco_de_pruebas
                         numero8 = Math.Round(numero8, 0);
                         txtbx_decc.Text = Convert.ToString(numero8);
 
-                        label30.Text = dataMod10;
+                        label30.Text = dataMod10; //timer1 
                         txt_box_t1.Text = dataMod10;
-
-                        label32.Text = dataMod11;
+                         
+                        label32.Text = dataMod11; //timer2 
                         txt_box_t2.Text = dataMod11;
 
-                        if (dataMod12 == "0")
+                        if (dataMod12 == "0") //giro
                         {
                             label34.Text = "Antihorario";
                             cbx_sentido.SelectedIndex = 0;
@@ -234,8 +140,8 @@ namespace Banco_de_pruebas
                             cbx_sentido.SelectedIndex = 1;
                         }
 
-                        if (dataMod13 == "0" && dataMod10 == "0")
-                        { //si el modo operación modbus esta en 0, y el timer1  en 0, entonces
+                        if (dataMod13 == "0" && dataMod10 == "0") //tipo de movimiento servomotor setteado 
+                        { 
                             label36.Text = "Continous";
                             cbx_modes.SelectedIndex = 2;
                         }
@@ -258,20 +164,17 @@ namespace Banco_de_pruebas
                     }
 
                 }
-                else
+                else //monitoreo normal, no incial 
                 {
-                    // label18.Text = "holaaaaaa";
                     dato = Variables.var;
                     label6.Text = Variables.var;
-                    int A = Tabs_generator.SelectedIndex;
-                    // label18.Text = Convert.ToString(A);
                     this.BeginInvoke(new EventHandler(ProcessData));
 
                 }
             }
         }
 
-        private void ProcessData(object sender, EventArgs e)
+        private void ProcessData(object sender, EventArgs e) //Parte de timer1_tick condicionando variables a mostrar
         {
             try
             {
@@ -279,14 +182,10 @@ namespace Banco_de_pruebas
                 index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
                 index0fY = Convert.ToSByte(dato.IndexOf("Y"));
                 index0fX = Convert.ToSByte(dato.IndexOf("X"));
-                //index0fW = Convert.ToSByte(dato.IndexOf("W"));
-                //index0fV = Convert.ToSByte(dato.IndexOf("V"));
 
                 dataMod1 = dato.Substring(0, index0fZ); //Z
                 dataMod2 = dato.Substring(index0fZ + 1, (index0fY - index0fZ) - 1); //Y
                 dataMod3 = dato.Substring(index0fY + 1, (index0fX - index0fY) - 1); //X
-               // dataMod4 = dato.Substring(index0fX + 1, (index0fW - index0fX) - 1);
-               // dataMod5 = dato.Substring(index0fW + 1, (index0fV - index0fW) - 1);
 
                 double numero1 = Convert.ToDouble(dataMod1); //checar esa conversion
                 double numero2 = Math.Round(((numero1 * 245735) / 4294967295), 2);
@@ -295,7 +194,7 @@ namespace Banco_de_pruebas
                     aGauge1.Value = Convert.ToSingle(numero2);
                     Speed_label.Text = numero2.ToString();
                     chart1.Series["Velocidad_c"].Points.Add(numero2);
-
+                    //exportar dato a txt file 
 
                 }
 
@@ -310,16 +209,23 @@ namespace Banco_de_pruebas
                 if (Convert.ToString(dataMod2) == "1") { Drv_status_lab.BackColor = Color.Green; } else if (Convert.ToString(dataMod2) == "0") { Drv_status_lab.BackColor = Color.Red; }//DrvStatus
                 if (Convert.ToString(dataMod3) == "1") { Stop_label.BackColor = Color.Green; } else if (Convert.ToString(dataMod3) == "0") { Stop_label.BackColor = Color.Red; }//paroStatus
 
-               // double numero3 = Convert.ToDouble(dataMod4);
-               // double numero4 = numero3 / 1000;
-               // numero4 = Math.Round(numero4, 2);
-                //Volt_label.Text = numero4.ToString(); // representación de voltaje 
-
-                //Temp_label.Text = Convert.ToString(dataMod5); //representación_temperatura
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message);
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e) //Timer 2, accionamiento de monitoreo normal nuevamente
+        {
+            if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true))
+            { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
+
+                (this.Owner as Form_inicial).serialPort1.Write("F2$"); //monitoreo modbus a arduino 
+                label18.Text = "volvi"; //debug 
+                setting_F = false;
+                timer2.Enabled = false;
+                timer1.Enabled = true; //activo timer de monitoreo 
             }
         }
 
@@ -330,7 +236,7 @@ namespace Banco_de_pruebas
             if (cbx_modes.SelectedIndex == 0) { palabraSettings = "0A"; }
             else if (cbx_modes.SelectedIndex == 1) { palabraSettings = "1A"; }
             else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "2A"; }
-            else
+            else //default 
             {
                 cbx_modes.SelectedIndex = 1;
                 palabraSettings = "2A";
@@ -489,90 +395,127 @@ namespace Banco_de_pruebas
 
 
             //string a mandar 
-            label27.Text = palabraSettings; //todo es ok, entonces 
-            Save_UserSettings.Enabled = true; 
-            palabraSettings = palabraSettings + "$";
-            (this.Owner as Form_inicial).serialPort1.Write(palabraSettings);
+            label27.Text = palabraSettings;
+            Save_UserSettings.Enabled = true; //habilita boton de guardar parametros ya que ya se validaron datos y son ok 
+            palabraSettings = palabraSettings + "$"; 
+            (this.Owner as Form_inicial).serialPort1.Write(palabraSettings); //hacia arduino 
 
 
         } //botón de set settings 
 
-  
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)//validación del tipo de movimiento servomotor
         {
-            if (cbx_modes.SelectedIndex == 2)
+            if (cbx_modes.SelectedIndex == 2) //modo continous
             {
                 txt_box_vel2.Enabled = false;
                 txt_box_t1.Enabled = false;
                 txt_box_t2.Enabled = false;
             }
-            else if (cbx_modes.SelectedIndex == 1)
+            else if (cbx_modes.SelectedIndex == 1) //modo reversing
             {
                 txt_box_vel2.Enabled = true;
                 txt_box_t1.Enabled = true;
                 txt_box_t2.Enabled = true;
             }
-            else if (cbx_modes.SelectedIndex == 0) {
+            else if (cbx_modes.SelectedIndex == 0) { //modo pulse 
                 txt_box_t1.Enabled = true;
                 txt_box_vel2.Enabled = false;
                 txt_box_t2.Enabled = false;
             }
         }
 
-
-        private void timer2_Tick(object sender, EventArgs e) //Timer 2, accionamiento de función
+        private void button7_Click(object sender, EventArgs e) //Cargar ajustes 
         {
-            if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true)) { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
+            int counter = 0;
+            string line, nameFileToRead;
+            openFileDialog1.Title = "Busca tu archivo";
+            openFileDialog1.ShowDialog();
 
-                (this.Owner as Form_inicial).serialPort1.Write("F2$");
-                label18.Text = "volvi"; //debug 
-                setting_F = false;
-                timer2.Enabled = false;
-                timer1.Enabled = true; //activo timer de monitoreo 
+            nameFileToRead = openFileDialog1.FileName; //te da la ruta completa 
+
+
+            System.IO.StreamReader file = new System.IO.StreamReader(nameFileToRead);
+
+            while ((line = file.ReadLine()) != null)
+            {
+                if (counter == 0)
+                {
+                    cbx_modes.Text = line;
+                }
+                else if (counter == 1)
+                {
+                    txt_box_vel1.Text = line;
+                }
+                else if (counter == 2)
+                {
+
+                    txt_box_vel2.Text = line;
+                }
+
+                else if (counter == 3)
+                {
+
+                    txtbx_acel.Text = line;
+                }
+
+                else if (counter == 4)
+                {
+
+                    txtbx_decc.Text = line;
+                }
+
+                else if (counter == 5)
+                {
+
+                    txt_box_t1.Text = line;
+                }
+                else if (counter == 6)
+                {
+
+                    txt_box_t2.Text = line;
+                }
+
+                else if (counter == 7)
+                {
+
+                    cbx_sentido.Text = line;
+                }
+
+                counter++;
+
             }
+
         }
 
-        
-
-
-        /*
-        private void ProcessData2(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) //Guardar ajustes en text file 
         {
-            try
+            namefile = namefileDef + Convert.ToInt32(counterFilecreator) + ".txt";
+
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(pathdedault + namefile))
             {
-                index0fM = Convert.ToSByte(dato.IndexOf("M"));
-                index0fN = Convert.ToSByte(dato.IndexOf("N"));
-                index0fL = Convert.ToSByte(dato.IndexOf("L"));
-                index0fK = Convert.ToSByte(dato.IndexOf("K"));
 
-                dataMod6 = dato.Substring(0, index0fM);
-                dataMod7 = dato.Substring(index0fM + 1, (index0fN - index0fM) - 1);
-                dataMod8 = dato.Substring(index0fN + 1, (index0fL - index0fN) - 1);
-                dataMod9 = dato.Substring(index0fL + 1, (index0fK - index0fL) - 1);
-
-                double numero1 = Convert.ToDouble(dataMod6);
-                double numero2 = Math.Round((numero1 * 100) / (1747625), 2);  
-                label23.Text = Convert.ToString(numero2); //velocidad2 
-                double numero3 = Convert.ToDouble(dataMod7);
-                double numero4 = Math.Round((numero3 * 100) / (1747625), 2);
-                label24.Text = Convert.ToString(numero4);
-
-                double numero5 = Convert.ToDouble(dataMod8);
-                double numero6 = Math.Round((numero5 * 80) / (1398437), 2);
-                label25.Text = Convert.ToString(numero6); //velocidad2 
-                double numero7 = Convert.ToDouble(dataMod9);
-                double numero8 = Math.Round((numero7 * 80) / (1398437), 2);
-                label26.Text = Convert.ToString(numero8);
-
+                writer.WriteLine(cbx_modes.Text);
+                writer.WriteLine(txt_box_vel1.Text);
+                writer.WriteLine(txt_box_vel2.Text);
+                writer.WriteLine(txtbx_acel.Text);
+                writer.WriteLine(txtbx_decc.Text);
+                writer.WriteLine(txt_box_t1.Text);
+                writer.WriteLine(txt_box_t2.Text);
+                writer.WriteLine(cbx_sentido.Text);
 
             }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
+
+            namefile = "";
+            counterFilecreator++;
+
         }
 
-        */
+        private void button1_Click(object sender, EventArgs e) //al presionar botton help debe de mostrar imagen de ayuda de modos de operacion 
+        {
+            Help_modes_form F5 = new Help_modes_form();
+            F5.Owner = this;
+            F5.Show();
+        }
 
     }
 }
