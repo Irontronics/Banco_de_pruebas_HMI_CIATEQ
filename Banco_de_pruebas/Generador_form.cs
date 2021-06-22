@@ -17,7 +17,8 @@ namespace Banco_de_pruebas
         String dataMod1, dataMod2, dataMod3, dataMod6, dataMod7, dataMod8, dataMod9, dataMod10, dataMod11, dataMod12, dataMod13;
 
         bool setting_F; //bandera para tab settings 
-
+        bool test = false; //bandera para tab settings
+                        //
         //variables de creación text file 
         string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
         string namefileDef = @"Log_"; //constante
@@ -35,21 +36,32 @@ namespace Banco_de_pruebas
         {
             Variables.initFirstGEN = true;  //en true por que se acaba de inicializar form 
             Save_UserSettings.Enabled = false; //botón de guardar parametros en false 
-            timer1.Interval = 3500; //tiempo que le damos para que lea los datos de monitoreo iniciales modbus al abrir ventana 
-            (this.Owner as Form_inicial).serialPort1.Write("B2$"); //comando para arduino, inicializar programa B2
+
+            timer1.Enabled = false; //deshabilitar timer1 
+            timer2.Enabled = true; 
+
+            //timer1.Interval = 4250; //tiempo que le damos para que lea los datos de monitoreo iniciales modbus al abrir ventana 
+            //(this.Owner as Form_inicial).serialPort1.Write("B2$"); //comando para arduino, inicializar programa modo generador
+
             (this.Owner as Form_inicial).Enabled = false; //congelamos ventana principal 
+            Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
+            
+            //cuango cargue, settear configuracion predefinida al inicio del form: 
+            
+            //tipo de movimiento: 
+
         }
 
-        private void Generador_form_FormClosing(object sender, FormClosingEventArgs e)
+        private void Generador_form_FormClosing(object sender, FormClosingEventArgs e) // al cerrar formulario
         {
             Variables.initFirstGEN = false; //en false por que se elimina form 
-            (this.Owner as Form_inicial).serialPort1.Write("A2$");
+            (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
             (this.Owner as Form_inicial).Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
         {
-
+            MessageBox.Show("hola timer1");
             if (Convert.ToString(dataMod2) == "1" && Tabs_generator.SelectedIndex == 1)
             { //si te vas a tab settings y esta activo driver, no dejar cambiar funciones hasta que lo desact
 
@@ -75,12 +87,19 @@ namespace Banco_de_pruebas
                 if (Variables.initFirstGEN)
                 { //si es primera vez de inicio, tomar valores por default 
 
+                   // while (Variables.SerialPresent == false) {
+                        //MessageBox.Show("wait");
+                        // System.Threading.Thread.Sleep(250);
+                    //}  //aqui me espero hasta que arduino mande el dato !!     //esperar a Serial Present == true ;
+
                     dato = Variables.var; //tomo el valor que hay en serial
-                    timer1.Interval = 450; 
+                    timer1.Interval = 1500; //para la primera vez
                     Variables.initFirstGEN = false;
                     Variables.SerialPresent = false; //no se usa 
-        
-                    try //saco los datos por default entregados por arduino 
+
+                    //MessageBox.Show(dato);
+
+                    /*try //saco los datos por default entregados por arduino 
                     {
                         index0fM = Convert.ToSByte(dato.IndexOf("M"));
                         index0fN = Convert.ToSByte(dato.IndexOf("N"));
@@ -99,7 +118,7 @@ namespace Banco_de_pruebas
                         dataMod11 = dato.Substring(index0fJ + 1, (index0fI - index0fJ) - 1); //I
                         dataMod12 = dato.Substring(index0fI + 1, (index0fH - index0fI) - 1); //H
                         dataMod13 = dato.Substring(index0fH + 1, (index0fG - index0fH) - 1); //G
-
+                        
                         double numero1 = Convert.ToDouble(dataMod6);
                         double numero2 = Math.Round((numero1 * 100) / (1747625), 2);
                         label23.Text = Convert.ToString(numero2); //velocidad1 modbus set
@@ -157,17 +176,19 @@ namespace Banco_de_pruebas
                         }
 
 
+
                     }
                     catch (Exception error)
                     {
-                        MessageBox.Show(error.Message);
-                    }
-
+                     MessageBox.Show("Error en datos ajustes setteados");
+                   }
+                    */
                 }
                 else //monitoreo normal, no incial 
                 {
                     dato = Variables.var;
                     label6.Text = Variables.var;
+                    timer1.Interval = 350;
                     this.BeginInvoke(new EventHandler(ProcessData));
 
                 }
@@ -212,21 +233,43 @@ namespace Banco_de_pruebas
             }
             catch (Exception error)
             {
-                MessageBox.Show(error.Message);
+                MessageBox.Show("Error en monitor real time");
             }
         }
 
         private void timer2_Tick(object sender, EventArgs e) //Timer 2, accionamiento de monitoreo normal nuevamente
         {
-            if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true))
-            { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
 
-                (this.Owner as Form_inicial).serialPort1.Write("F2$"); //monitoreo modbus a arduino 
+            if ((Tabs_generator.SelectedIndex == 0) && (test == false) )
+            {
+                
+                Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
+                MessageBox.Show("Establezca parametros de prueba primero");
+            }
+            else if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true)) {
+
+                (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
                 label18.Text = "volvi"; //debug 
                 setting_F = false;
+                timer1.Interval = 1500; //para la primera vez
                 timer2.Enabled = false;
                 timer1.Enabled = true; //activo timer de monitoreo 
+
+
+
             }
+
+
+              /*  if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true))
+            { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
+
+                (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
+                label18.Text = "volvi"; //debug 
+                setting_F = false;
+                timer1.Interval = 1500; //para la primera vez
+                timer2.Enabled = false;
+                timer1.Enabled = true; //activo timer de monitoreo 
+            }*/
         }
 
 
@@ -235,14 +278,14 @@ namespace Banco_de_pruebas
             //validar modo de operación
             if (cbx_modes.SelectedIndex == 0) { palabraSettings = "0A"; }
             else if (cbx_modes.SelectedIndex == 1) { palabraSettings = "1A"; }
-            else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "2A"; }
+            else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "0A"; }
             else //default 
             {
                 cbx_modes.SelectedIndex = 1;
-                palabraSettings = "2A";
+                palabraSettings = "1A";
             }
 
-                //Validar velocidad1 
+            //Validar velocidad1 
                 if (Convert.ToInt32(txt_box_vel1.Text) >= 50 && Convert.ToInt32(txt_box_vel1.Text) <= 1000)
             {
                 double num1 = Convert.ToDouble(txt_box_vel1.Text);
@@ -262,6 +305,7 @@ namespace Banco_de_pruebas
             }
 
             //Validar velocidad2
+
             if (Convert.ToInt32(txt_box_vel2.Text) >= 50 && Convert.ToInt32(txt_box_vel2.Text) <= 1000)
             {
                 double num1 = Convert.ToDouble(txt_box_vel2.Text);
@@ -282,6 +326,7 @@ namespace Banco_de_pruebas
             }
 
             //Validar acceleración 
+
             if (Convert.ToInt32(txtbx_acel.Text) >= 20 && Convert.ToInt32(txtbx_acel.Text) <= 1100)
             {
                 double num1 = Convert.ToDouble(txtbx_acel.Text);
@@ -323,6 +368,7 @@ namespace Banco_de_pruebas
             }
 
             //validación de valor de entrada Tiempo 1 
+
             if (cbx_modes.SelectedIndex == 2)
             {
                 txt_box_t1.Text = "0"; //poner timer en 0; 

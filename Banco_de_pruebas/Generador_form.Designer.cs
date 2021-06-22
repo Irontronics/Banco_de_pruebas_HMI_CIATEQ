@@ -38,6 +38,7 @@ namespace Banco_de_pruebas
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Tabs_generator = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -140,6 +141,7 @@ namespace Banco_de_pruebas
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.label18);
             this.tabPage1.Controls.Add(this.groupBox6);
@@ -155,6 +157,15 @@ namespace Banco_de_pruebas
             this.tabPage1.Size = new System.Drawing.Size(1087, 550);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Monitor Modbus";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(81, 522);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "label4";
             // 
             // groupBox7
             // 
@@ -546,7 +557,7 @@ namespace Banco_de_pruebas
             // 
             this.lbl_title_gen.AutoSize = true;
             this.lbl_title_gen.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.lbl_title_gen.Location = new System.Drawing.Point(179, 1);
+            this.lbl_title_gen.Location = new System.Drawing.Point(314, 3);
             this.lbl_title_gen.Name = "lbl_title_gen";
             this.lbl_title_gen.Size = new System.Drawing.Size(429, 25);
             this.lbl_title_gen.TabIndex = 3;
@@ -870,7 +881,7 @@ namespace Banco_de_pruebas
             // timer2
             // 
             this.timer2.Enabled = true;
-            this.timer2.Interval = 900;
+            this.timer2.Interval = 500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // openFileDialog1
@@ -979,5 +990,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button Save_UserSettings;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label label4;
     }
 }

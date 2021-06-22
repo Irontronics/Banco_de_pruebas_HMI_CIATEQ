@@ -184,40 +184,42 @@ namespace Banco_de_pruebas
 
         private void ProcessData(object sender, EventArgs e) //comunicación serial OK! ("Successfully connected!")
         {
-            if (!(Application.OpenForms["Generador_form"] == null)) // si el formulario de generador esta activo y se reciben datos al serial: // si el formulario de generador esta activo y se reciben datos al serial:
+            if (!(Application.OpenForms["Generador_form"] == null)) // si el formulario de generador esta activo y se reciben datos al serial: 
             {
-              
+
                 Variables.var = dato; //le paso el dato a var global
                 Variables.SerialPresent = true;
             }
- 
-            try
+            else //de lo contrario apenas se va a iniciar comunicación entonces: 
             {
-                button_open_comm.Enabled = false;
-                comboBox1.Enabled = false;
-                Baud_rate_cbox.Enabled = false;
-                index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
-                dataMod1 = dato.Substring(0, index0fZ);
-                if (dataMod1 == "123") //respuesta de arduino a la comunicación, comunicación exitosa! ("Successfully connected!")
+                try
                 {
-                    progressBar1.Value = 100;
-                    label1.Visible = true;
-                    label1.Size = new Size(150, 13);
-                    label1.Location = new Point(106, 67);
-                    label1.Text = "Successfully connected!";
-                    label1.BackColor = Color.FromArgb(0, 173, 0);
-                    Baud_rate_cbox.Enabled = false;
+                    button_open_comm.Enabled = false;
                     comboBox1.Enabled = false;
-                    groupbx_modos.Enabled = true;
-                    serialPort1.Write("A2$"); //manda a meterse a primer programa A2$ StandBy
-                   
+                    Baud_rate_cbox.Enabled = false;
+                    index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
+                    dataMod1 = dato.Substring(0, index0fZ);
+                    if (dataMod1 == "123") //respuesta de arduino a la comunicación, comunicación exitosa! ("Successfully connected!")
+                    {
+                        progressBar1.Value = 100;
+                        label1.Visible = true;
+                        label1.Size = new Size(150, 13);
+                        label1.Location = new Point(106, 67);
+                        label1.Text = "Successfully connected!";
+                        label1.BackColor = Color.FromArgb(0, 173, 0);
+                        Baud_rate_cbox.Enabled = false;
+                        comboBox1.Enabled = false;
+                        groupbx_modos.Enabled = true;
+                        serialPort1.Write("A2$"); //manda a meterse a primer programa A2$ StandBy
+
+                    }
                 }
-            }
-            catch (Exception error)
-            {
+                catch (Exception error)
+                {
 
-                MessageBox.Show(error.Message);
+                    MessageBox.Show("Error en com inicial");
 
+                }
             }
 
         }
