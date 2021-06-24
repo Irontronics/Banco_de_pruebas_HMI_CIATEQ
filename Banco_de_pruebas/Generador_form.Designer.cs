@@ -30,15 +30,14 @@ namespace Banco_de_pruebas
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Tabs_generator = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -56,7 +55,6 @@ namespace Banco_de_pruebas
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
@@ -141,9 +139,7 @@ namespace Banco_de_pruebas
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.label18);
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
@@ -157,15 +153,6 @@ namespace Banco_de_pruebas
             this.tabPage1.Size = new System.Drawing.Size(1087, 550);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Monitor Modbus";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(81, 522);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "label4";
             // 
             // groupBox7
             // 
@@ -336,15 +323,6 @@ namespace Banco_de_pruebas
             this.label19.TabIndex = 0;
             this.label19.Text = "Velocidad 1:";
             // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(870, 346);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(41, 13);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "label18";
-            // 
             // groupBox6
             // 
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
@@ -374,7 +352,7 @@ namespace Banco_de_pruebas
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 10;
-            this.button4.Text = "Stop";
+            this.button4.Text = "Start";
             this.button4.UseMnemonic = false;
             this.button4.UseVisualStyleBackColor = true;
             // 
@@ -385,8 +363,9 @@ namespace Banco_de_pruebas
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 9;
-            this.button3.Text = "Start ";
+            this.button3.Text = "Axis En";
             this.button3.UseVisualStyleBackColor = true;
+     
             // 
             // groupBox4
             // 
@@ -413,24 +392,24 @@ namespace Banco_de_pruebas
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.SystemColors.Control;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(10, 19);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "Velocidad_c";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Velocidad_c";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(594, 336);
             this.chart1.TabIndex = 6;
             this.chart1.Text = "chart1";
-            title1.Name = "Velocidad_chart";
-            title1.Text = "Velocidad (RPM): ";
-            this.chart1.Titles.Add(title1);
+            title2.Name = "Velocidad_chart";
+            title2.Text = "Velocidad (RPM): ";
+            this.chart1.Titles.Add(title2);
             // 
             // aGauge1
             // 
@@ -570,6 +549,10 @@ namespace Banco_de_pruebas
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.btn_En);
+            this.tabPage2.Controls.Add(this.btn_start);
+            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -581,7 +564,7 @@ namespace Banco_de_pruebas
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(359, 202);
+            this.label27.Location = new System.Drawing.Point(13, 483);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(82, 25);
             this.label27.TabIndex = 7;
@@ -638,21 +621,17 @@ namespace Banco_de_pruebas
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.btn_start);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.btn_En);
-            this.groupBox2.Location = new System.Drawing.Point(10, 24);
+            this.groupBox2.Location = new System.Drawing.Point(10, 29);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(315, 508);
+            this.groupBox2.Size = new System.Drawing.Size(274, 433);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Manual";
             // 
             // txt_box_t2
             // 
-            this.txt_box_t2.Location = new System.Drawing.Point(6, 391);
+            this.txt_box_t2.Location = new System.Drawing.Point(9, 312);
             this.txt_box_t2.MaxLength = 5;
             this.txt_box_t2.Name = "txt_box_t2";
             this.txt_box_t2.Size = new System.Drawing.Size(116, 20);
@@ -660,7 +639,7 @@ namespace Banco_de_pruebas
             // 
             // txt_box_t1
             // 
-            this.txt_box_t1.Location = new System.Drawing.Point(6, 341);
+            this.txt_box_t1.Location = new System.Drawing.Point(9, 259);
             this.txt_box_t1.MaxLength = 5;
             this.txt_box_t1.Name = "txt_box_t1";
             this.txt_box_t1.Size = new System.Drawing.Size(116, 20);
@@ -668,7 +647,7 @@ namespace Banco_de_pruebas
             // 
             // txtbx_decc
             // 
-            this.txtbx_decc.Location = new System.Drawing.Point(6, 302);
+            this.txtbx_decc.Location = new System.Drawing.Point(9, 220);
             this.txtbx_decc.MaxLength = 4;
             this.txtbx_decc.Name = "txtbx_decc";
             this.txtbx_decc.Size = new System.Drawing.Size(116, 20);
@@ -676,7 +655,7 @@ namespace Banco_de_pruebas
             // 
             // txtbx_acel
             // 
-            this.txtbx_acel.Location = new System.Drawing.Point(6, 255);
+            this.txtbx_acel.Location = new System.Drawing.Point(9, 173);
             this.txtbx_acel.MaxLength = 4;
             this.txtbx_acel.Name = "txtbx_acel";
             this.txtbx_acel.Size = new System.Drawing.Size(116, 20);
@@ -684,7 +663,7 @@ namespace Banco_de_pruebas
             // 
             // txt_box_vel2
             // 
-            this.txt_box_vel2.Location = new System.Drawing.Point(6, 211);
+            this.txt_box_vel2.Location = new System.Drawing.Point(9, 129);
             this.txt_box_vel2.MaxLength = 4;
             this.txt_box_vel2.Name = "txt_box_vel2";
             this.txt_box_vel2.Size = new System.Drawing.Size(116, 20);
@@ -692,7 +671,7 @@ namespace Banco_de_pruebas
             // 
             // txt_box_vel1
             // 
-            this.txt_box_vel1.Location = new System.Drawing.Point(6, 167);
+            this.txt_box_vel1.Location = new System.Drawing.Point(9, 85);
             this.txt_box_vel1.MaxLength = 4;
             this.txt_box_vel1.Name = "txt_box_vel1";
             this.txt_box_vel1.Size = new System.Drawing.Size(116, 20);
@@ -702,7 +681,7 @@ namespace Banco_de_pruebas
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label28.Location = new System.Drawing.Point(4, 419);
+            this.label28.Location = new System.Drawing.Point(7, 340);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(78, 13);
             this.label28.TabIndex = 28;
@@ -714,14 +693,14 @@ namespace Banco_de_pruebas
             this.cbx_sentido.Items.AddRange(new object[] {
             "Antihorario",
             "Horario"});
-            this.cbx_sentido.Location = new System.Drawing.Point(6, 435);
+            this.cbx_sentido.Location = new System.Drawing.Point(9, 356);
             this.cbx_sentido.Name = "cbx_sentido";
             this.cbx_sentido.Size = new System.Drawing.Size(116, 21);
             this.cbx_sentido.TabIndex = 8;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(6, 479);
+            this.button5.Location = new System.Drawing.Point(10, 393);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 7;
@@ -731,7 +710,7 @@ namespace Banco_de_pruebas
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(133, 120);
+            this.button1.Location = new System.Drawing.Point(136, 41);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 21);
             this.button1.TabIndex = 27;
@@ -743,7 +722,7 @@ namespace Banco_de_pruebas
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label14.Location = new System.Drawing.Point(3, 369);
+            this.label14.Location = new System.Drawing.Point(6, 290);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(40, 13);
             this.label14.TabIndex = 24;
@@ -753,7 +732,7 @@ namespace Banco_de_pruebas
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label17.Location = new System.Drawing.Point(7, 325);
+            this.label17.Location = new System.Drawing.Point(10, 243);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(40, 13);
             this.label17.TabIndex = 21;
@@ -763,7 +742,7 @@ namespace Banco_de_pruebas
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label16.Location = new System.Drawing.Point(7, 190);
+            this.label16.Location = new System.Drawing.Point(10, 108);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(144, 13);
             this.label16.TabIndex = 18;
@@ -776,7 +755,7 @@ namespace Banco_de_pruebas
             "Pulse",
             "Reversing",
             "Continous"});
-            this.cbx_modes.Location = new System.Drawing.Point(6, 120);
+            this.cbx_modes.Location = new System.Drawing.Point(9, 41);
             this.cbx_modes.Name = "cbx_modes";
             this.cbx_modes.Size = new System.Drawing.Size(121, 21);
             this.cbx_modes.TabIndex = 17;
@@ -786,7 +765,7 @@ namespace Banco_de_pruebas
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label15.Location = new System.Drawing.Point(9, 104);
+            this.label15.Location = new System.Drawing.Point(12, 25);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(103, 13);
             this.label15.TabIndex = 15;
@@ -796,7 +775,7 @@ namespace Banco_de_pruebas
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label13.Location = new System.Drawing.Point(3, 278);
+            this.label13.Location = new System.Drawing.Point(6, 196);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(184, 13);
             this.label13.TabIndex = 11;
@@ -806,7 +785,7 @@ namespace Banco_de_pruebas
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label12.Location = new System.Drawing.Point(7, 234);
+            this.label12.Location = new System.Drawing.Point(10, 152);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(162, 13);
             this.label12.TabIndex = 8;
@@ -816,7 +795,7 @@ namespace Banco_de_pruebas
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label11.Location = new System.Drawing.Point(9, 144);
+            this.label11.Location = new System.Drawing.Point(12, 65);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(144, 13);
             this.label11.TabIndex = 6;
@@ -826,7 +805,7 @@ namespace Banco_de_pruebas
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label10.Location = new System.Drawing.Point(6, 60);
+            this.label10.Location = new System.Drawing.Point(355, 256);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(159, 13);
             this.label10.TabIndex = 4;
@@ -834,7 +813,7 @@ namespace Banco_de_pruebas
             // 
             // btn_start
             // 
-            this.btn_start.Location = new System.Drawing.Point(6, 76);
+            this.btn_start.Location = new System.Drawing.Point(358, 272);
             this.btn_start.Name = "btn_start";
             this.btn_start.Size = new System.Drawing.Size(75, 23);
             this.btn_start.TabIndex = 3;
@@ -845,7 +824,7 @@ namespace Banco_de_pruebas
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label9.Location = new System.Drawing.Point(6, 15);
+            this.label9.Location = new System.Drawing.Point(355, 190);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(153, 13);
             this.label9.TabIndex = 2;
@@ -861,7 +840,7 @@ namespace Banco_de_pruebas
             // 
             // btn_En
             // 
-            this.btn_En.Location = new System.Drawing.Point(6, 31);
+            this.btn_En.Location = new System.Drawing.Point(358, 206);
             this.btn_En.Name = "btn_En";
             this.btn_En.Size = new System.Drawing.Size(75, 23);
             this.btn_En.TabIndex = 0;
@@ -872,7 +851,7 @@ namespace Banco_de_pruebas
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(181, 1);
+            this.label7.Location = new System.Drawing.Point(312, 1);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(433, 25);
             this.label7.TabIndex = 4;
@@ -958,7 +937,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button2;
-        public System.Windows.Forms.Label label18;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label26;
@@ -990,6 +968,5 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button Save_UserSettings;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Label label4;
     }
 }

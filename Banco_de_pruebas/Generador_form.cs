@@ -7,18 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Banco_de_pruebas
 {
     public partial class Generador_form : Form
     {
         string dato, palabraSettings;      //para los datos 
-        sbyte index0fZ, index0fY, index0fX, index0fN, index0fM, index0fL, index0fK, index0fJ, index0fI, index0fH, index0fG;
-        String dataMod1, dataMod2, dataMod3, dataMod6, dataMod7, dataMod8, dataMod9, dataMod10, dataMod11, dataMod12, dataMod13;
+        sbyte index0fZ, index0fY, index0fX;
+        String dataMod1, dataMod2, dataMod3;
 
         bool setting_F; //bandera para tab settings 
         bool test = false; //bandera para tab settings
-                        //
+        bool StatusButton_axis = true;
+        bool StatusButton_start = true; 
+        //
         //variables de creación text file 
         string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
         string namefileDef = @"Log_"; //constante
@@ -36,19 +39,43 @@ namespace Banco_de_pruebas
         {
             Variables.initFirstGEN = true;  //en true por que se acaba de inicializar form 
             Save_UserSettings.Enabled = false; //botón de guardar parametros en false 
+            
+            btn_En.Enabled = false;
+            btn_start.Enabled = false;
 
+            setting_F = true; 
             timer1.Enabled = false; //deshabilitar timer1 
-            timer2.Enabled = true; 
+            timer2.Enabled = true;
 
-            //timer1.Interval = 4250; //tiempo que le damos para que lea los datos de monitoreo iniciales modbus al abrir ventana 
-            //(this.Owner as Form_inicial).serialPort1.Write("B2$"); //comando para arduino, inicializar programa modo generador
+            button4.Enabled = false;
+            btn_start.Enabled = false; 
+
+            button3.Click += new EventHandler(MultiBtn_Click);
+            btn_En.Click += new EventHandler(MultiBtn_Click);
+            button4.Click += new EventHandler(MultiBtn_Click2);
+            btn_start.Click += new EventHandler(MultiBtn_Click2);
+
+
+            (this.Owner as Form_inicial).serialPort1.Write("B2$"); //freno 
+
+            //yo se que estan en blanco por lo tanto: 
+            txt_box_vel1.Text = "100";
+            txt_box_vel2.Text = "200";
+            txtbx_acel.Text = "60";
+            txtbx_decc.Text = "60";
+            txt_box_t1.Text = "8000";
+            txt_box_t2.Text = "8000";
+            cbx_modes.SelectedIndex = 1;
+            cbx_sentido.SelectedIndex = 1; 
+
+
+
+
+
+
 
             (this.Owner as Form_inicial).Enabled = false; //congelamos ventana principal 
             Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
-            
-            //cuango cargue, settear configuracion predefinida al inicio del form: 
-            
-            //tipo de movimiento: 
 
         }
 
@@ -61,7 +88,7 @@ namespace Banco_de_pruebas
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
         {
-            MessageBox.Show("hola timer1");
+           // MessageBox.Show("hola timer1");
             if (Convert.ToString(dataMod2) == "1" && Tabs_generator.SelectedIndex == 1)
             { //si te vas a tab settings y esta activo driver, no dejar cambiar funciones hasta que lo desact
 
@@ -84,115 +111,25 @@ namespace Banco_de_pruebas
             }
             else  //monitoreo normal 
             {
-                if (Variables.initFirstGEN)
-                { //si es primera vez de inicio, tomar valores por default 
+                //if (Variables.initFirstGEN)
+                //{ //si es primera vez de inicio, tomar valores por default 
 
-                   // while (Variables.SerialPresent == false) {
-                        //MessageBox.Show("wait");
-                        // System.Threading.Thread.Sleep(250);
-                    //}  //aqui me espero hasta que arduino mande el dato !!     //esperar a Serial Present == true ;
+                    //dato = Variables.var; //tomo el valor que hay en serial
+                    //timer1.Interval = 1500; //para la primera vez
+                    //Variables.initFirstGEN = false;
+                   // Variables.SerialPresent = false; //no se usa 
 
-                    dato = Variables.var; //tomo el valor que hay en serial
-                    timer1.Interval = 1500; //para la primera vez
-                    Variables.initFirstGEN = false;
-                    Variables.SerialPresent = false; //no se usa 
-
-                    //MessageBox.Show(dato);
-
-                    /*try //saco los datos por default entregados por arduino 
-                    {
-                        index0fM = Convert.ToSByte(dato.IndexOf("M"));
-                        index0fN = Convert.ToSByte(dato.IndexOf("N"));
-                        index0fL = Convert.ToSByte(dato.IndexOf("L"));
-                        index0fK = Convert.ToSByte(dato.IndexOf("K"));
-                        index0fJ = Convert.ToSByte(dato.IndexOf("J"));
-                        index0fI = Convert.ToSByte(dato.IndexOf("I"));
-                        index0fH = Convert.ToSByte(dato.IndexOf("H"));
-                        index0fG = Convert.ToSByte(dato.IndexOf("G"));
-
-                        dataMod6 = dato.Substring(0, index0fM); //M
-                        dataMod7 = dato.Substring(index0fM + 1, (index0fN - index0fM) - 1); //N
-                        dataMod8 = dato.Substring(index0fN + 1, (index0fL - index0fN) - 1); //L
-                        dataMod9 = dato.Substring(index0fL + 1, (index0fK - index0fL) - 1); //K
-                        dataMod10 = dato.Substring(index0fK + 1, (index0fJ - index0fK) - 1); //J
-                        dataMod11 = dato.Substring(index0fJ + 1, (index0fI - index0fJ) - 1); //I
-                        dataMod12 = dato.Substring(index0fI + 1, (index0fH - index0fI) - 1); //H
-                        dataMod13 = dato.Substring(index0fH + 1, (index0fG - index0fH) - 1); //G
-                        
-                        double numero1 = Convert.ToDouble(dataMod6);
-                        double numero2 = Math.Round((numero1 * 100) / (1747625), 2);
-                        label23.Text = Convert.ToString(numero2); //velocidad1 modbus set
-                        numero2 = Math.Round(numero2, 0);
-                        txt_box_vel1.Text = Convert.ToString(numero2); 
-                        
-                        double numero3 = Convert.ToDouble(dataMod7);
-                        double numero4 = Math.Round((numero3 * 100) / (1747625), 2);
-                        label24.Text = Convert.ToString(numero4); //velocidad2 modbus set 
-                        numero4 = Math.Round(numero4, 0);
-                        txt_box_vel2.Text = Convert.ToString(numero4); ;
-
-                        double numero5 = Convert.ToDouble(dataMod8);
-                        double numero6 = Math.Round((numero5 * 80) / (1398437), 2);
-                        label25.Text = Convert.ToString(numero6); //ACC modbus set 
-                        numero6 = Math.Round(numero6, 0);
-                        txtbx_acel.Text = Convert.ToString(numero6);
-
-                        double numero7 = Convert.ToDouble(dataMod9);
-                        double numero8 = Math.Round((numero7 * 80) / (1398437), 2);
-                        label26.Text = Convert.ToString(numero8); //Decc modbus set
-                        numero8 = Math.Round(numero8, 0);
-                        txtbx_decc.Text = Convert.ToString(numero8);
-
-                        label30.Text = dataMod10; //timer1 
-                        txt_box_t1.Text = dataMod10;
-                         
-                        label32.Text = dataMod11; //timer2 
-                        txt_box_t2.Text = dataMod11;
-
-                        if (dataMod12 == "0") //giro
-                        {
-                            label34.Text = "Antihorario";
-                            cbx_sentido.SelectedIndex = 0;
-                        }
-                        else if (dataMod12 == "1") {
-                            label34.Text = "Horario";
-                            cbx_sentido.SelectedIndex = 1;
-                        }
-
-                        if (dataMod13 == "0" && dataMod10 == "0") //tipo de movimiento servomotor setteado 
-                        { 
-                            label36.Text = "Continous";
-                            cbx_modes.SelectedIndex = 2;
-                        }
-                        else if (dataMod13 == "0" && dataMod10 != "0")
-                        {
-                            label36.Text = "Pulse";
-                            cbx_modes.SelectedIndex = 0;
-
-                        }
-                        else {
-                            label36.Text = "Reversing";
-                            cbx_modes.SelectedIndex = 1;
-                        }
-
-
-
-                    }
-                    catch (Exception error)
-                    {
-                     MessageBox.Show("Error en datos ajustes setteados");
-                   }
-                    */
-                }
-                else //monitoreo normal, no incial 
-                {
+                //}
+                //else //monitoreo normal, no incial 
+                //{
                     dato = Variables.var;
                     label6.Text = Variables.var;
                     timer1.Interval = 350;
                     this.BeginInvoke(new EventHandler(ProcessData));
 
-                }
+                //}
             }
+            
         }
 
         private void ProcessData(object sender, EventArgs e) //Parte de timer1_tick condicionando variables a mostrar
@@ -249,9 +186,9 @@ namespace Banco_de_pruebas
             else if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true)) {
 
                 (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
-                label18.Text = "volvi"; //debug 
+                //label18.Text = "volvi"; //debug 
                 setting_F = false;
-                timer1.Interval = 1500; //para la primera vez
+                timer1.Interval = 900; //para la primera vez
                 timer2.Enabled = false;
                 timer1.Enabled = true; //activo timer de monitoreo 
 
@@ -260,24 +197,33 @@ namespace Banco_de_pruebas
             }
 
 
-              /*  if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true))
-            { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
+            /*  if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true))
+          { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
 
-                (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
-                label18.Text = "volvi"; //debug 
-                setting_F = false;
-                timer1.Interval = 1500; //para la primera vez
-                timer2.Enabled = false;
-                timer1.Enabled = true; //activo timer de monitoreo 
-            }*/
+              (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
+              label18.Text = "volvi"; //debug 
+              setting_F = false;
+              timer1.Interval = 1500; //para la primera vez
+              timer2.Enabled = false;
+              timer1.Enabled = true; //activo timer de monitoreo 
+          }*/
+            
         }
 
 
         private void button5_Click(object sender, EventArgs e) //button set settings is clicked , validar datos de entrada 
         {
             //validar modo de operación
-            if (cbx_modes.SelectedIndex == 0) { palabraSettings = "0A"; }
-            else if (cbx_modes.SelectedIndex == 1) { palabraSettings = "1A"; }
+            if (cbx_modes.SelectedIndex == 0) { 
+                palabraSettings = "0A";
+                label36.Text = "Pulse";
+
+
+            }
+            else if (cbx_modes.SelectedIndex == 1) { 
+                palabraSettings = "1A";
+                label36.Text = "Reversing"; 
+            }
             else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "0A"; }
             else //default 
             {
@@ -372,6 +318,7 @@ namespace Banco_de_pruebas
             if (cbx_modes.SelectedIndex == 2)
             {
                 txt_box_t1.Text = "0"; //poner timer en 0; 
+                label36.Text = "Continous"; 
                 double num1 = Convert.ToDouble(txt_box_t1.Text);
                 num1 = Math.Round(num1);
                 palabraSettings = palabraSettings + (int)num1 + "F";
@@ -382,6 +329,7 @@ namespace Banco_de_pruebas
             {
                 double num1 = Convert.ToDouble(txt_box_t1.Text);
                 num1 = Math.Round(num1);
+               // label36.Text = "Pulse454564";
                 palabraSettings = palabraSettings + (int)num1 + "F";
                 label30.Text = txt_box_t1.Text;
             }
@@ -425,22 +373,26 @@ namespace Banco_de_pruebas
             if (cbx_sentido.SelectedIndex == 0)
             {
                 palabraSettings = palabraSettings + '0' + 'H';
-                label34.Text = "Horario";
+                label34.Text = "Antihorario";
             }
             else if (cbx_sentido.SelectedIndex == 1)
             {
                 palabraSettings = palabraSettings + '1' + 'H';
-                label34.Text = "Antihorario";
+                label34.Text = "Horario";
             }
             else {
-                cbx_sentido.SelectedIndex = 0;
-                palabraSettings = palabraSettings + '0' + 'H';
+                cbx_sentido.SelectedIndex = 1;
+                palabraSettings = palabraSettings + '1' + 'H';
                 label34.Text = "Horario";
             }
 
 
 
             //string a mandar 
+            test = true; //ya mandó el usuario parametros ok para el servomotor
+            btn_En.Enabled = true; 
+            btn_start.Enabled = true; 
+
             label27.Text = palabraSettings;
             Save_UserSettings.Enabled = true; //habilita boton de guardar parametros ya que ya se validaron datos y son ok 
             palabraSettings = palabraSettings + "$"; 
@@ -448,6 +400,8 @@ namespace Banco_de_pruebas
 
 
         } //botón de set settings 
+
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)//validación del tipo de movimiento servomotor
         {
@@ -553,7 +507,7 @@ namespace Banco_de_pruebas
 
             namefile = "";
             counterFilecreator++;
-
+            MessageBox.Show("¡Parametros guardados en text file!"); 
         }
 
         private void button1_Click(object sender, EventArgs e) //al presionar botton help debe de mostrar imagen de ayuda de modos de operacion 
@@ -561,6 +515,77 @@ namespace Banco_de_pruebas
             Help_modes_form F5 = new Help_modes_form();
             F5.Owner = this;
             F5.Show();
+         
+        }
+
+        
+
+        void MultiBtn_Click(Object sender, EventArgs e) //vinculacion al boton axis 
+        {
+            try
+            {
+                if (StatusButton_axis)
+                {
+                    
+                    
+                    (this.Owner as Form_inicial).serialPort1.Write("G2$"); //actiVa la potencia
+                    button4.Enabled = true;
+                    btn_start.Enabled = true;
+                    button3.Text = "Axis Disable";
+                    btn_En.Text = "Axis Disable";
+                    StatusButton_axis = false;
+
+
+                }
+                else
+                {
+                    (this.Owner as Form_inicial).serialPort1.Write("H2$");
+                    button4.Enabled = false;
+                    btn_start.Enabled = false;
+                    button3.Text = "Axis Enable";
+                    btn_En.Text = "Axis Enable";
+                    StatusButton_axis = true;
+
+                }
+
+            }
+            catch (Exception error)
+            {
+
+                MessageBox.Show(error.Message);
+            }
+        }
+
+        void MultiBtn_Click2(Object sender, EventArgs e) //vinculacion al boton axis 
+        {
+            try
+            {
+                if (StatusButton_start)
+                {
+
+
+                    (this.Owner as Form_inicial).serialPort1.Write("I2$"); //actiVa la potencia
+                    button4.Text = "STOP";
+                    btn_start.Text = "STOP";
+                    StatusButton_start = false;
+
+
+                }
+                else
+                {
+                    (this.Owner as Form_inicial).serialPort1.Write("J2$");
+                    button4.Text = "START";
+                    btn_start.Text = "START";
+                    StatusButton_start = true;
+
+                }
+
+            }
+            catch (Exception error)
+            {
+
+                MessageBox.Show(error.Message);
+            }
         }
 
     }
