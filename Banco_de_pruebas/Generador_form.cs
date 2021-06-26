@@ -16,19 +16,19 @@ namespace Banco_de_pruebas
         string dato, palabraSettings;      //para los datos 
         sbyte index0fZ, index0fY, index0fX;
         String dataMod1, dataMod2, dataMod3;
+        string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8; 
 
         bool setting_F; //bandera para tab settings 
         bool test = false; //bandera para tab settings
         bool StatusButton_axis = true;
-        bool StatusButton_start = true; 
+        bool StatusButton_start = true;
+        bool error_data = false; 
         //
         //variables de creación text file 
         string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
         string namefileDef = @"Log_"; //constante
         string namefile;
         int counterFilecreator = 0;
-
-
 
         public Generador_form()
         {
@@ -69,11 +69,6 @@ namespace Banco_de_pruebas
             cbx_sentido.SelectedIndex = 1; 
 
 
-
-
-
-
-
             (this.Owner as Form_inicial).Enabled = false; //congelamos ventana principal 
             Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
 
@@ -81,6 +76,22 @@ namespace Banco_de_pruebas
 
         private void Generador_form_FormClosing(object sender, FormClosingEventArgs e) // al cerrar formulario
         {
+            
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                e.Cancel = false;
+            else
+                e.Cancel = true;
+
+            if (Convert.ToString(dataMod2) == "1") {  //si la prueba esta activa 
+                MessageBox.Show("¡La prueba se detendrá!");
+                button4.PerformClick();
+                Thread.Sleep(850);
+                button3.PerformClick();
+                Thread.Sleep(850);
+
+            }
+
+
             Variables.initFirstGEN = false; //en false por que se elimina form 
             (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
             (this.Owner as Form_inicial).Enabled = true;
@@ -88,7 +99,6 @@ namespace Banco_de_pruebas
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
         {
-           // MessageBox.Show("hola timer1");
             if (Convert.ToString(dataMod2) == "1" && Tabs_generator.SelectedIndex == 1)
             { //si te vas a tab settings y esta activo driver, no dejar cambiar funciones hasta que lo desact
 
@@ -107,27 +117,18 @@ namespace Banco_de_pruebas
                 (this.Owner as Form_inicial).serialPort1.Write("E2$"); //Comando de detencción monitoreo MODBUS
                 setting_F = true; //bandera de que ingreso a la tab de settings 
                 timer1.Enabled = false; 
-                timer2.Enabled = true;  
+                timer2.Enabled = true;
+
+         
+
             }
             else  //monitoreo normal 
             {
-                //if (Variables.initFirstGEN)
-                //{ //si es primera vez de inicio, tomar valores por default 
 
-                    //dato = Variables.var; //tomo el valor que hay en serial
-                    //timer1.Interval = 1500; //para la primera vez
-                    //Variables.initFirstGEN = false;
-                   // Variables.SerialPresent = false; //no se usa 
-
-                //}
-                //else //monitoreo normal, no incial 
-                //{
                     dato = Variables.var;
                     label6.Text = Variables.var;
                     timer1.Interval = 350;
                     this.BeginInvoke(new EventHandler(ProcessData));
-
-                //}
             }
             
         }
@@ -177,7 +178,22 @@ namespace Banco_de_pruebas
         private void timer2_Tick(object sender, EventArgs e) //Timer 2, accionamiento de monitoreo normal nuevamente
         {
 
-            if ((Tabs_generator.SelectedIndex == 0) && (test == false) )
+            //aqui poner el de modificacion de valores en textbox: 
+
+            if (mem1 != Convert.ToString(cbx_modes.SelectedIndex) || (mem2 != txt_box_vel1.Text) || (mem3 != txt_box_vel2.Text) || (mem4 != txtbx_acel.Text) ||
+                (mem5 != txtbx_decc.Text) || (mem6 != txt_box_t1.Text) || (mem7 != txt_box_t2.Text) || (mem8 != Convert.ToString(cbx_sentido.SelectedIndex)))
+            {
+                Save_UserSettings.Enabled = false;
+            }
+            else {
+                Save_UserSettings.Enabled = true; 
+            }
+
+
+
+
+
+            if ((Tabs_generator.SelectedIndex == 0) && ((test == false) || (error_data == true )))
             {
                 
                 Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
@@ -213,191 +229,227 @@ namespace Banco_de_pruebas
 
         private void button5_Click(object sender, EventArgs e) //button set settings is clicked , validar datos de entrada 
         {
-            //validar modo de operación
-            if (cbx_modes.SelectedIndex == 0) { 
-                palabraSettings = "0A";
-                label36.Text = "Pulse";
-
-
-            }
-            else if (cbx_modes.SelectedIndex == 1) { 
-                palabraSettings = "1A";
-                label36.Text = "Reversing"; 
-            }
-            else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "0A"; }
-            else //default 
+            try
             {
-                cbx_modes.SelectedIndex = 1;
-                palabraSettings = "1A";
-            }
+                //validar modo de operación
+                if (cbx_modes.SelectedIndex == 0)
+                {
+                    palabraSettings = "0A";
+                    label36.Text = "Pulse";
+                    mem1 = Convert.ToString(cbx_modes.SelectedIndex);
 
-            //Validar velocidad1 
+
+
+                }
+                else if (cbx_modes.SelectedIndex == 1)
+                {
+                    palabraSettings = "1A";
+                    label36.Text = "Reversing";
+                    mem1 = Convert.ToString(cbx_modes.SelectedIndex);
+                }
+                else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "0A"; }
+                else //default 
+                {
+                    cbx_modes.SelectedIndex = 1;
+                    palabraSettings = "1A";
+                    mem1 = Convert.ToString(cbx_modes.SelectedIndex);
+                }
+
+                //Validar velocidad1 
                 if (Convert.ToInt32(txt_box_vel1.Text) >= 50 && Convert.ToInt32(txt_box_vel1.Text) <= 1000)
+                {
+                    double num1 = Convert.ToDouble(txt_box_vel1.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 27) / 101.276;
+                    palabraSettings = palabraSettings + (int)num1 + "B";
+                    label23.Text = txt_box_vel1.Text;
+                    mem2 = txt_box_vel1.Text;
+                }
+                else
+                {
+                    txt_box_vel1.Text = "100";
+                    double num1 = Convert.ToDouble(txt_box_vel1.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 27) / 101.276;
+                    palabraSettings = palabraSettings + (int)num1 + "B";
+                    label23.Text = txt_box_vel1.Text;
+                    mem2 = txt_box_vel1.Text;
+
+                }
+
+                //Validar velocidad2
+
+                if (Convert.ToInt32(txt_box_vel2.Text) >= 50 && Convert.ToInt32(txt_box_vel2.Text) <= 1000)
+                {
+                    double num1 = Convert.ToDouble(txt_box_vel2.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 27) / 101.276;
+                    palabraSettings = palabraSettings + (int)num1 + "C";
+                    label24.Text = txt_box_vel2.Text;
+                    mem3 = txt_box_vel2.Text;
+                }
+                else
+                {
+                    txt_box_vel2.Text = "100";
+                    double num1 = Convert.ToDouble(txt_box_vel2.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 27) / 101.276;
+                    palabraSettings = palabraSettings + (int)num1 + "C";
+                    label24.Text = txt_box_vel2.Text;
+                    mem3 = txt_box_vel2.Text;
+
+                }
+
+                //Validar acceleración 
+
+                if (Convert.ToInt32(txtbx_acel.Text) >= 20 && Convert.ToInt32(txtbx_acel.Text) <= 1100)
+                {
+                    double num1 = Convert.ToDouble(txtbx_acel.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 21.1) / 79.796;
+                    palabraSettings = palabraSettings + (int)num1 + "D";
+                    label25.Text = txtbx_acel.Text;
+                    mem4 = txtbx_acel.Text;
+
+                }
+                else
+                {
+                    txtbx_acel.Text = "80";
+                    double num1 = Convert.ToDouble(txtbx_acel.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 21.1) / 79.796;
+                    palabraSettings = palabraSettings + (int)num1 + "D";
+                    label25.Text = txtbx_acel.Text;
+                    mem4 = txtbx_acel.Text;
+
+                }
+
+                //valididar desacceleración 
+                if (Convert.ToInt32(txtbx_decc.Text) >= 20 && Convert.ToInt32(txtbx_decc.Text) <= 1100)
+                {
+                    double num1 = Convert.ToDouble(txtbx_decc.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 21.1) / 79.796;
+                    palabraSettings = palabraSettings + (int)num1 + "E";
+                    label26.Text = txtbx_decc.Text;
+                    mem5 = txtbx_decc.Text;
+                }
+                else
+                {
+                    txtbx_decc.Text = "80";
+                    double num1 = Convert.ToDouble(txtbx_decc.Text);
+                    num1 = Math.Round(num1);
+                    num1 = (num1 * 21.1) / 79.796;
+                    palabraSettings = palabraSettings + (int)num1 + "E";
+                    label26.Text = txtbx_decc.Text;
+                    mem5 = txtbx_decc.Text;
+
+                }
+
+                //validación de valor de entrada Tiempo 1 
+
+                if (cbx_modes.SelectedIndex == 2)
+                {
+                    txt_box_t1.Text = "0"; //poner timer en 0; 
+                    label36.Text = "Continous";
+                    double num1 = Convert.ToDouble(txt_box_t1.Text);
+                    num1 = Math.Round(num1);
+                    palabraSettings = palabraSettings + (int)num1 + "F";
+                    label30.Text = txt_box_t1.Text;
+                    mem6 = txt_box_t1.Text;
+                }
+
+                else if (Convert.ToInt32(txt_box_t1.Text) >= 100 && Convert.ToInt32(txt_box_t1.Text) <= 60000)
+                {
+                    double num1 = Convert.ToDouble(txt_box_t1.Text);
+                    num1 = Math.Round(num1);
+                    // label36.Text = "Pulse454564";
+                    palabraSettings = palabraSettings + (int)num1 + "F";
+                    label30.Text = txt_box_t1.Text;
+                    mem6 = txt_box_t1.Text;
+                }
+                else
+                {
+                    txt_box_t1.Text = "1000"; //poner timer en 0; 
+                    double num1 = Convert.ToDouble(txt_box_t1.Text);
+                    num1 = Math.Round(num1);
+                    palabraSettings = palabraSettings + (int)num1 + "F";
+                    label30.Text = txt_box_t1.Text;
+                    mem6 = txt_box_t1.Text;
+
+                }
+
+                //validación de valor de entrada Tiempo 2 
+                if (txt_box_t2.Text == "")
+                {
+                    txt_box_t2.Text = "1000"; //poner timer en 0; 
+                    double num1 = Convert.ToDouble(txt_box_t2.Text);
+                    num1 = Math.Round(num1);
+                    palabraSettings = palabraSettings + (int)num1 + "G";
+                    label32.Text = txt_box_t2.Text;
+                    mem7 = txt_box_t2.Text;
+                }
+
+                else if (Convert.ToInt32(txt_box_t2.Text) >= 100 && Convert.ToInt32(txt_box_t2.Text) <= 60000)
+                {
+                    double num1 = Convert.ToDouble(txt_box_t2.Text);
+                    num1 = Math.Round(num1);
+                    palabraSettings = palabraSettings + (int)num1 + "G";
+                    label32.Text = txt_box_t2.Text;
+                    mem7 = txt_box_t2.Text;
+                }
+                else
+                {
+                    txt_box_t2.Text = "1000"; //poner timer en 0; 
+                    double num1 = Convert.ToDouble(txt_box_t2.Text);
+                    num1 = Math.Round(num1);
+                    palabraSettings = palabraSettings + (int)num1 + "G";
+                    label32.Text = txt_box_t2.Text;
+                    mem7 = txt_box_t2.Text;
+
+                }
+
+                //validación de valor de entrada Giro 
+                if (cbx_sentido.SelectedIndex == 0)
+                {
+                    palabraSettings = palabraSettings + '0' + 'H';
+                    label34.Text = "Antihorario";
+                    mem8 = Convert.ToString(cbx_sentido.SelectedIndex);
+                }
+                else if (cbx_sentido.SelectedIndex == 1)
+                {
+                    palabraSettings = palabraSettings + '1' + 'H';
+                    label34.Text = "Horario";
+                    mem8 = Convert.ToString(cbx_sentido.SelectedIndex);
+                }
+                else
+                {
+                    cbx_sentido.SelectedIndex = 1;
+                    palabraSettings = palabraSettings + '1' + 'H';
+                    label34.Text = "Horario";
+                    mem8 = Convert.ToString(cbx_sentido.SelectedIndex);
+                }
+
+
+
+                //string a mandar 
+                test = true; //ya mandó el usuario parametros ok para el servomotor
+                btn_En.Enabled = true;
+                btn_start.Enabled = true;
+
+                label27.Text = palabraSettings;
+                Save_UserSettings.Enabled = true; //habilita boton de guardar parametros ya que ya se validaron datos y son ok 
+                palabraSettings = palabraSettings + "$";
+                (this.Owner as Form_inicial).serialPort1.Write(palabraSettings); //hacia arduino 
+                error_data = false; 
+
+            }
+            catch (Exception error)
             {
-                double num1 = Convert.ToDouble(txt_box_vel1.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 27) / 101.276;
-                palabraSettings = palabraSettings + (int)num1 + "B";
-                label23.Text = txt_box_vel1.Text; 
+                error_data = true;
+                MessageBox.Show("Error en la entrada de datos");
+                
             }
-            else {
-                txt_box_vel1.Text = "100";
-                double num1 = Convert.ToDouble(txt_box_vel1.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 27) / 101.276;
-                palabraSettings = palabraSettings + (int)num1 + "B";
-                label23.Text = txt_box_vel1.Text;
-
-            }
-
-            //Validar velocidad2
-
-            if (Convert.ToInt32(txt_box_vel2.Text) >= 50 && Convert.ToInt32(txt_box_vel2.Text) <= 1000)
-            {
-                double num1 = Convert.ToDouble(txt_box_vel2.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 27) / 101.276;
-                palabraSettings = palabraSettings + (int)num1 + "C";
-                label24.Text = txt_box_vel2.Text;
-            }
-            else
-            {
-                txt_box_vel2.Text = "100";
-                double num1 = Convert.ToDouble(txt_box_vel2.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 27) / 101.276;
-                palabraSettings = palabraSettings + (int)num1 + "C";
-                label24.Text = txt_box_vel2.Text;
-
-            }
-
-            //Validar acceleración 
-
-            if (Convert.ToInt32(txtbx_acel.Text) >= 20 && Convert.ToInt32(txtbx_acel.Text) <= 1100)
-            {
-                double num1 = Convert.ToDouble(txtbx_acel.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 21.1) / 79.796;
-                palabraSettings = palabraSettings + (int)num1 + "D";
-                label25.Text = txtbx_acel.Text;
-
-            }
-            else
-            {
-                txtbx_acel.Text = "80";
-                double num1 = Convert.ToDouble(txtbx_acel.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 21.1) / 79.796;
-                palabraSettings = palabraSettings + (int)num1 + "D";
-                label25.Text = txtbx_acel.Text;
-
-            }
-
-            //valididar desacceleración 
-            if (Convert.ToInt32(txtbx_decc.Text) >= 20 && Convert.ToInt32(txtbx_decc.Text) <= 1100)
-            {
-                double num1 = Convert.ToDouble(txtbx_decc.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 21.1) / 79.796;
-                palabraSettings = palabraSettings + (int)num1 + "E";
-                label26.Text = txtbx_decc.Text;
-            }
-            else
-            {
-                txtbx_decc.Text = "80";
-                double num1 = Convert.ToDouble(txtbx_decc.Text);
-                num1 = Math.Round(num1);
-                num1 = (num1 * 21.1) / 79.796;
-                palabraSettings = palabraSettings + (int)num1 + "E";
-                label26.Text = txtbx_decc.Text;
-
-            }
-
-            //validación de valor de entrada Tiempo 1 
-
-            if (cbx_modes.SelectedIndex == 2)
-            {
-                txt_box_t1.Text = "0"; //poner timer en 0; 
-                label36.Text = "Continous"; 
-                double num1 = Convert.ToDouble(txt_box_t1.Text);
-                num1 = Math.Round(num1);
-                palabraSettings = palabraSettings + (int)num1 + "F";
-                label30.Text = txt_box_t1.Text;
-            }
-
-            else if (Convert.ToInt32(txt_box_t1.Text) >= 100 && Convert.ToInt32(txt_box_t1.Text) <= 60000)
-            {
-                double num1 = Convert.ToDouble(txt_box_t1.Text);
-                num1 = Math.Round(num1);
-               // label36.Text = "Pulse454564";
-                palabraSettings = palabraSettings + (int)num1 + "F";
-                label30.Text = txt_box_t1.Text;
-            }
-            else {
-                txt_box_t1.Text = "1000"; //poner timer en 0; 
-                double num1 = Convert.ToDouble(txt_box_t1.Text);
-                num1 = Math.Round(num1);
-                palabraSettings = palabraSettings + (int)num1 + "F";
-                label30.Text = txt_box_t1.Text;
-
-            }
-
-            //validación de valor de entrada Tiempo 2 
-            if (txt_box_t2.Text == "")
-            {
-                txt_box_t2.Text = "1000"; //poner timer en 0; 
-                double num1 = Convert.ToDouble(txt_box_t2.Text);
-                num1 = Math.Round(num1);
-                palabraSettings = palabraSettings + (int)num1 + "G";
-                label32.Text = txt_box_t2.Text;
-            }
-
-            else if (Convert.ToInt32(txt_box_t2.Text) >= 100 && Convert.ToInt32(txt_box_t2.Text) <= 60000)
-            {
-                double num1 = Convert.ToDouble(txt_box_t2.Text);
-                num1 = Math.Round(num1);
-                palabraSettings = palabraSettings + (int)num1 + "G";
-                label32.Text = txt_box_t2.Text;
-            }
-            else
-            {
-                txt_box_t2.Text = "1000"; //poner timer en 0; 
-                double num1 = Convert.ToDouble(txt_box_t2.Text);
-                num1 = Math.Round(num1);
-                palabraSettings = palabraSettings + (int)num1 + "G";
-                label32.Text = txt_box_t2.Text;
-
-            }
-
-            //validación de valor de entrada Giro 
-            if (cbx_sentido.SelectedIndex == 0)
-            {
-                palabraSettings = palabraSettings + '0' + 'H';
-                label34.Text = "Antihorario";
-            }
-            else if (cbx_sentido.SelectedIndex == 1)
-            {
-                palabraSettings = palabraSettings + '1' + 'H';
-                label34.Text = "Horario";
-            }
-            else {
-                cbx_sentido.SelectedIndex = 1;
-                palabraSettings = palabraSettings + '1' + 'H';
-                label34.Text = "Horario";
-            }
-
-
-
-            //string a mandar 
-            test = true; //ya mandó el usuario parametros ok para el servomotor
-            btn_En.Enabled = true; 
-            btn_start.Enabled = true; 
-
-            label27.Text = palabraSettings;
-            Save_UserSettings.Enabled = true; //habilita boton de guardar parametros ya que ya se validaron datos y son ok 
-            palabraSettings = palabraSettings + "$"; 
-            (this.Owner as Form_inicial).serialPort1.Write(palabraSettings); //hacia arduino 
-
 
         } //botón de set settings 
 
