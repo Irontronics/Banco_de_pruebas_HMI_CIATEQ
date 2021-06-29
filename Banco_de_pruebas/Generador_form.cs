@@ -13,10 +13,13 @@ namespace Banco_de_pruebas
 {
     public partial class Generador_form : Form
     {
+        data_velocidad f11 = new data_velocidad();
         string dato, palabraSettings;      //para los datos 
         sbyte index0fZ, index0fY, index0fX;
         String dataMod1, dataMod2, dataMod3;
-        string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8; 
+        string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8;
+
+        int counter_time = 0; 
 
         bool setting_F; //bandera para tab settings 
         bool test = false; //bandera para tab settings
@@ -33,6 +36,12 @@ namespace Banco_de_pruebas
         public Generador_form()
         {
             InitializeComponent();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            f11.ShowDialog();
+            
         }
 
         private void Generador_form_Load(object sender, EventArgs e) //se carga por primera vez form
@@ -85,9 +94,9 @@ namespace Banco_de_pruebas
             if (Convert.ToString(dataMod2) == "1") {  //si la prueba esta activa 
                 MessageBox.Show("¡La prueba se detendrá!");
                 button4.PerformClick();
-                Thread.Sleep(850);
+                Thread.Sleep(6500);
                 button3.PerformClick();
-                Thread.Sleep(850);
+                Thread.Sleep(100);
 
             }
 
@@ -153,15 +162,35 @@ namespace Banco_de_pruebas
                     aGauge1.Value = Convert.ToSingle(numero2);
                     Speed_label.Text = numero2.ToString();
                     chart1.Series["Velocidad_c"].Points.Add(numero2);
-                    //exportar dato a txt file 
 
+                    //añadir renglon
+                    int n = f11.dataGridView1.Rows.Add();
+                    //Colocamos información
+                    f11.dataGridView1.Rows[n].Cells[0].Value = n;
+                    f11.dataGridView1.Rows[n].Cells[1].Value = numero2;
+                    f11.dataGridView1.Rows[n].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                 }
 
-                else
+                else //si es menor a 0 
                 {
+                    counter_time = counter_time + 1; 
                     Speed_label.Text = "0";
                     aGauge1.Value = 0;
-                    chart1.Series["Velocidad_c"].Points.Add(0);
+
+                    if (counter_time >= 25) //no graficar todos los ceros 
+                    {
+                        chart1.Series["Velocidad_c"].Points.Add(0);
+                        counter_time = 0;
+
+                        //añadir renglon
+                        int n = f11.dataGridView1.Rows.Add();
+                        //Colocamos información
+                        f11.dataGridView1.Rows[n].Cells[0].Value = n;
+                        f11.dataGridView1.Rows[n].Cells[1].Value = 0;
+                        f11.dataGridView1.Rows[n].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    }
+
+
                 } //representación de velocidad
 
 
@@ -617,8 +646,8 @@ namespace Banco_de_pruebas
 
 
                     (this.Owner as Form_inicial).serialPort1.Write("I2$"); //actiVa la potencia
-                    button4.Text = "STOP";
-                    btn_start.Text = "STOP";
+                    button4.Text = "Stop";
+                    btn_start.Text = "Stop";
                     StatusButton_start = false;
 
 
@@ -626,8 +655,8 @@ namespace Banco_de_pruebas
                 else
                 {
                     (this.Owner as Form_inicial).serialPort1.Write("J2$");
-                    button4.Text = "START";
-                    btn_start.Text = "START";
+                    button4.Text = "Start";
+                    btn_start.Text = "Start";
                     StatusButton_start = true;
 
                 }

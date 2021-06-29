@@ -53,6 +53,12 @@
     <Compile Include="AGauge.designer.cs">
       <DependentUpon>AGauge.cs</DependentUpon>
     </Compile>
+    <Compile Include="data_velocidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data_velocidad.Designer.cs">
+      <DependentUpon>data_velocidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="example1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -81,6 +87,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Variables.cs" />
+    <EmbeddedResource Include="data_velocidad.resx">
+      <DependentUpon>data_velocidad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

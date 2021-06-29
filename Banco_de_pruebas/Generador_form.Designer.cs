@@ -30,6 +30,10 @@ namespace Banco_de_pruebas
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -55,14 +59,13 @@ namespace Banco_de_pruebas
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.aGauge1 = new System.Windows.Forms.AGauge();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Stop_label = new System.Windows.Forms.Label();
@@ -96,19 +99,21 @@ namespace Banco_de_pruebas
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.btn_start = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btn_En = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btn_En = new System.Windows.Forms.Button();
+            this.btn_start = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.aGauge1 = new System.Windows.Forms.AGauge();
             this.Tabs_generator.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -133,14 +138,13 @@ namespace Banco_de_pruebas
             this.Tabs_generator.Location = new System.Drawing.Point(-2, -3);
             this.Tabs_generator.Name = "Tabs_generator";
             this.Tabs_generator.SelectedIndex = 0;
-            this.Tabs_generator.Size = new System.Drawing.Size(1095, 576);
+            this.Tabs_generator.Size = new System.Drawing.Size(1226, 682);
             this.Tabs_generator.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.aGauge1);
@@ -150,7 +154,7 @@ namespace Banco_de_pruebas
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1087, 550);
+            this.tabPage1.Size = new System.Drawing.Size(1218, 656);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Monitor Modbus";
             // 
@@ -172,9 +176,9 @@ namespace Banco_de_pruebas
             this.groupBox7.Controls.Add(this.label21);
             this.groupBox7.Controls.Add(this.label20);
             this.groupBox7.Controls.Add(this.label19);
-            this.groupBox7.Location = new System.Drawing.Point(870, 40);
+            this.groupBox7.Location = new System.Drawing.Point(1045, 40);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(201, 290);
+            this.groupBox7.Size = new System.Drawing.Size(167, 306);
             this.groupBox7.TabIndex = 12;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Valores setteados";
@@ -323,24 +327,14 @@ namespace Banco_de_pruebas
             this.label19.TabIndex = 0;
             this.label19.Text = "Velocidad 1:";
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
-            this.groupBox6.Location = new System.Drawing.Point(257, 442);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(359, 69);
-            this.groupBox6.TabIndex = 11;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Torque Futek Analog";
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.button4);
             this.groupBox5.Controls.Add(this.button3);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
-            this.groupBox5.Location = new System.Drawing.Point(622, 442);
+            this.groupBox5.Location = new System.Drawing.Point(22, 581);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(239, 69);
+            this.groupBox5.Size = new System.Drawing.Size(200, 69);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Control";
@@ -348,9 +342,9 @@ namespace Banco_de_pruebas
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(134, 40);
+            this.button4.Location = new System.Drawing.Point(111, 40);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(74, 23);
             this.button4.TabIndex = 10;
             this.button4.Text = "Start";
             this.button4.UseMnemonic = false;
@@ -359,35 +353,58 @@ namespace Banco_de_pruebas
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(19, 40);
+            this.button3.Location = new System.Drawing.Point(6, 40);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(79, 23);
             this.button3.TabIndex = 9;
             this.button3.Text = "Axis En";
             this.button3.UseVisualStyleBackColor = true;
-     
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.chart2);
             this.groupBox4.Controls.Add(this.chart1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
             this.groupBox4.Location = new System.Drawing.Point(257, 40);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(607, 396);
+            this.groupBox4.Size = new System.Drawing.Size(782, 610);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Gráfica";
+            this.groupBox4.Text = "Datos graficados";
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(463, 362);
+            this.button2.Location = new System.Drawing.Point(638, 576);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 28);
             this.button2.TabIndex = 7;
-            this.button2.Text = "Exportación Excel";
+            this.button2.Text = "Exportación de datos";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // chart2
+            // 
+            this.chart2.BackColor = System.Drawing.SystemColors.Control;
+            chartArea1.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart2.Legends.Add(legend1);
+            this.chart2.Location = new System.Drawing.Point(7, 312);
+            this.chart2.Name = "chart2";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Velocidad_c";
+            this.chart2.Series.Add(series1);
+            this.chart2.Size = new System.Drawing.Size(625, 287);
+            this.chart2.TabIndex = 7;
+            this.chart2.Text = "chart2";
+            title1.Name = "Velocidad_chart";
+            title1.Text = "Torque";
+            this.chart2.Titles.Add(title1);
             // 
             // chart1
             // 
@@ -404,59 +421,17 @@ namespace Banco_de_pruebas
             series2.Legend = "Legend1";
             series2.Name = "Velocidad_c";
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(594, 336);
+            this.chart1.Size = new System.Drawing.Size(622, 287);
             this.chart1.TabIndex = 6;
             this.chart1.Text = "chart1";
             title2.Name = "Velocidad_chart";
             title2.Text = "Velocidad (RPM): ";
             this.chart1.Titles.Add(title2);
             // 
-            // aGauge1
-            // 
-            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
-            this.aGauge1.BaseArcRadius = 80;
-            this.aGauge1.BaseArcStart = 135;
-            this.aGauge1.BaseArcSweep = 270;
-            this.aGauge1.BaseArcWidth = 2;
-            this.aGauge1.GaugeAutoSize = false;
-            this.aGauge1.Location = new System.Drawing.Point(20, 196);
-            this.aGauge1.MaxValue = 1000F;
-            this.aGauge1.MinValue = 0F;
-            this.aGauge1.Name = "aGauge1";
-            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
-            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
-            this.aGauge1.NeedleRadius = 80;
-            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
-            this.aGauge1.NeedleWidth = 2;
-            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleLinesInterInnerRadius = 73;
-            this.aGauge1.ScaleLinesInterOuterRadius = 80;
-            this.aGauge1.ScaleLinesInterWidth = 1;
-            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
-            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
-            this.aGauge1.ScaleLinesMajorStepValue = 100F;
-            this.aGauge1.ScaleLinesMajorWidth = 2;
-            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
-            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
-            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
-            this.aGauge1.ScaleLinesMinorTicks = 9;
-            this.aGauge1.ScaleLinesMinorWidth = 1;
-            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleNumbersFormat = null;
-            this.aGauge1.ScaleNumbersRadius = 95;
-            this.aGauge1.ScaleNumbersRotation = 0;
-            this.aGauge1.ScaleNumbersStartScaleLine = 0;
-            this.aGauge1.ScaleNumbersStepScaleLines = 1;
-            this.aGauge1.Size = new System.Drawing.Size(212, 199);
-            this.aGauge1.TabIndex = 7;
-            this.aGauge1.Text = "aGauge1";
-            this.aGauge1.Value = 0F;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 498);
+            this.label6.Location = new System.Drawing.Point(10, 389);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 5;
@@ -556,7 +531,7 @@ namespace Banco_de_pruebas
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1087, 550);
+            this.tabPage2.Size = new System.Drawing.Size(1218, 656);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Service Motion";
             // 
@@ -801,35 +776,6 @@ namespace Banco_de_pruebas
             this.label11.TabIndex = 6;
             this.label11.Text = "Límite de velocidad 1 (RPM): ";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label10.Location = new System.Drawing.Point(355, 256);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(159, 13);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Inicia movimiento de Servomotor";
-            // 
-            // btn_start
-            // 
-            this.btn_start.Location = new System.Drawing.Point(358, 272);
-            this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(75, 23);
-            this.btn_start.TabIndex = 3;
-            this.btn_start.Text = "Start";
-            this.btn_start.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
-            this.label9.Location = new System.Drawing.Point(355, 190);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(153, 13);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Habilita potencia de Sevomotor";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -837,15 +783,6 @@ namespace Banco_de_pruebas
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 13);
             this.label8.TabIndex = 1;
-            // 
-            // btn_En
-            // 
-            this.btn_En.Location = new System.Drawing.Point(358, 206);
-            this.btn_En.Name = "btn_En";
-            this.btn_En.Size = new System.Drawing.Size(75, 23);
-            this.btn_En.TabIndex = 0;
-            this.btn_En.Text = "Axis En";
-            this.btn_En.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -857,6 +794,44 @@ namespace Banco_de_pruebas
             this.label7.TabIndex = 4;
             this.label7.Text = "Modo Generador: Panel de movimientos";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label9.Location = new System.Drawing.Point(355, 190);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(153, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Habilita potencia de Sevomotor";
+            // 
+            // btn_En
+            // 
+            this.btn_En.Location = new System.Drawing.Point(358, 206);
+            this.btn_En.Name = "btn_En";
+            this.btn_En.Size = new System.Drawing.Size(75, 23);
+            this.btn_En.TabIndex = 0;
+            this.btn_En.Text = "Axis En";
+            this.btn_En.UseVisualStyleBackColor = true;
+            // 
+            // btn_start
+            // 
+            this.btn_start.Location = new System.Drawing.Point(358, 272);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(75, 23);
+            this.btn_start.TabIndex = 3;
+            this.btn_start.Text = "Start";
+            this.btn_start.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Italic);
+            this.label10.Location = new System.Drawing.Point(355, 256);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(159, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Inicia movimiento de Servomotor";
+            // 
             // timer2
             // 
             this.timer2.Enabled = true;
@@ -867,11 +842,53 @@ namespace Banco_de_pruebas
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // aGauge1
+            // 
+            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
+            this.aGauge1.BaseArcRadius = 80;
+            this.aGauge1.BaseArcStart = 135;
+            this.aGauge1.BaseArcSweep = 270;
+            this.aGauge1.BaseArcWidth = 2;
+            this.aGauge1.GaugeAutoSize = false;
+            this.aGauge1.Location = new System.Drawing.Point(20, 177);
+            this.aGauge1.MaxValue = 1000F;
+            this.aGauge1.MinValue = 0F;
+            this.aGauge1.Name = "aGauge1";
+            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
+            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
+            this.aGauge1.NeedleRadius = 80;
+            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
+            this.aGauge1.NeedleWidth = 2;
+            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesInterInnerRadius = 73;
+            this.aGauge1.ScaleLinesInterOuterRadius = 80;
+            this.aGauge1.ScaleLinesInterWidth = 1;
+            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
+            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMajorStepValue = 100F;
+            this.aGauge1.ScaleLinesMajorWidth = 2;
+            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
+            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMinorTicks = 9;
+            this.aGauge1.ScaleLinesMinorWidth = 1;
+            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleNumbersFormat = null;
+            this.aGauge1.ScaleNumbersRadius = 95;
+            this.aGauge1.ScaleNumbersRotation = 0;
+            this.aGauge1.ScaleNumbersStartScaleLine = 0;
+            this.aGauge1.ScaleNumbersStepScaleLines = 1;
+            this.aGauge1.Size = new System.Drawing.Size(217, 196);
+            this.aGauge1.TabIndex = 7;
+            this.aGauge1.Text = "aGauge1";
+            this.aGauge1.Value = 0F;
+            // 
             // Generador_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1097, 576);
+            this.ClientSize = new System.Drawing.Size(1229, 683);
             this.Controls.Add(this.Tabs_generator);
             this.Name = "Generador_form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -885,6 +902,7 @@ namespace Banco_de_pruebas
             this.groupBox7.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -931,7 +949,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.AGauge aGauge1;
         public System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
@@ -968,5 +985,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button Save_UserSettings;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
     }
 }
