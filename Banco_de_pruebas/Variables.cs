@@ -10,6 +10,8 @@ namespace Banco_de_pruebas
     {
      public static string var = "";
      public static bool initFirstGEN = false;
-     public static bool SerialPresent = false; 
+     public static bool SerialPresent = false;
+     public static string rootpath = ""; //dirección raiz 
+     public static string path_gen_mode = ""; 
     }
 }

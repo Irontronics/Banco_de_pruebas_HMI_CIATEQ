@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
+
 
 namespace Banco_de_pruebas
 {
@@ -18,6 +20,8 @@ namespace Banco_de_pruebas
         sbyte index0fZ, index0fY, index0fX;
         String dataMod1, dataMod2, dataMod3;
         string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8;
+        bool init_move = false; 
+
 
         int counter_time = 0; 
 
@@ -25,11 +29,13 @@ namespace Banco_de_pruebas
         bool test = false; //bandera para tab settings
         bool StatusButton_axis = true;
         bool StatusButton_start = true;
-        bool error_data = false; 
+        bool error_data = false;
         //
         //variables de creación text file 
-        string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
-        string namefileDef = @"Log_"; //constante
+        //string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
+        string pathdedault = ""; 
+
+        string namefileDef = @"User_settings_motion_"; //constante
         string namefile;
         int counterFilecreator = 0;
 
@@ -40,6 +46,7 @@ namespace Banco_de_pruebas
 
         private void button2_Click(object sender, EventArgs e)
         {
+           
             f11.ShowDialog();
             
         }
@@ -49,20 +56,20 @@ namespace Banco_de_pruebas
             Variables.initFirstGEN = true;  //en true por que se acaba de inicializar form 
             Save_UserSettings.Enabled = false; //botón de guardar parametros en false 
             
-            btn_En.Enabled = false;
-            btn_start.Enabled = false;
-
+            //btn_En.Enabled = false;
+           // btn_start.Enabled = false;
+          
             setting_F = true; 
             timer1.Enabled = false; //deshabilitar timer1 
             timer2.Enabled = true;
 
             button4.Enabled = false;
-            btn_start.Enabled = false; 
+            //btn_start.Enabled = false; 
 
             button3.Click += new EventHandler(MultiBtn_Click);
-            btn_En.Click += new EventHandler(MultiBtn_Click);
+   //         btn_En.Click += new EventHandler(MultiBtn_Click);
             button4.Click += new EventHandler(MultiBtn_Click2);
-            btn_start.Click += new EventHandler(MultiBtn_Click2);
+//            btn_start.Click += new EventHandler(MultiBtn_Click2);
 
 
             (this.Owner as Form_inicial).serialPort1.Write("B2$"); //freno 
@@ -80,6 +87,15 @@ namespace Banco_de_pruebas
 
             (this.Owner as Form_inicial).Enabled = false; //congelamos ventana principal 
             Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
+
+            //crear carpeta modo generador en root path 
+            if (!(System.IO.File.Exists(Variables.rootpath)))
+            { // si existe entonces 
+                Directory.CreateDirectory(Variables.rootpath + "\\Modo Generador");
+                pathdedault = Variables.rootpath + "\\Modo Generador\\"; 
+                Variables.path_gen_mode = Variables.rootpath + "\\Modo Generador\\";
+
+            }
 
         }
 
@@ -108,6 +124,15 @@ namespace Banco_de_pruebas
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
         {
+
+            if ((init_move == true) && (cbx_modes.SelectedIndex == 0)){
+                if (Speed_label.Text == "0") {
+                    button4.PerformClick();
+                    init_move = false; 
+                }
+            }
+
+
             if (Convert.ToString(dataMod2) == "1" && Tabs_generator.SelectedIndex == 1)
             { //si te vas a tab settings y esta activo driver, no dejar cambiar funciones hasta que lo desact
 
@@ -159,12 +184,16 @@ namespace Banco_de_pruebas
                 double numero2 = Math.Round(((numero1 * 245735) / 4294967295), 2);
                 if (numero2 > 10)
                 {
+                    if (cbx_modes.SelectedIndex == 0)
+                    {
+                        init_move = true; //inicio movimiento para el pulse
+                    }
                     aGauge1.Value = Convert.ToSingle(numero2);
                     Speed_label.Text = numero2.ToString();
                     chart1.Series["Velocidad_c"].Points.Add(numero2);
 
-                    //añadir renglon
-                    int n = f11.dataGridView1.Rows.Add();
+                //añadir renglon
+                int n = f11.dataGridView1.Rows.Add();
                     //Colocamos información
                     f11.dataGridView1.Rows[n].Cells[0].Value = n;
                     f11.dataGridView1.Rows[n].Cells[1].Value = numero2;
@@ -198,7 +227,7 @@ namespace Banco_de_pruebas
                 if (Convert.ToString(dataMod3) == "1") { Stop_label.BackColor = Color.Green; } else if (Convert.ToString(dataMod3) == "0") { Stop_label.BackColor = Color.Red; }//paroStatus
 
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 MessageBox.Show("Error en monitor real time");
             }
@@ -208,6 +237,8 @@ namespace Banco_de_pruebas
         {
 
             //aqui poner el de modificacion de valores en textbox: 
+
+
 
             if (mem1 != Convert.ToString(cbx_modes.SelectedIndex) || (mem2 != txt_box_vel1.Text) || (mem3 != txt_box_vel2.Text) || (mem4 != txtbx_acel.Text) ||
                 (mem5 != txtbx_decc.Text) || (mem6 != txt_box_t1.Text) || (mem7 != txt_box_t2.Text) || (mem8 != Convert.ToString(cbx_sentido.SelectedIndex)))
@@ -233,7 +264,7 @@ namespace Banco_de_pruebas
                 (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
                 //label18.Text = "volvi"; //debug 
                 setting_F = false;
-                timer1.Interval = 900; //para la primera vez
+                timer1.Interval = 2500; //para la primera vez
                 timer2.Enabled = false;
                 timer1.Enabled = true; //activo timer de monitoreo 
 
@@ -276,7 +307,10 @@ namespace Banco_de_pruebas
                     label36.Text = "Reversing";
                     mem1 = Convert.ToString(cbx_modes.SelectedIndex);
                 }
-                else if (cbx_modes.SelectedIndex == 2) { palabraSettings = "0A"; }
+                else if (cbx_modes.SelectedIndex == 2)
+                { palabraSettings = "0A";
+                    mem1 = Convert.ToString(cbx_modes.SelectedIndex);
+                }
                 else //default 
                 {
                     cbx_modes.SelectedIndex = 1;
@@ -379,13 +413,14 @@ namespace Banco_de_pruebas
 
                 if (cbx_modes.SelectedIndex == 2)
                 {
-                    txt_box_t1.Text = "0"; //poner timer en 0; 
+                    txt_box_t1.Text = "0"; //poner timer en 0;
+                    mem6 = "0";                       //
                     label36.Text = "Continous";
                     double num1 = Convert.ToDouble(txt_box_t1.Text);
                     num1 = Math.Round(num1);
                     palabraSettings = palabraSettings + (int)num1 + "F";
                     label30.Text = txt_box_t1.Text;
-                    mem6 = txt_box_t1.Text;
+                    
                 }
 
                 else if (Convert.ToInt32(txt_box_t1.Text) >= 100 && Convert.ToInt32(txt_box_t1.Text) <= 60000)
@@ -463,8 +498,8 @@ namespace Banco_de_pruebas
 
                 //string a mandar 
                 test = true; //ya mandó el usuario parametros ok para el servomotor
-                btn_En.Enabled = true;
-                btn_start.Enabled = true;
+                //btn_En.Enabled = true;
+                //btn_start.Enabled = true;
 
                 label27.Text = palabraSettings;
                 Save_UserSettings.Enabled = true; //habilita boton de guardar parametros ya que ya se validaron datos y son ok 
@@ -473,7 +508,7 @@ namespace Banco_de_pruebas
                 error_data = false; 
 
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 error_data = true;
                 MessageBox.Show("Error en la entrada de datos");
@@ -510,8 +545,10 @@ namespace Banco_de_pruebas
             int counter = 0;
             string line, nameFileToRead;
             openFileDialog1.Title = "Busca tu archivo";
-            openFileDialog1.ShowDialog();
-
+            //openFileDialog1.ShowDialog();
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel) {
+                return; 
+            }
             nameFileToRead = openFileDialog1.FileName; //te da la ruta completa 
 
 
@@ -611,9 +648,9 @@ namespace Banco_de_pruebas
                     
                     (this.Owner as Form_inicial).serialPort1.Write("G2$"); //actiVa la potencia
                     button4.Enabled = true;
-                    btn_start.Enabled = true;
+                    //btn_start.Enabled = true;
                     button3.Text = "Axis Disable";
-                    btn_En.Text = "Axis Disable";
+                    //btn_En.Text = "Axis Disable";
                     StatusButton_axis = false;
 
 
@@ -622,9 +659,9 @@ namespace Banco_de_pruebas
                 {
                     (this.Owner as Form_inicial).serialPort1.Write("H2$");
                     button4.Enabled = false;
-                    btn_start.Enabled = false;
+                    //btn_start.Enabled = false;
                     button3.Text = "Axis Enable";
-                    btn_En.Text = "Axis Enable";
+                    //btn_En.Text = "Axis Enable";
                     StatusButton_axis = true;
 
                 }
@@ -647,7 +684,7 @@ namespace Banco_de_pruebas
 
                     (this.Owner as Form_inicial).serialPort1.Write("I2$"); //actiVa la potencia
                     button4.Text = "Stop";
-                    btn_start.Text = "Stop";
+                    //btn_start.Text = "Stop";
                     StatusButton_start = false;
 
 
@@ -656,7 +693,7 @@ namespace Banco_de_pruebas
                 {
                     (this.Owner as Form_inicial).serialPort1.Write("J2$");
                     button4.Text = "Start";
-                    btn_start.Text = "Start";
+                    //btn_start.Text = "Start";
                     StatusButton_start = true;
 
                 }

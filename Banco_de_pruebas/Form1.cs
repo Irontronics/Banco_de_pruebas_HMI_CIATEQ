@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports; //include this library 
 using System.Threading;
-
+using System.IO;
 
 
 namespace Banco_de_pruebas
@@ -21,7 +21,9 @@ namespace Banco_de_pruebas
         sbyte index0fZ;
         String dataMod1;
 
-    public Form_inicial()
+        string dir = @"C:\Datos_Pruebas"; //carpeta principal 
+
+        public Form_inicial()
         {
             InitializeComponent();
         }
@@ -31,6 +33,13 @@ namespace Banco_de_pruebas
             Baud_rate_cbox.Text = "9600"; // velocidad por default 
             string[] puertos = SerialPort.GetPortNames(); //obtener puertos PC
             comboBox1.Items.AddRange(puertos); //agrego todos los puertos al combobox
+
+            //crear carpeta para logs 
+            String Date_String = Convert.ToString(DateTime.Now.ToString("yyyy_MM_dd hh_mm_ss"));
+            if (!(System.IO.File.Exists(dir))) { // si existe entonces 
+                Directory.CreateDirectory(dir + "\\Sesion_" + Date_String);
+                Variables.rootpath = (dir + "\\Sesion_" + Date_String); // para los demas forms 
+            }
         }
 
         private void btn_cancel_init_Click(object sender, EventArgs e) //boton de cancelar 
@@ -214,7 +223,7 @@ namespace Banco_de_pruebas
 
                     }
                 }
-                catch (Exception error)
+                catch (Exception)
                 {
 
                     MessageBox.Show("Error en com inicial");

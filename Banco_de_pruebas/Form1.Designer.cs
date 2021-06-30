@@ -247,6 +247,7 @@ namespace Banco_de_pruebas
             this.Controls.Add(this.picture_Ciateq);
             this.Controls.Add(this.title_form_initial);
             this.Controls.Add(this.groupbx_modos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form_inicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Banco de pruebas CIATEQ ZAPOPAN app";
