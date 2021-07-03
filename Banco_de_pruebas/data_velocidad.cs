@@ -11,14 +11,18 @@ using System.IO;
 
 namespace Banco_de_pruebas
 {
-    public partial class data_velocidad : Form
+    public partial class Data_collection : Form
     {
         string namefileDef = @"Datos_velocidad_"; //constante
         string namefile = "";
         int counterFilecreator = 0;
-        
-        
-        public data_velocidad()
+
+        string namefileDef2 = @"Datos_Torque_"; //constante
+        string namefile2 = "";
+        int counterFilecreator2 = 0;
+
+
+        public Data_collection()
         {
             InitializeComponent();
         }
@@ -49,6 +53,34 @@ namespace Banco_de_pruebas
             MessageBox.Show("¡Exportación exitosa!");
             namefile = "";
             counterFilecreator++;
+        }
+
+        private void button4_Click(object sender, EventArgs e) //exportación csv torque
+        {
+            namefile2 = Variables.path_gen_mode + namefileDef2 + Convert.ToInt32(counterFilecreator2) + ".csv";
+            System.IO.StreamWriter strWri2 = new System.IO.StreamWriter(namefile2);
+
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            {
+                string strRowVal = "";
+                for (int j = 0; j < dataGridView2.Rows[i].Cells.Count; j++)
+                {
+                    if (strRowVal == "")
+                    {
+                        strRowVal = Convert.ToString(dataGridView2.Rows[i].Cells[j].Value);
+                    }
+                    else
+                    {
+                        strRowVal = strRowVal + "," + dataGridView2.Rows[i].Cells[j].Value;
+                    }
+                }
+                strWri2.WriteLine(strRowVal);
+            }
+            strWri2.Close();
+            MessageBox.Show("¡Exportación exitosa!");
+            namefile2 = "";
+            counterFilecreator2++;
+
         }
     }
     }

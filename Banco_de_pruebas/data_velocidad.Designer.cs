@@ -1,7 +1,7 @@
 ﻿
 namespace Banco_de_pruebas
 {
-    partial class data_velocidad
+    partial class Data_collection
     {
         /// <summary>
         /// Required designer variable.
@@ -132,6 +132,7 @@ namespace Banco_de_pruebas
             this.button4.TabIndex = 2;
             this.button4.Text = "Export to CSV file";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // dataGridView2
             // 
@@ -174,7 +175,7 @@ namespace Banco_de_pruebas
             this.label2.TabIndex = 1;
             this.label2.Text = "Puntos graficados Torque";
             // 
-            // data_velocidad
+            // Data_collection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -182,8 +183,8 @@ namespace Banco_de_pruebas
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "data_velocidad";
-            this.Text = "data_velocidad";
+            this.Name = "Data_collection";
+            this.Text = "Adquisición de datos";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

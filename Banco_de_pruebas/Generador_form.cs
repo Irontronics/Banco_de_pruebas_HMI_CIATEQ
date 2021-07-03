@@ -15,15 +15,16 @@ namespace Banco_de_pruebas
 {
     public partial class Generador_form : Form
     {
-        data_velocidad f11 = new data_velocidad();
+        Data_collection f11 = new Data_collection();
         string dato, palabraSettings;      //para los datos 
-        sbyte index0fZ, index0fY, index0fX;
-        String dataMod1, dataMod2, dataMod3;
+        sbyte index0fZ, index0fY, index0fX, index0fW;
+        String dataMod1, dataMod2, dataMod3, dataMod4;
         string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8;
         bool init_move = false; 
 
 
-        int counter_time = 0; 
+        int counter_time = 0;
+        int counter_time2 = 0; 
 
         bool setting_F; //bandera para tab settings 
         bool test = false; //bandera para tab settings
@@ -38,6 +39,8 @@ namespace Banco_de_pruebas
         string namefileDef = @"User_settings_motion_"; //constante
         string namefile;
         int counterFilecreator = 0;
+
+    
 
         public Generador_form()
         {
@@ -175,10 +178,12 @@ namespace Banco_de_pruebas
                 index0fZ = Convert.ToSByte(dato.IndexOf("Z"));
                 index0fY = Convert.ToSByte(dato.IndexOf("Y"));
                 index0fX = Convert.ToSByte(dato.IndexOf("X"));
+                index0fW = Convert.ToSByte(dato.IndexOf("W")); 
 
                 dataMod1 = dato.Substring(0, index0fZ); //Z
                 dataMod2 = dato.Substring(index0fZ + 1, (index0fY - index0fZ) - 1); //Y
                 dataMod3 = dato.Substring(index0fY + 1, (index0fX - index0fY) - 1); //X
+                dataMod4 = dato.Substring(index0fX + 1, (index0fW - index0fX) - 1); //W
 
                 double numero1 = Convert.ToDouble(dataMod1); //checar esa conversion
                 double numero2 = Math.Round(((numero1 * 245735) / 4294967295), 2);
@@ -222,9 +227,39 @@ namespace Banco_de_pruebas
 
                 } //representación de velocidad
 
-
                 if (Convert.ToString(dataMod2) == "1") { Drv_status_lab.BackColor = Color.Green; } else if (Convert.ToString(dataMod2) == "0") { Drv_status_lab.BackColor = Color.Red; }//DrvStatus
                 if (Convert.ToString(dataMod3) == "1") { Stop_label.BackColor = Color.Green; } else if (Convert.ToString(dataMod3) == "0") { Stop_label.BackColor = Color.Red; }//paroStatus
+                
+                //graficar dato negativo y positivo de torque, por lo tanto es valido el dato tal cual como llega
+                torque_label.Text = dataMod4;
+                double numero4 = Convert.ToDouble(dataMod4);
+
+                if (StatusButton_start == false)
+                {  //si se inició un movimiento de servomotor entonces comienza a graficar  
+                    torque_graph.Series["torque_c"].Points.Add(numero4);
+                    int n2 = f11.dataGridView2.Rows.Add();
+                    //Colocamos información
+                    f11.dataGridView2.Rows[n2].Cells[0].Value = n2;
+                    f11.dataGridView2.Rows[n2].Cells[1].Value = numero4;
+                    f11.dataGridView2.Rows[n2].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                }
+                else { //de lo contrario, grafica pero en lapsos largos (testin sensor torque manual)
+                    counter_time2 = counter_time2 + 1;
+                   
+                    if (counter_time2 >= 10)
+                    {
+                        torque_graph.Series["torque_c"].Points.Add(numero4);
+                        counter_time2 = 0;
+                        int n2 = f11.dataGridView2.Rows.Add();
+                        //Colocamos información
+                        f11.dataGridView2.Rows[n2].Cells[0].Value = n2;
+                        f11.dataGridView2.Rows[n2].Cells[1].Value = numero4;
+                        f11.dataGridView2.Rows[n2].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    }
+                }
+
+
+
 
             }
             catch (Exception)
@@ -678,7 +713,7 @@ namespace Banco_de_pruebas
         {
             try
             {
-                if (StatusButton_start)
+                if (StatusButton_start) //bandera de activación de movimiento 
                 {
 
 
