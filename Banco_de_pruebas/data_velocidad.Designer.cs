@@ -100,7 +100,7 @@ namespace Banco_de_pruebas
             this.groupBox1.Size = new System.Drawing.Size(558, 488);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Velocidad Kollmorgen Servo";
+            this.groupBox1.Text = "Velocidad ";
             // 
             // button3
             // 

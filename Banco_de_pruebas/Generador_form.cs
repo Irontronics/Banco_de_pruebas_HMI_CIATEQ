@@ -40,7 +40,20 @@ namespace Banco_de_pruebas
         string namefile;
         int counterFilecreator = 0;
 
-    
+        string nameImage_velocidad = "\\Velocidad_grafica_Generador_";
+        string nameImage_torque = "\\Torque_grafica_Generador_";
+        int counterImage_creator = 0; 
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            String pathImage = Variables.path_gen_mode + nameImage_velocidad + counterImage_creator + ".png"; //ruta de carpeta para grafica velocidad
+            String pathImage2 = Variables.path_gen_mode + nameImage_torque + counterImage_creator + ".png"; //ruta de carpeta para gráfica torque
+            chart1.SaveImage(pathImage, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+            torque_graph.SaveImage(pathImage2, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+            counterImage_creator += 1;
+            MessageBox.Show("Gráficas exportadas a carpeta");
+
+        }
 
         public Generador_form()
         {
@@ -123,6 +136,8 @@ namespace Banco_de_pruebas
             Variables.initFirstGEN = false; //en false por que se elimina form 
             (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
             (this.Owner as Form_inicial).Enabled = true;
+            Variables.SerialPresent = false;
+            Variables.var = "";
         }
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
@@ -193,6 +208,7 @@ namespace Banco_de_pruebas
                     {
                         init_move = true; //inicio movimiento para el pulse
                     }
+                    
                     aGauge1.Value = Convert.ToSingle(numero2);
                     Speed_label.Text = numero2.ToString();
                     chart1.Series["Velocidad_c"].Points.Add(numero2);
