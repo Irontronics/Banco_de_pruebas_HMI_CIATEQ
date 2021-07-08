@@ -22,7 +22,7 @@ namespace Banco_de_pruebas
         string namefile;
         int counterFilecreator = 0;
         bool boton_start = false;
-        //bool firstInit = false; //bandera de primer inicio 
+        bool firstInit = false; //bandera de primer inicio 
         double prom = 0;
         double[] array = new double[5]; //array de 5 valores
 
@@ -168,8 +168,24 @@ namespace Banco_de_pruebas
 
             if (boton_start == true) //inicio prueba 
             {
+                if (Variables.initFirstGEN == true)
+                {  //si es primer inicio de ventana, entonces: 
+                    dato = "0%0Y";
+                    Variables.var = "0%0Y";
+                   // MessageBox.Show("entre a limpiar buffer");
+                    (this.Owner as Form_inicial).serialPort1.DiscardInBuffer();
+                    (this.Owner as Form_inicial).serialPort1.DiscardOutBuffer(); //limpiar buffer serial 
+          
+                    //firstInit = true;
+                    Variables.initFirstGEN = false; 
+                }
+                else {
+                    dato = Variables.var; //tomamos datos provenientes del serial 
+
+                }
+
                 groupBox1.Enabled = false; 
-                dato = Variables.var; //tomamos datos provenientes del serial 
+               
                 label6.Text = dato;
                 timer1.Interval = 350;
                 this.BeginInvoke(new EventHandler(ProcessData));
@@ -197,7 +213,6 @@ namespace Banco_de_pruebas
 
                 dataMod1 = dato.Substring(0, index0fZ); //%
                 dataMod2 = dato.Substring(index0fZ + 1, (index0fY - index0fZ) - 1); //&
-
 
 
 

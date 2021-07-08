@@ -125,7 +125,7 @@ namespace Banco_de_pruebas
             else //de lo contrario, salida del form 
             {
 
-                Variables.initFirstGEN = false; //en false por que se elimina form 
+                //Variables.initFirstGEN = false; //en false por que se elimina form 
                 (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
                 (this.Owner as Form_inicial).Enabled = true;
                 Variables.SerialPresent = false;
@@ -273,7 +273,7 @@ namespace Banco_de_pruebas
             }
             catch (Exception)
             {
-                MessageBox.Show("Error en monitor real time");
+                MessageBox.Show("¡¡Problema presente en Arduino y/o Comunicación Modbus!!");
             }
         }
 

@@ -34,7 +34,6 @@ namespace Banco_de_pruebas
             this.chk_bx_genera = new System.Windows.Forms.CheckBox();
             this.groupbx_modos = new System.Windows.Forms.GroupBox();
             this.title_form_initial = new System.Windows.Forms.Label();
-            this.picture_Ciateq = new System.Windows.Forms.PictureBox();
             this.Btn_ok_init = new System.Windows.Forms.Button();
             this.btn_cancel_init = new System.Windows.Forms.Button();
             this.COM_init = new System.Windows.Forms.Label();
@@ -47,9 +46,10 @@ namespace Banco_de_pruebas
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btn_close_comm = new System.Windows.Forms.Button();
             this.button_open_comm = new System.Windows.Forms.Button();
+            this.picture_Ciateq = new System.Windows.Forms.PictureBox();
             this.groupbx_modos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_Ciateq)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_Ciateq)).BeginInit();
             this.SuspendLayout();
             // 
             // chk_bx_motor
@@ -96,16 +96,6 @@ namespace Banco_de_pruebas
             this.title_form_initial.Size = new System.Drawing.Size(502, 20);
             this.title_form_initial.TabIndex = 3;
             this.title_form_initial.Text = "Banco de pruebas a máquinas eléctricas - CIATEQ ZAPOPAN";
-            // 
-            // picture_Ciateq
-            // 
-            this.picture_Ciateq.Image = global::Banco_de_pruebas.Properties.Resources.Capture;
-            this.picture_Ciateq.Location = new System.Drawing.Point(214, 46);
-            this.picture_Ciateq.Name = "picture_Ciateq";
-            this.picture_Ciateq.Size = new System.Drawing.Size(119, 108);
-            this.picture_Ciateq.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture_Ciateq.TabIndex = 4;
-            this.picture_Ciateq.TabStop = false;
             // 
             // Btn_ok_init
             // 
@@ -236,6 +226,16 @@ namespace Banco_de_pruebas
             this.button_open_comm.UseVisualStyleBackColor = true;
             this.button_open_comm.Click += new System.EventHandler(this.button_open_comm_Click);
             // 
+            // picture_Ciateq
+            // 
+            this.picture_Ciateq.Image = global::Banco_de_pruebas.Properties.Resources.Capture;
+            this.picture_Ciateq.Location = new System.Drawing.Point(214, 46);
+            this.picture_Ciateq.Name = "picture_Ciateq";
+            this.picture_Ciateq.Size = new System.Drawing.Size(119, 108);
+            this.picture_Ciateq.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture_Ciateq.TabIndex = 4;
+            this.picture_Ciateq.TabStop = false;
+            // 
             // Form_inicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,8 +255,8 @@ namespace Banco_de_pruebas
             this.Load += new System.EventHandler(this.Form_inicial_Load);
             this.groupbx_modos.ResumeLayout(false);
             this.groupbx_modos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_Ciateq)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picture_Ciateq)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,7 +268,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.CheckBox chk_bx_genera;
         private System.Windows.Forms.GroupBox groupbx_modos; 
         private System.Windows.Forms.Label title_form_initial;
-        private System.Windows.Forms.PictureBox picture_Ciateq;
         private System.Windows.Forms.Button Btn_ok_init; 
         private System.Windows.Forms.Button btn_cancel_init;
         private System.Windows.Forms.Label COM_init;
@@ -281,6 +280,7 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Button button_open_comm;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox picture_Ciateq;
     }
 }
 
