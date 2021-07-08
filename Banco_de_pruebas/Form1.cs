@@ -202,16 +202,6 @@ namespace Banco_de_pruebas
             }
             if (!(Application.OpenForms["Motor_form"] == null)) //si el formulario de modo motor esta activo y se reciben datos al serial:
             {
-                //checar string
-                
-
-  //              if (dato.Contains('%') == true) {  //si control_motor es true, entonces es una lectura de angspeed
-//
-               //     Variables.Control_motor_serial = true; //es un dato de angspeed
-               // }
-               // else if (dato.Contains('&') == true) {
-                //    Variables.Control_motor_serial = false; //es un dato de angspeed
-               //}
 
                 Variables.var = dato; //le paso el dato a var global
                 Variables.SerialPresent = true;

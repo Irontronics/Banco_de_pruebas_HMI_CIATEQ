@@ -117,27 +117,20 @@ namespace Banco_de_pruebas
 
         private void Generador_form_FormClosing(object sender, FormClosingEventArgs e) // al cerrar formulario
         {
-            
-            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                e.Cancel = false;
-            else
+            if (Convert.ToString(dataMod2) == "1")
+            {  //si el servomotor esta activo no permitir salida
+                MessageBox.Show("¡No se permite salida hasta que se detenga la prueba!");
                 e.Cancel = true;
-
-            if (Convert.ToString(dataMod2) == "1") {  //si la prueba esta activa 
-                MessageBox.Show("¡La prueba se detendrá!");
-                button4.PerformClick();
-                Thread.Sleep(6500);
-                button3.PerformClick();
-                Thread.Sleep(100);
-
             }
+            else //de lo contrario, salida del form 
+            {
 
-
-            Variables.initFirstGEN = false; //en false por que se elimina form 
-            (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
-            (this.Owner as Form_inicial).Enabled = true;
-            Variables.SerialPresent = false;
-            Variables.var = "";
+                Variables.initFirstGEN = false; //en false por que se elimina form 
+                (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
+                (this.Owner as Form_inicial).Enabled = true;
+                Variables.SerialPresent = false;
+                Variables.var = "";
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 

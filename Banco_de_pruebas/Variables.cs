@@ -17,6 +17,7 @@ namespace Banco_de_pruebas
 
 
 
+
         public static bool Control_motor_serial = false; 
     }
 }
