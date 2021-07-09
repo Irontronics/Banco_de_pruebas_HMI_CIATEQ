@@ -43,7 +43,8 @@ namespace Banco_de_pruebas
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Tabs_generator = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_guardarGrafica = new System.Windows.Forms.Button();
+            this.regisro_dato_btn = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -62,11 +63,12 @@ namespace Banco_de_pruebas
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Start_button = new System.Windows.Forms.Button();
+            this.Axis_button = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.torque_graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.aGauge1 = new System.Windows.Forms.AGauge();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.torque_label = new System.Windows.Forms.Label();
@@ -107,8 +109,6 @@ namespace Banco_de_pruebas
             this.label7 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
-            this.aGauge1 = new System.Windows.Forms.AGauge();
             this.Tabs_generator.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -147,8 +147,8 @@ namespace Banco_de_pruebas
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.btn_guardarGrafica);
+            this.tabPage1.Controls.Add(this.regisro_dato_btn);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
@@ -163,16 +163,26 @@ namespace Banco_de_pruebas
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Monitor Modbus";
             // 
-            // button2
+            // btn_guardarGrafica
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(1054, 611);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(138, 28);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Registro de datos";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_guardarGrafica.Location = new System.Drawing.Point(1054, 577);
+            this.btn_guardarGrafica.Name = "btn_guardarGrafica";
+            this.btn_guardarGrafica.Size = new System.Drawing.Size(138, 27);
+            this.btn_guardarGrafica.TabIndex = 13;
+            this.btn_guardarGrafica.Text = "Guardar Gráficas";
+            this.btn_guardarGrafica.UseVisualStyleBackColor = true;
+            this.btn_guardarGrafica.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // regisro_dato_btn
+            // 
+            this.regisro_dato_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.regisro_dato_btn.Location = new System.Drawing.Point(1054, 611);
+            this.regisro_dato_btn.Name = "regisro_dato_btn";
+            this.regisro_dato_btn.Size = new System.Drawing.Size(138, 28);
+            this.regisro_dato_btn.TabIndex = 7;
+            this.regisro_dato_btn.Text = "Registro de datos";
+            this.regisro_dato_btn.UseVisualStyleBackColor = true;
+            this.regisro_dato_btn.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox7
             // 
@@ -345,8 +355,8 @@ namespace Banco_de_pruebas
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Controls.Add(this.Start_button);
+            this.groupBox5.Controls.Add(this.Axis_button);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox5.Location = new System.Drawing.Point(20, 581);
             this.groupBox5.Name = "groupBox5";
@@ -355,26 +365,26 @@ namespace Banco_de_pruebas
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Control";
             // 
-            // button4
+            // Start_button
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(102, 40);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(79, 23);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Start";
-            this.button4.UseMnemonic = false;
-            this.button4.UseVisualStyleBackColor = true;
+            this.Start_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Start_button.Location = new System.Drawing.Point(102, 40);
+            this.Start_button.Name = "Start_button";
+            this.Start_button.Size = new System.Drawing.Size(79, 23);
+            this.Start_button.TabIndex = 10;
+            this.Start_button.Text = "Start";
+            this.Start_button.UseMnemonic = false;
+            this.Start_button.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // Axis_button
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(6, 40);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Axis En";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Axis_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Axis_button.Location = new System.Drawing.Point(6, 40);
+            this.Axis_button.Name = "Axis_button";
+            this.Axis_button.Size = new System.Drawing.Size(79, 23);
+            this.Axis_button.TabIndex = 9;
+            this.Axis_button.Text = "Axis En";
+            this.Axis_button.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -432,6 +442,48 @@ namespace Banco_de_pruebas
             title2.Text = "Velocidad Kollmorgen Servomotor (RPM): ";
             this.chart1.Titles.Add(title2);
             // 
+            // aGauge1
+            // 
+            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
+            this.aGauge1.BaseArcRadius = 80;
+            this.aGauge1.BaseArcStart = 135;
+            this.aGauge1.BaseArcSweep = 270;
+            this.aGauge1.BaseArcWidth = 2;
+            this.aGauge1.GaugeAutoSize = false;
+            this.aGauge1.Location = new System.Drawing.Point(20, 225);
+            this.aGauge1.MaxValue = 1000F;
+            this.aGauge1.MinValue = 0F;
+            this.aGauge1.Name = "aGauge1";
+            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
+            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
+            this.aGauge1.NeedleRadius = 80;
+            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
+            this.aGauge1.NeedleWidth = 2;
+            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesInterInnerRadius = 73;
+            this.aGauge1.ScaleLinesInterOuterRadius = 80;
+            this.aGauge1.ScaleLinesInterWidth = 1;
+            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
+            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMajorStepValue = 100F;
+            this.aGauge1.ScaleLinesMajorWidth = 2;
+            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
+            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
+            this.aGauge1.ScaleLinesMinorTicks = 9;
+            this.aGauge1.ScaleLinesMinorWidth = 1;
+            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
+            this.aGauge1.ScaleNumbersFormat = null;
+            this.aGauge1.ScaleNumbersRadius = 95;
+            this.aGauge1.ScaleNumbersRotation = 0;
+            this.aGauge1.ScaleNumbersStartScaleLine = 0;
+            this.aGauge1.ScaleNumbersStepScaleLines = 1;
+            this.aGauge1.Size = new System.Drawing.Size(217, 196);
+            this.aGauge1.TabIndex = 7;
+            this.aGauge1.Text = "aGauge1";
+            this.aGauge1.Value = 0F;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -440,6 +492,7 @@ namespace Banco_de_pruebas
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "label6";
+            this.label6.Visible = false;
             // 
             // groupBox1
             // 
@@ -585,6 +638,7 @@ namespace Banco_de_pruebas
             this.label27.Size = new System.Drawing.Size(82, 25);
             this.label27.TabIndex = 7;
             this.label27.Text = "label27";
+            this.label27.Visible = false;
             // 
             // groupBox3
             // 
@@ -834,58 +888,6 @@ namespace Banco_de_pruebas
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1054, 577);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 27);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Guardar Graficas";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // aGauge1
-            // 
-            this.aGauge1.BaseArcColor = System.Drawing.Color.DarkGray;
-            this.aGauge1.BaseArcRadius = 80;
-            this.aGauge1.BaseArcStart = 135;
-            this.aGauge1.BaseArcSweep = 270;
-            this.aGauge1.BaseArcWidth = 2;
-            this.aGauge1.GaugeAutoSize = false;
-            this.aGauge1.Location = new System.Drawing.Point(20, 225);
-            this.aGauge1.MaxValue = 1000F;
-            this.aGauge1.MinValue = 0F;
-            this.aGauge1.Name = "aGauge1";
-            this.aGauge1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Red;
-            this.aGauge1.NeedleColor2 = System.Drawing.Color.DimGray;
-            this.aGauge1.NeedleRadius = 80;
-            this.aGauge1.NeedleType = System.Windows.Forms.NeedleType.Advance;
-            this.aGauge1.NeedleWidth = 2;
-            this.aGauge1.ScaleLinesInterColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleLinesInterInnerRadius = 73;
-            this.aGauge1.ScaleLinesInterOuterRadius = 80;
-            this.aGauge1.ScaleLinesInterWidth = 1;
-            this.aGauge1.ScaleLinesMajorColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleLinesMajorInnerRadius = 70;
-            this.aGauge1.ScaleLinesMajorOuterRadius = 80;
-            this.aGauge1.ScaleLinesMajorStepValue = 100F;
-            this.aGauge1.ScaleLinesMajorWidth = 2;
-            this.aGauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
-            this.aGauge1.ScaleLinesMinorInnerRadius = 75;
-            this.aGauge1.ScaleLinesMinorOuterRadius = 80;
-            this.aGauge1.ScaleLinesMinorTicks = 9;
-            this.aGauge1.ScaleLinesMinorWidth = 1;
-            this.aGauge1.ScaleNumbersColor = System.Drawing.Color.Black;
-            this.aGauge1.ScaleNumbersFormat = null;
-            this.aGauge1.ScaleNumbersRadius = 95;
-            this.aGauge1.ScaleNumbersRotation = 0;
-            this.aGauge1.ScaleNumbersStartScaleLine = 0;
-            this.aGauge1.ScaleNumbersStepScaleLines = 1;
-            this.aGauge1.Size = new System.Drawing.Size(217, 196);
-            this.aGauge1.TabIndex = 7;
-            this.aGauge1.Text = "aGauge1";
-            this.aGauge1.Value = 0F;
-            // 
             // Generador_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -893,6 +895,7 @@ namespace Banco_de_pruebas
             this.ClientSize = new System.Drawing.Size(1229, 683);
             this.Controls.Add(this.Tabs_generator);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Generador_form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modo generador - Banco de pruebas de máquinas eléctricas CIATEQ Zapopan";
@@ -950,10 +953,10 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.AGauge aGauge1;
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Start_button;
+        private System.Windows.Forms.Button Axis_button;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button regisro_dato_btn;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label26;
@@ -990,6 +993,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Label torque_label;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_guardarGrafica;
     }
 }

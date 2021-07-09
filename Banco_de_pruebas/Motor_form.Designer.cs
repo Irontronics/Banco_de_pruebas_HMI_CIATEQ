@@ -40,12 +40,14 @@ namespace Banco_de_pruebas
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bn_guardar_graficas = new System.Windows.Forms.Button();
+            this.btn_reg_datos = new System.Windows.Forms.Button();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.init_test_btn = new System.Windows.Forms.Button();
+            this.stop_btn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Sett_brake = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.test_status_lbl = new System.Windows.Forms.Label();
@@ -59,9 +61,7 @@ namespace Banco_de_pruebas
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.Sett_brake = new System.Windows.Forms.Button();
             this.aGauge1 = new System.Windows.Forms.AGauge();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -81,8 +81,8 @@ namespace Banco_de_pruebas
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.bn_guardar_graficas);
+            this.groupBox4.Controls.Add(this.btn_reg_datos);
             this.groupBox4.Controls.Add(this.chart2);
             this.groupBox4.Controls.Add(this.chart1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -93,16 +93,27 @@ namespace Banco_de_pruebas
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Datos graficados";
             // 
-            // button2
+            // bn_guardar_graficas
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(655, 517);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 26);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Registro de datos";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.bn_guardar_graficas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bn_guardar_graficas.Location = new System.Drawing.Point(655, 485);
+            this.bn_guardar_graficas.Name = "bn_guardar_graficas";
+            this.bn_guardar_graficas.Size = new System.Drawing.Size(123, 26);
+            this.bn_guardar_graficas.TabIndex = 8;
+            this.bn_guardar_graficas.Text = "Guardar Gráficas";
+            this.bn_guardar_graficas.UseVisualStyleBackColor = true;
+            this.bn_guardar_graficas.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // btn_reg_datos
+            // 
+            this.btn_reg_datos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reg_datos.Location = new System.Drawing.Point(655, 517);
+            this.btn_reg_datos.Name = "btn_reg_datos";
+            this.btn_reg_datos.Size = new System.Drawing.Size(123, 26);
+            this.btn_reg_datos.TabIndex = 7;
+            this.btn_reg_datos.Text = "Registro de datos";
+            this.btn_reg_datos.UseVisualStyleBackColor = true;
+            this.btn_reg_datos.Click += new System.EventHandler(this.button2_Click);
             // 
             // chart2
             // 
@@ -148,25 +159,25 @@ namespace Banco_de_pruebas
             title2.Text = "Velocidad Sensor Futek (RPM): ";
             this.chart1.Titles.Add(title2);
             // 
-            // button1
+            // init_test_btn
             // 
-            this.button1.Location = new System.Drawing.Point(886, 623);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 32);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Iniciar prueba";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.init_test_btn.Location = new System.Drawing.Point(886, 623);
+            this.init_test_btn.Name = "init_test_btn";
+            this.init_test_btn.Size = new System.Drawing.Size(105, 32);
+            this.init_test_btn.TabIndex = 10;
+            this.init_test_btn.Text = "Iniciar prueba";
+            this.init_test_btn.UseVisualStyleBackColor = true;
+            this.init_test_btn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button3
+            // stop_btn
             // 
-            this.button3.Location = new System.Drawing.Point(750, 623);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 32);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "Detener prueba";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.stop_btn.Location = new System.Drawing.Point(750, 623);
+            this.stop_btn.Name = "stop_btn";
+            this.stop_btn.Size = new System.Drawing.Size(105, 32);
+            this.stop_btn.TabIndex = 11;
+            this.stop_btn.Text = "Detener prueba";
+            this.stop_btn.UseVisualStyleBackColor = true;
+            this.stop_btn.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBox1
             // 
@@ -180,6 +191,16 @@ namespace Banco_de_pruebas
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Freno Warner Electric";
+            // 
+            // Sett_brake
+            // 
+            this.Sett_brake.Location = new System.Drawing.Point(7, 76);
+            this.Sett_brake.Name = "Sett_brake";
+            this.Sett_brake.Size = new System.Drawing.Size(75, 23);
+            this.Sett_brake.TabIndex = 2;
+            this.Sett_brake.Text = "Set";
+            this.Sett_brake.UseVisualStyleBackColor = true;
+            this.Sett_brake.Click += new System.EventHandler(this.Sett_brake_Click);
             // 
             // radioButton2
             // 
@@ -291,6 +312,7 @@ namespace Banco_de_pruebas
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "label6";
+            this.label6.Visible = false;
             // 
             // label7
             // 
@@ -300,6 +322,7 @@ namespace Banco_de_pruebas
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 17;
             this.label7.Text = "label7";
+            this.label7.Visible = false;
             // 
             // label8
             // 
@@ -309,16 +332,7 @@ namespace Banco_de_pruebas
             this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "label8";
-            // 
-            // Sett_brake
-            // 
-            this.Sett_brake.Location = new System.Drawing.Point(7, 76);
-            this.Sett_brake.Name = "Sett_brake";
-            this.Sett_brake.Size = new System.Drawing.Size(75, 23);
-            this.Sett_brake.TabIndex = 2;
-            this.Sett_brake.Text = "Set";
-            this.Sett_brake.UseVisualStyleBackColor = true;
-            this.Sett_brake.Click += new System.EventHandler(this.Sett_brake_Click);
+            this.label8.Visible = false;
             // 
             // aGauge1
             // 
@@ -362,17 +376,6 @@ namespace Banco_de_pruebas
             this.aGauge1.Text = "aGauge1";
             this.aGauge1.Value = 0F;
             // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(655, 485);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 26);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Guardar Gráficas";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
-            // 
             // Motor_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,11 +387,12 @@ namespace Banco_de_pruebas
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.stop_btn);
+            this.Controls.Add(this.init_test_btn);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Motor_form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Motor_form";
@@ -410,11 +414,11 @@ namespace Banco_de_pruebas
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_reg_datos;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button init_test_btn;
+        private System.Windows.Forms.Button stop_btn;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
@@ -431,6 +435,6 @@ namespace Banco_de_pruebas
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button Sett_brake;
         private System.Windows.Forms.AGauge aGauge1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button bn_guardar_graficas;
     }
 }

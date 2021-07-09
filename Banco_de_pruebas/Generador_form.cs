@@ -1,41 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 using System.IO;
-
 
 namespace Banco_de_pruebas
 {
     public partial class Generador_form : Form
     {
-        Data_collection f11 = new Data_collection();
-        string dato, palabraSettings;      //para los datos 
+        Data_collection f11 = new Data_collection(); //para abrir form de base de datos 
+
+        string dato, palabraSettings;      //para los datos serial 
         sbyte index0fZ, index0fY, index0fX, index0fW;
         String dataMod1, dataMod2, dataMod3, dataMod4;
-        string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8;
+
+        string mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8; //memorias de ajustes usuario 
+
+        int counter_time = 0; //retardo en la gráfica de ceros 
+        int counter_time2 = 0; //retardo en la gráfica de ceros
+
         bool init_move = false; 
 
-
-        int counter_time = 0;
-        int counter_time2 = 0; 
-
-        bool setting_F; //bandera para tab settings 
-        bool test = false; //bandera para tab settings
-        bool StatusButton_axis = true;
+        bool setting_F; //bandera para saber si vamos a service motion (pestaña 2) 
+        bool test = false; //bandera para datos ok / nok 
+        bool StatusButton_axis = true; //banderas de acción de botones 
         bool StatusButton_start = true;
-        bool error_data = false;
-        //
-        //variables de creación text file 
-        //string pathdedault = @"C:\\Users\\CONACYTSLP\\Desktop\\Prueba logs\\";
-        string pathdedault = ""; 
+        bool error_data = false; //flag de validación de datos ingresados por usuario 
 
+        string pathdedault = ""; 
         string namefileDef = @"User_settings_motion_"; //constante
         string namefile;
         int counterFilecreator = 0;
@@ -44,7 +35,7 @@ namespace Banco_de_pruebas
         string nameImage_torque = "\\Torque_grafica_Generador_";
         int counterImage_creator = 0; 
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e) //botón guardar gráficas 
         {
             String pathImage = Variables.path_gen_mode + nameImage_velocidad + counterImage_creator + ".png"; //ruta de carpeta para grafica velocidad
             String pathImage2 = Variables.path_gen_mode + nameImage_torque + counterImage_creator + ".png"; //ruta de carpeta para gráfica torque
@@ -52,7 +43,6 @@ namespace Banco_de_pruebas
             torque_graph.SaveImage(pathImage2, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
             counterImage_creator += 1;
             MessageBox.Show("Gráficas exportadas a carpeta");
-
         }
 
         public Generador_form()
@@ -60,7 +50,7 @@ namespace Banco_de_pruebas
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //Abrir form registro de datos 
         {
            
             f11.ShowDialog();
@@ -71,26 +61,19 @@ namespace Banco_de_pruebas
         {
             Variables.initFirstGEN = true;  //en true por que se acaba de inicializar form 
             Save_UserSettings.Enabled = false; //botón de guardar parametros en false 
-            
-            //btn_En.Enabled = false;
-           // btn_start.Enabled = false;
-          
+
             setting_F = true; 
             timer1.Enabled = false; //deshabilitar timer1 
-            timer2.Enabled = true;
+            timer2.Enabled = true; //habilitar timer2 
 
-            button4.Enabled = false;
-            //btn_start.Enabled = false; 
+            Start_button.Enabled = false;  
 
-            button3.Click += new EventHandler(MultiBtn_Click);
-   //         btn_En.Click += new EventHandler(MultiBtn_Click);
-            button4.Click += new EventHandler(MultiBtn_Click2);
-//            btn_start.Click += new EventHandler(MultiBtn_Click2);
+            Axis_button.Click += new EventHandler(MultiBtn_Click);
+            Start_button.Click += new EventHandler(MultiBtn_Click2);
 
+            (this.Owner as Form_inicial).serialPort1.Write("B2$"); //inicializar modo generador para programa de control  
 
-            (this.Owner as Form_inicial).serialPort1.Write("B2$"); //freno 
-
-            //yo se que estan en blanco por lo tanto: 
+            //yo se que estan en blanco por lo tanto setter valores default: 
             txt_box_vel1.Text = "100";
             txt_box_vel2.Text = "200";
             txtbx_acel.Text = "60";
@@ -100,9 +83,8 @@ namespace Banco_de_pruebas
             cbx_modes.SelectedIndex = 1;
             cbx_sentido.SelectedIndex = 1; 
 
-
             (this.Owner as Form_inicial).Enabled = false; //congelamos ventana principal 
-            Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
+            Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"]; //se va directo a Ajustes modbus (service motion) para settear parametros 
 
             //crear carpeta modo generador en root path 
             if (!(System.IO.File.Exists(Variables.rootpath)))
@@ -110,9 +92,7 @@ namespace Banco_de_pruebas
                 Directory.CreateDirectory(Variables.rootpath + "\\Modo Generador");
                 pathdedault = Variables.rootpath + "\\Modo Generador\\"; 
                 Variables.path_gen_mode = Variables.rootpath + "\\Modo Generador\\";
-
             }
-
         }
 
         private void Generador_form_FormClosing(object sender, FormClosingEventArgs e) // al cerrar formulario
@@ -124,58 +104,51 @@ namespace Banco_de_pruebas
             }
             else //de lo contrario, salida del form 
             {
-
-                //Variables.initFirstGEN = false; //en false por que se elimina form 
                 (this.Owner as Form_inicial).serialPort1.Write("A2$"); //regresar al menu principal 
                 (this.Owner as Form_inicial).Enabled = true;
-                Variables.SerialPresent = false;
                 Variables.var = "";
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e) //refresco de variables monitoreo 
+        private void timer1_Tick(object sender, EventArgs e) //timer para pestaña 1, monitoreo de señales modbus 
         {
-
-            if ((init_move == true) && (cbx_modes.SelectedIndex == 0)){
-                if (Speed_label.Text == "0") {
-                    button4.PerformClick();
-                    init_move = false; 
+            if ((init_move == true) && (cbx_modes.SelectedIndex == 0))
+            {
+                if (Speed_label.Text == "0")
+                {
+                    Start_button.Text = "Start";
+                    StatusButton_start = true;
+                    init_move = false;
                 }
             }
 
 
             if (Convert.ToString(dataMod2) == "1" && Tabs_generator.SelectedIndex == 1)
-            { //si te vas a tab settings y esta activo driver, no dejar cambiar funciones hasta que lo desact
+            { //si te vas a tab settings y esta activo driver, no dejar cambiar funciones hasta que lo desactive 
 
                 groupBox2.Enabled = false;
                 groupBox3.Enabled = false;
             }
-            else if (Tabs_generator.SelectedIndex == 1 && Convert.ToString(dataMod2) == "0")
+            else if (Tabs_generator.SelectedIndex == 1 && Convert.ToString(dataMod2) == "0") //de lo contrario, permite hacer modificaciones 
             {
                 groupBox2.Enabled = true;
                 groupBox3.Enabled = true;
-
             }
 
             if (Tabs_generator.SelectedIndex == 1) //si se va a tab2 detener timer1 y habilitar timer2 
             { 
-                (this.Owner as Form_inicial).serialPort1.Write("E2$"); //Comando de detencción monitoreo MODBUS
+                (this.Owner as Form_inicial).serialPort1.Write("E2$"); //Comando de detencción monitoreo modbus 
                 setting_F = true; //bandera de que ingreso a la tab de settings 
                 timer1.Enabled = false; 
                 timer2.Enabled = true;
-
-         
-
             }
             else  //monitoreo normal 
             {
-
                     dato = Variables.var;
                     label6.Text = Variables.var;
                     timer1.Interval = 350;
                     this.BeginInvoke(new EventHandler(ProcessData));
-            }
-            
+            }    
         }
 
         private void ProcessData(object sender, EventArgs e) //Parte de timer1_tick condicionando variables a mostrar
@@ -193,30 +166,30 @@ namespace Banco_de_pruebas
                 dataMod3 = dato.Substring(index0fY + 1, (index0fX - index0fY) - 1); //X
                 dataMod4 = dato.Substring(index0fX + 1, (index0fW - index0fX) - 1); //W
 
-                double numero1 = Convert.ToDouble(dataMod1); //checar esa conversion
+                double numero1 = Convert.ToDouble(dataMod1); //dato crudo de velocidad servomotor 
                 double numero2 = Math.Round(((numero1 * 245735) / 4294967295), 2);
-                if (numero2 > 10)
+
+                if (numero2 > 10) //si es mayor que 10, entonces: 
                 {
                     if (cbx_modes.SelectedIndex == 0)
                     {
                         init_move = true; //inicio movimiento para el pulse
                     }
-                    
-                    aGauge1.Value = Convert.ToSingle(numero2);
-                    Speed_label.Text = numero2.ToString();
-                    chart1.Series["Velocidad_c"].Points.Add(numero2);
 
-                //añadir renglon
-                int n = f11.dataGridView1.Rows.Add();
-                    //Colocamos información
-                    f11.dataGridView1.Rows[n].Cells[0].Value = n;
-                    f11.dataGridView1.Rows[n].Cells[1].Value = numero2;
-                    f11.dataGridView1.Rows[n].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    aGauge1.Value = Convert.ToSingle(numero2); //mover manómetro 
+                    Speed_label.Text = numero2.ToString(); //mostrar dato númerico 
+                    chart1.Series["Velocidad_c"].Points.Add(numero2); //graficar 
+
+                     //Registrar dato en DataGrid 
+                    int n = f11.dataGridView1.Rows.Add();
+                    f11.dataGridView1.Rows[n].Cells[0].Value = n; //numero
+                    f11.dataGridView1.Rows[n].Cells[1].Value = numero2; //dato 
+                    f11.dataGridView1.Rows[n].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"); //tiempo/fecha 
                 }
 
-                else //si es menor a 0 
+                else //si es menor a 10 
                 {
-                    counter_time = counter_time + 1; 
+                    counter_time = counter_time + 1; //contador para el retardo en la gráfica de ceros 
                     Speed_label.Text = "0";
                     aGauge1.Value = 0;
 
@@ -225,9 +198,8 @@ namespace Banco_de_pruebas
                         chart1.Series["Velocidad_c"].Points.Add(0);
                         counter_time = 0;
 
-                        //añadir renglon
+                        //Registrar dato en DataGrid 
                         int n = f11.dataGridView1.Rows.Add();
-                        //Colocamos información
                         f11.dataGridView1.Rows[n].Cells[0].Value = n;
                         f11.dataGridView1.Rows[n].Cells[1].Value = 0;
                         f11.dataGridView1.Rows[n].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
@@ -236,7 +208,10 @@ namespace Banco_de_pruebas
 
                 } //representación de velocidad
 
-                if (Convert.ToString(dataMod2) == "1") { Drv_status_lab.BackColor = Color.Green; } else if (Convert.ToString(dataMod2) == "0") { Drv_status_lab.BackColor = Color.Red; }//DrvStatus
+                //Representación de DRV.STATUS
+                if (Convert.ToString(dataMod2) == "1") { Drv_status_lab.BackColor = Color.Green; } else if (Convert.ToString(dataMod2) == "0") { Drv_status_lab.BackColor = Color.Red; }
+                
+                //Representación de EmergencyStop Status 
                 if (Convert.ToString(dataMod3) == "1") { Stop_label.BackColor = Color.Green; } else if (Convert.ToString(dataMod3) == "0") { Stop_label.BackColor = Color.Red; }//paroStatus
                 
                 //graficar dato negativo y positivo de torque, por lo tanto es valido el dato tal cual como llega
@@ -244,32 +219,30 @@ namespace Banco_de_pruebas
                 double numero4 = Convert.ToDouble(dataMod4);
 
                 if (StatusButton_start == false)
-                {  //si se inició un movimiento de servomotor entonces comienza a graficar  
+                {  //si se inició un movimiento de servomotor entonces comienza a graficar el dato de torque 
                     torque_graph.Series["torque_c"].Points.Add(numero4);
+
+                    //Registrar dato en DataGrid 
                     int n2 = f11.dataGridView2.Rows.Add();
-                    //Colocamos información
-                    f11.dataGridView2.Rows[n2].Cells[0].Value = n2;
-                    f11.dataGridView2.Rows[n2].Cells[1].Value = numero4;
-                    f11.dataGridView2.Rows[n2].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    f11.dataGridView2.Rows[n2].Cells[0].Value = n2; //numero
+                    f11.dataGridView2.Rows[n2].Cells[1].Value = numero4; //Dato
+                    f11.dataGridView2.Rows[n2].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"); //tiempo/fecha 
                 }
-                else { //de lo contrario, grafica pero en lapsos largos (testin sensor torque manual)
+                else { //de lo contrario, grafica pero en lapsos largos 
                     counter_time2 = counter_time2 + 1;
                    
                     if (counter_time2 >= 10)
                     {
                         torque_graph.Series["torque_c"].Points.Add(numero4);
                         counter_time2 = 0;
+
+                        //Registrar dato en DataGrid 
                         int n2 = f11.dataGridView2.Rows.Add();
-                        //Colocamos información
                         f11.dataGridView2.Rows[n2].Cells[0].Value = n2;
                         f11.dataGridView2.Rows[n2].Cells[1].Value = numero4;
                         f11.dataGridView2.Rows[n2].Cells[2].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     }
                 }
-
-
-
-
             }
             catch (Exception)
             {
@@ -277,61 +250,37 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e) //Timer 2, accionamiento de monitoreo normal nuevamente
+        private void timer2_Tick(object sender, EventArgs e) //timer para pestaña 2, service motion modbus 
         {
-
-            //aqui poner el de modificacion de valores en textbox: 
-
-
-
+            //se monitorea si hay un cambio en los campos de ajustes 
             if (mem1 != Convert.ToString(cbx_modes.SelectedIndex) || (mem2 != txt_box_vel1.Text) || (mem3 != txt_box_vel2.Text) || (mem4 != txtbx_acel.Text) ||
                 (mem5 != txtbx_decc.Text) || (mem6 != txt_box_t1.Text) || (mem7 != txt_box_t2.Text) || (mem8 != Convert.ToString(cbx_sentido.SelectedIndex)))
             {
-                Save_UserSettings.Enabled = false;
+                Save_UserSettings.Enabled = false; //si hubo un cambio, deshabilita el botón de "guardar ajustes txt file" 
+                button5.Enabled = true;
             }
             else {
-                Save_UserSettings.Enabled = true; 
+                Save_UserSettings.Enabled = true;  //si no hay cambio, mantenen el botón habilitado
+                button5.Enabled = false; 
             }
 
-
-
-
-
+            //se condiciona el irse a la primer pestaña, cuando es primera vez que se ingresa al form y no se ha seteado los parametros a servomotor. 
             if ((Tabs_generator.SelectedIndex == 0) && ((test == false) || (error_data == true )))
             {
-                
-                Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"];
-                MessageBox.Show("Establezca parametros de prueba primero");
+                Tabs_generator.SelectedTab = Tabs_generator.TabPages["tabPage2"]; //se mantiene en pestaña 2 y lanza mensaje al usuario 
+                MessageBox.Show("Establezca parámetros de prueba primero");
             }
-            else if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true)) {
+            else if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true)) { //si estabamos en pestaña 2 y regreso a pestaña 1, entonces: 
 
                 (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
-                //label18.Text = "volvi"; //debug 
                 setting_F = false;
-                timer1.Interval = 2500; //para la primera vez
-                timer2.Enabled = false;
-                timer1.Enabled = true; //activo timer de monitoreo 
-
-
-
+                timer1.Interval = 2500; //para la primera vez, esperar la llegada de datos modbus 
+                timer2.Enabled = false; //desactivo timer 2 
+                timer1.Enabled = true; //activo timer1 
             }
-
-
-            /*  if ((Tabs_generator.SelectedIndex == 0) && (setting_F == true))
-          { //si se volvió al tab princial, y se habia ingresado a tab2 entonces 
-
-              (this.Owner as Form_inicial).serialPort1.Write("F2$"); //reanuda monitoreo modbus a arduino 
-              label18.Text = "volvi"; //debug 
-              setting_F = false;
-              timer1.Interval = 1500; //para la primera vez
-              timer2.Enabled = false;
-              timer1.Enabled = true; //activo timer de monitoreo 
-          }*/
-            
         }
 
-
-        private void button5_Click(object sender, EventArgs e) //button set settings is clicked , validar datos de entrada 
+        private void button5_Click(object sender, EventArgs e) //button settear ajustes , validar datos de entrada antes: 
         {
             try
             {
@@ -341,9 +290,6 @@ namespace Banco_de_pruebas
                     palabraSettings = "0A";
                     label36.Text = "Pulse";
                     mem1 = Convert.ToString(cbx_modes.SelectedIndex);
-
-
-
                 }
                 else if (cbx_modes.SelectedIndex == 1)
                 {
@@ -458,7 +404,7 @@ namespace Banco_de_pruebas
                 if (cbx_modes.SelectedIndex == 2)
                 {
                     txt_box_t1.Text = "0"; //poner timer en 0;
-                    mem6 = "0";                       //
+                    mem6 = "0";                       
                     label36.Text = "Continous";
                     double num1 = Convert.ToDouble(txt_box_t1.Text);
                     num1 = Math.Round(num1);
@@ -471,7 +417,6 @@ namespace Banco_de_pruebas
                 {
                     double num1 = Convert.ToDouble(txt_box_t1.Text);
                     num1 = Math.Round(num1);
-                    // label36.Text = "Pulse454564";
                     palabraSettings = palabraSettings + (int)num1 + "F";
                     label30.Text = txt_box_t1.Text;
                     mem6 = txt_box_t1.Text;
@@ -538,18 +483,14 @@ namespace Banco_de_pruebas
                     mem8 = Convert.ToString(cbx_sentido.SelectedIndex);
                 }
 
+                test = true; //validación de datos es OK!
 
-
-                //string a mandar 
-                test = true; //ya mandó el usuario parametros ok para el servomotor
-                //btn_En.Enabled = true;
-                //btn_start.Enabled = true;
-
-                label27.Text = palabraSettings;
+                label27.Text = palabraSettings; //debug
                 Save_UserSettings.Enabled = true; //habilita boton de guardar parametros ya que ya se validaron datos y son ok 
                 palabraSettings = palabraSettings + "$";
-                (this.Owner as Form_inicial).serialPort1.Write(palabraSettings); //hacia arduino 
-                error_data = false; 
+                (this.Owner as Form_inicial).serialPort1.Write(palabraSettings); //hacia arduino, para settear ajustes Arduino - modbus 
+                error_data = false;
+                button5.Enabled = false; 
 
             }
             catch (Exception)
@@ -560,7 +501,6 @@ namespace Banco_de_pruebas
             }
 
         } //botón de set settings 
-
 
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)//validación del tipo de movimiento servomotor
@@ -584,22 +524,22 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void button7_Click(object sender, EventArgs e) //Cargar ajustes 
+        private void button7_Click(object sender, EventArgs e) //Botón Cargar ajustes 
         {
             int counter = 0;
             string line, nameFileToRead;
             openFileDialog1.Title = "Busca tu archivo";
-            //openFileDialog1.ShowDialog();
+
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel) {
                 return; 
             }
             nameFileToRead = openFileDialog1.FileName; //te da la ruta completa 
 
-
             System.IO.StreamReader file = new System.IO.StreamReader(nameFileToRead);
 
             while ((line = file.ReadLine()) != null)
             {
+                //llenar campos de texto en GUI deacuardo al text file de ajustes 
                 if (counter == 0)
                 {
                     cbx_modes.Text = line;
@@ -651,11 +591,11 @@ namespace Banco_de_pruebas
 
         private void button6_Click(object sender, EventArgs e) //Guardar ajustes en text file 
         {
-            namefile = namefileDef + Convert.ToInt32(counterFilecreator) + ".txt";
+            namefile = namefileDef + Convert.ToInt32(counterFilecreator) + ".txt"; //ruta 
 
             using (System.IO.StreamWriter writer = new System.IO.StreamWriter(pathdedault + namefile))
             {
-
+                //guardar parametros en txt file 
                 writer.WriteLine(cbx_modes.Text);
                 writer.WriteLine(txt_box_vel1.Text);
                 writer.WriteLine(txt_box_vel2.Text);
@@ -672,16 +612,6 @@ namespace Banco_de_pruebas
             MessageBox.Show("¡Parametros guardados en text file!"); 
         }
 
-        private void button1_Click(object sender, EventArgs e) //al presionar botton help debe de mostrar imagen de ayuda de modos de operacion 
-        {
-            Help_modes_form F5 = new Help_modes_form();
-            F5.Owner = this;
-            F5.Show();
-         
-        }
-
-        
-
         void MultiBtn_Click(Object sender, EventArgs e) //vinculacion al boton axis 
         {
             try
@@ -690,22 +620,18 @@ namespace Banco_de_pruebas
                 {
                     
                     
-                    (this.Owner as Form_inicial).serialPort1.Write("G2$"); //actiVa la potencia
-                    button4.Enabled = true;
-                    //btn_start.Enabled = true;
-                    button3.Text = "Axis Disable";
-                    //btn_En.Text = "Axis Disable";
+                    (this.Owner as Form_inicial).serialPort1.Write("G2$"); //actiVa la potencia axis 
+                    Start_button.Enabled = true;
+                    Axis_button.Text = "Axis Disable";
                     StatusButton_axis = false;
 
 
                 }
                 else
                 {
-                    (this.Owner as Form_inicial).serialPort1.Write("H2$");
-                    button4.Enabled = false;
-                    //btn_start.Enabled = false;
-                    button3.Text = "Axis Enable";
-                    //btn_En.Text = "Axis Enable";
+                    (this.Owner as Form_inicial).serialPort1.Write("H2$"); //desactiva potencia axis 
+                    Start_button.Enabled = false;
+                    Axis_button.Text = "Axis Enable";
                     StatusButton_axis = true;
 
                 }
@@ -718,7 +644,7 @@ namespace Banco_de_pruebas
             }
         }
 
-        void MultiBtn_Click2(Object sender, EventArgs e) //vinculacion al boton axis 
+        void MultiBtn_Click2(Object sender, EventArgs e) //vinculacion al boton Start / stop 
         {
             try
             {
@@ -726,8 +652,8 @@ namespace Banco_de_pruebas
                 {
 
 
-                    (this.Owner as Form_inicial).serialPort1.Write("I2$"); //actiVa la potencia
-                    button4.Text = "Stop";
+                    (this.Owner as Form_inicial).serialPort1.Write("I2$"); //Inicia movimiento servomotor 
+                    Start_button.Text = "Stop";
                     //btn_start.Text = "Stop";
                     StatusButton_start = false;
 
@@ -735,8 +661,8 @@ namespace Banco_de_pruebas
                 }
                 else
                 {
-                    (this.Owner as Form_inicial).serialPort1.Write("J2$");
-                    button4.Text = "Start";
+                    (this.Owner as Form_inicial).serialPort1.Write("J2$"); //Desactiva movimiento motor 
+                    Start_button.Text = "Start";
                     //btn_start.Text = "Start";
                     StatusButton_start = true;
 

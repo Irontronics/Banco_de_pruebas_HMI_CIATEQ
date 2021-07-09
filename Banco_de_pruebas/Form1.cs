@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO.Ports; //include this library 
+using System.IO.Ports; 
 using System.Threading;
 using System.IO;
-
 
 namespace Banco_de_pruebas
 {
@@ -20,8 +13,6 @@ namespace Banco_de_pruebas
         string dato = "";
         sbyte index0fZ;
         String dataMod1;
-        bool control_motor = false; 
-
         string dir = @"C:\Datos_Pruebas"; //carpeta principal 
 
         public Form_inicial()
@@ -135,7 +126,7 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void chk_bx_motor_CheckedChanged(object sender, EventArgs e) //validacion al seleccionar checkbox del modo motor
+        private void chk_bx_motor_CheckedChanged(object sender, EventArgs e) //validacion checkboxes 
         {
             if (chk_bx_motor.Checked)
             {
@@ -147,7 +138,7 @@ namespace Banco_de_pruebas
             }
         }
 
-        private void chk_bx_genera_CheckedChanged(object sender, EventArgs e) //validación al seleccionar checkbox del modo generador
+        private void chk_bx_genera_CheckedChanged(object sender, EventArgs e) //validación checkboxes 2
         {
             if (chk_bx_genera.Checked)
             {
@@ -163,33 +154,27 @@ namespace Banco_de_pruebas
 
         private void Btn_ok_init_Click(object sender, EventArgs e) //al presionar botón 'ok' determina cual formulario debe de abrir 
         {
-            if (chk_bx_genera.Checked) { //si el modo generador ha sido seleccionado, entonces: 
+            if (chk_bx_genera.Checked) { //si el modo generador ha sido seleccionado, entonces abrir form generador: 
                 Generador_form F2 = new Generador_form();
                 F2.Owner = this;
                 F2.Show();
             }
-            else {
+            else { // de lo contrario abrir el form motor 
                 Motor_form F3 = new Motor_form();
                 F3.Owner = this;
                 F3.Show();
             }
-            
-
         }
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e) //si se recibe un dato de comunicación serial 
         {
-          
-                dato = serialPort1.ReadLine();
+            dato = serialPort1.ReadLine();
             if (dato == "") { 
                
             }
             else {
                 this.BeginInvoke(new EventHandler(ProcessData));
             }
-                
-            
-
         }
 
         private void ProcessData(object sender, EventArgs e) //comunicación serial OK! ("Successfully connected!")
@@ -198,13 +183,13 @@ namespace Banco_de_pruebas
             {
 
                 Variables.var = dato; //le paso el dato a var global
-                Variables.SerialPresent = true;
+                
             }
             if (!(Application.OpenForms["Motor_form"] == null)) //si el formulario de modo motor esta activo y se reciben datos al serial:
             {
 
-                Variables.var = dato; //le paso el dato a var global
-                Variables.SerialPresent = true;
+                Variables.var = dato; //le paso el dato 
+                
                 Variables.contador_serial_motor += 1; //contar las veces que se ingresa para realizar el filtro
             }
             else //de lo contrario apenas se va a iniciar comunicación entonces: 
