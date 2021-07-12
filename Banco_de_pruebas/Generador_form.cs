@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
+
 
 namespace Banco_de_pruebas
 {
@@ -17,6 +19,9 @@ namespace Banco_de_pruebas
 
         int counter_time = 0; //retardo en la gráfica de ceros 
         int counter_time2 = 0; //retardo en la gráfica de ceros
+
+        double num1_vel1; 
+        int counter_error = 0; 
 
         bool init_move = false; 
 
@@ -246,7 +251,22 @@ namespace Banco_de_pruebas
             }
             catch (Exception)
             {
-                MessageBox.Show("¡¡Problema presente en Arduino y/o Comunicación Modbus!!");
+                if (counter_error <= 3)
+                {
+                   
+                    Thread.Sleep(1400);
+                    counter_error += 1;
+                    MessageBox.Show("¡¡Problema presente en Arduino y/o Comunicación Modbus!!");
+                    
+                    
+                }
+                else {
+                    counter_error = 0; 
+                    this.Close();
+
+
+                }
+
             }
         }
 
@@ -311,6 +331,7 @@ namespace Banco_de_pruebas
                 //Validar velocidad1 
                 if (Convert.ToInt32(txt_box_vel1.Text) >= 50 && Convert.ToInt32(txt_box_vel1.Text) <= 1000)
                 {
+                    num1_vel1 = Convert.ToInt32(txt_box_vel1.Text);
                     double num1 = Convert.ToDouble(txt_box_vel1.Text);
                     num1 = Math.Round(num1);
                     num1 = (num1 * 27) / 101.276;
@@ -320,6 +341,7 @@ namespace Banco_de_pruebas
                 }
                 else
                 {
+                    num1_vel1 = Convert.ToInt32(txt_box_vel1.Text);
                     txt_box_vel1.Text = "100";
                     double num1 = Convert.ToDouble(txt_box_vel1.Text);
                     num1 = Math.Round(num1);
@@ -355,7 +377,7 @@ namespace Banco_de_pruebas
 
                 //Validar acceleración 
 
-                if (Convert.ToInt32(txtbx_acel.Text) >= 20 && Convert.ToInt32(txtbx_acel.Text) <= 1100)
+                if (Convert.ToInt32(txtbx_acel.Text) >= 50 && Convert.ToInt32(txtbx_acel.Text) <= (num1_vel1 - 15))
                 {
                     double num1 = Convert.ToDouble(txtbx_acel.Text);
                     num1 = Math.Round(num1);
@@ -367,7 +389,7 @@ namespace Banco_de_pruebas
                 }
                 else
                 {
-                    txtbx_acel.Text = "80";
+                    txtbx_acel.Text = "50";
                     double num1 = Convert.ToDouble(txtbx_acel.Text);
                     num1 = Math.Round(num1);
                     num1 = (num1 * 21.1) / 79.796;
@@ -378,7 +400,7 @@ namespace Banco_de_pruebas
                 }
 
                 //valididar desacceleración 
-                if (Convert.ToInt32(txtbx_decc.Text) >= 20 && Convert.ToInt32(txtbx_decc.Text) <= 1100)
+                if (Convert.ToInt32(txtbx_decc.Text) >= 50 && Convert.ToInt32(txtbx_decc.Text) <= (num1_vel1 - 15))
                 {
                     double num1 = Convert.ToDouble(txtbx_decc.Text);
                     num1 = Math.Round(num1);
@@ -389,7 +411,7 @@ namespace Banco_de_pruebas
                 }
                 else
                 {
-                    txtbx_decc.Text = "80";
+                    txtbx_decc.Text = "50";
                     double num1 = Convert.ToDouble(txtbx_decc.Text);
                     num1 = Math.Round(num1);
                     num1 = (num1 * 21.1) / 79.796;
